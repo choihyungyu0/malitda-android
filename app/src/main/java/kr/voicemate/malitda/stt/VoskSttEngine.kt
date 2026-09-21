@@ -30,7 +30,7 @@ class VoskSttEngine(
     private val context: Context,
     private val installer: ModelInstaller,
 ) : SttEngine {
-    override val name: String = "Vosk ${ModelInstaller.MODEL_VERSION}"
+    override val name: String = "Vosk ${ModelInstaller.VOSK_MODEL_VERSION}"
 
     private val _prepareState = MutableStateFlow<PrepareState>(PrepareState.NotStarted)
     override val prepareState: StateFlow<PrepareState> = _prepareState

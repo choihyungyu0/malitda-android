@@ -16,3 +16,7 @@ local.properties
 
 # Vosk 모델(253MB)은 git에 넣지 않는다 → scripts/fetch-model.sh 로 받는다
 app/src/main/assets/model-ko/
+
+# whisper.cpp 소스와 ggml 모델도 git 제외 → scripts/fetch-whisper.sh
+third_party/
+app/src/main/assets/whisper/

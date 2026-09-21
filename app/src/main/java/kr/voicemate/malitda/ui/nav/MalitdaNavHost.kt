@@ -78,6 +78,7 @@ fun MalitdaNavHost(vm: SessionViewModel, nav: NavHostController = rememberNavCon
     val ttsState by vm.ttsState.collectAsStateWithLifecycle()
     val metrics by vm.metrics.collectAsStateWithLifecycle()
     val evalState by vm.eval.collectAsStateWithLifecycle()
+    val selectedEngine by vm.selectedEngine.collectAsStateWithLifecycle()
     var sttErrorMessage by remember { mutableStateOf<String?>(null) }
     var micDeniedPermanently by remember { mutableStateOf(false) }
 
@@ -380,6 +381,9 @@ fun MalitdaNavHost(vm: SessionViewModel, nav: NavHostController = rememberNavCon
                 evalState = evalState,
                 onRunEval = { if (prepare is PrepareState.Ready) vm.runEvaluation() else Toast.makeText(context, "음성인식 모델이 아직 준비되지 않았어요", Toast.LENGTH_SHORT).show() },
                 onClearEval = { vm.clearEval() },
+                engines = vm.c.sttRouter.ids.map { it to vm.c.sttRouter.engineName(it) },
+                selectedEngine = selectedEngine,
+                onSelectEngine = { id -> vm.switchEngine(id); Toast.makeText(context, "엔진을 바꾸는 중이에요", Toast.LENGTH_SHORT).show() },
             )
             LaunchedEffect(Unit) { vm.c.metrics.refresh() }
         }

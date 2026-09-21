@@ -23,6 +23,8 @@ data class Settings(
     val visualEmphasis: Boolean = false,
     val rewardEnabled: Boolean = false,
     val currentProfileId: Long = 0L,
+    /** 음성인식 엔진 id(SttRouter.WHISPER / VOSK). 사전 비교 결과에 따라 기본값을 정한다. */
+    val sttEngine: String = "whisper",
 )
 
 class SettingsStore(context: Context) {
@@ -38,6 +40,7 @@ class SettingsStore(context: Context) {
             visualEmphasis = p[K.visual] ?: false,
             rewardEnabled = p[K.reward] ?: false,
             currentProfileId = p[K.profile] ?: 0L,
+            sttEngine = p[K.sttEngine] ?: "whisper",
         )
     }
 
@@ -51,6 +54,7 @@ class SettingsStore(context: Context) {
     suspend fun setVisualEmphasis(v: Boolean) { ds.edit { it[K.visual] = v } }
     suspend fun setRewardEnabled(v: Boolean) { ds.edit { it[K.reward] = v } }
     suspend fun setCurrentProfile(id: Long) { ds.edit { it[K.profile] = id } }
+    suspend fun setSttEngine(id: String) { ds.edit { it[K.sttEngine] = id } }
     suspend fun clearAll() { ds.edit { it.clear() } }
 
     private object K {
@@ -62,5 +66,6 @@ class SettingsStore(context: Context) {
         val visual = booleanPreferencesKey("visual_emphasis")
         val reward = booleanPreferencesKey("reward_enabled")
         val profile = longPreferencesKey("current_profile")
+        val sttEngine = androidx.datastore.preferences.core.stringPreferencesKey("stt_engine")
     }
 }

@@ -109,6 +109,17 @@ class SessionViewModel(val c: AppContainer) : ViewModel() {
 
     fun retryPrepare() { viewModelScope.launch { c.stt.prepare(); syncModelMetrics() } }
 
+    /** 음성인식 엔진 전환(사전 비교용). 진행 중인 세션은 정리한다. */
+    val selectedEngine: StateFlow<String> get() = c.sttRouter.selected
+    fun switchEngine(id: String) {
+        viewModelScope.launch {
+            resetSession()
+            c.settings.setSttEngine(id)
+            c.sttRouter.switchTo(id)
+            syncModelMetrics()
+        }
+    }
+
     /** 평가·개발용: filesDir/testaudio 안의 WAV를 마이크 대신 인식기에 넣는다(같은 후보·M1·승인 흐름을 탄다). */
     fun testAudioFiles(): List<String> =
         java.io.File(c.filesDir, "testaudio").listFiles()?.filter { it.isFile && it.name.endsWith(".wav", true) }?.map { it.name }?.sorted() ?: emptyList()

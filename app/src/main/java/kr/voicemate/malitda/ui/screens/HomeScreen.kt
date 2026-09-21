@@ -16,6 +16,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.TextAutoSize
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ChatBubble
 import androidx.compose.material.icons.rounded.Favorite
@@ -113,11 +116,17 @@ fun HomeScreen(
                 contentAlignment = Alignment.Center,
             ) {
                 Box(Modifier.size(150.dp).clip(CircleShape).background(if (ready) MicGradient else Brush.linearGradient(listOf(MColors.Locked, MColors.Locked))), contentAlignment = Alignment.Center) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        if (ready) Icon(Icons.Rounded.Mic, null, tint = Color.White, modifier = Modifier.size(56.dp))
+                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(horizontal = 14.dp)) {
+                        if (ready) Icon(Icons.Rounded.Mic, null, tint = Color.White, modifier = Modifier.size(52.dp))
                         else CircularProgressIndicator(color = Color.White, modifier = Modifier.size(40.dp), strokeWidth = 4.dp)
-                        Spacer(Modifier.height(6.dp))
-                        Text(if (ready) "눌러서 말하기" else "준비 중", color = Color.White, style = MaterialTheme.typography.labelLarge)
+                        Spacer(Modifier.height(4.dp))
+                        // 큰 글자 설정(200%)에서도 원 안에 들어가도록 자동 축소
+                        BasicText(
+                            if (ready) "눌러서 말하기" else "준비 중",
+                            style = MaterialTheme.typography.labelLarge.copy(color = Color.White, textAlign = TextAlign.Center),
+                            maxLines = 2,
+                            autoSize = TextAutoSize.StepBased(minFontSize = 11.sp, maxFontSize = 17.sp),
+                        )
                     }
                 }
             }
@@ -185,7 +194,13 @@ private fun CategoryChip(cat: Category, icon: ImageVector, color: Color, modifie
     ) {
         Icon(icon, null, tint = color, modifier = Modifier.size(28.dp))
         Spacer(Modifier.height(6.dp))
-        Text(cat.label, style = MaterialTheme.typography.labelMedium.copy(fontSize = 13.sp), color = MColors.Ink, maxLines = 1)
+        BasicText(
+            cat.label,
+            modifier = Modifier.padding(horizontal = 4.dp),
+            style = MaterialTheme.typography.labelMedium.copy(fontSize = 13.sp, color = MColors.Ink, textAlign = TextAlign.Center),
+            maxLines = 2,
+            autoSize = TextAutoSize.StepBased(minFontSize = 9.sp, maxFontSize = 13.sp),
+        )
     }
 }
 

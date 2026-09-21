@@ -1,0 +1,45 @@
+cmake_minimum_required(VERSION 3.22)
+project(malitda_native C CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# whisper.cpp 소스 위치(gradle에서 -DWHISPER_CPP_DIR 로 전달, 기본 third_party/whisper.cpp)
+if(NOT WHISPER_CPP_DIR)
+    set(WHISPER_CPP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../../third_party/whisper.cpp")
+endif()
+get_filename_component(WHISPER_CPP_DIR "${WHISPER_CPP_DIR}" ABSOLUTE)
+message(STATUS "malitda: whisper.cpp at ${WHISPER_CPP_DIR}")
+
+# whisper + ggml 을 정적 라이브러리로 빌드해 하나의 .so 에 넣는다. (CPU 백엔드만, OpenMP 없음)
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+set(WHISPER_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(WHISPER_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(WHISPER_BUILD_SERVER OFF CACHE BOOL "" FORCE)
+set(WHISPER_CURL OFF CACHE BOOL "" FORCE)
+set(WHISPER_SDL2 OFF CACHE BOOL "" FORCE)
+set(GGML_OPENMP OFF CACHE BOOL "" FORCE)
+set(GGML_NATIVE OFF CACHE BOOL "" FORCE)
+set(GGML_LLAMAFILE OFF CACHE BOOL "" FORCE)
+set(GGML_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GGML_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(WHISPER_ALL_WARNINGS OFF CACHE BOOL "" FORCE)
+
+# x86_64 는 에뮬레이터 전용(제출 APK에는 없음): 호스트 CPU의 AVX2 를 써서 테스트 속도를 높인다.
+# arm 은 호환성을 위해 기본 armv8-a(NEON) 로 둔다. dotprod/fp16 최적화는 실기기 확인 뒤 옵션으로 검토.
+if(ANDROID_ABI STREQUAL "x86_64")
+    set(GGML_SSE42 ON CACHE BOOL "" FORCE)
+    set(GGML_AVX ON CACHE BOOL "" FORCE)
+    set(GGML_AVX2 ON CACHE BOOL "" FORCE)
+    set(GGML_FMA ON CACHE BOOL "" FORCE)
+    set(GGML_F16C ON CACHE BOOL "" FORCE)
+endif()
+
+add_subdirectory(${WHISPER_CPP_DIR} whisper_build EXCLUDE_FROM_ALL)
+
+add_library(malitda_whisper SHARED whisper_jni.cpp)
+target_include_directories(malitda_whisper PRIVATE ${WHISPER_CPP_DIR}/include ${WHISPER_CPP_DIR}/ggml/include)
+target_compile_options(malitda_whisper PRIVATE -O2 -fvisibility=hidden)
+target_link_options(malitda_whisper PRIVATE -Wl,--gc-sections -Wl,--exclude-libs,ALL)
+find_library(LOG_LIB log)
+target_link_libraries(malitda_whisper PRIVATE whisper ggml ${LOG_LIB} android)

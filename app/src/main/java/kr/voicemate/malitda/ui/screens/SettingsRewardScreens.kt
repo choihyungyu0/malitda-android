@@ -1,6 +1,8 @@
 package kr.voicemate.malitda.ui.screens
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.material3.RadioButton
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.draw.alpha
@@ -101,6 +103,9 @@ fun SettingsScreen(
     evalState: kr.voicemate.malitda.ui.vm.SessionViewModel.EvalState? = null,
     onRunEval: () -> Unit = {},
     onClearEval: () -> Unit = {},
+    engines: List<Pair<String, String>> = emptyList(),
+    selectedEngine: String = "",
+    onSelectEngine: (String) -> Unit = {},
 ) {
     var policy by remember { mutableStateOf(false) }
     var aac by remember { mutableStateOf(false) }
@@ -154,6 +159,28 @@ fun SettingsScreen(
             SettingRow(Icons.Rounded.Info, "AAC 대체 입력 안내", "말로 입력하기 어려울 때") { aac = true }
             HorizontalDivider(color = MColors.Line)
             SettingRow(Icons.Rounded.Mic, "마이크 권한", "기기 설정에서 바꿔요", onOpenAppSettings)
+        }
+        Spacer(Modifier.height(14.dp))
+        SectionLabel("음성인식 엔진 (수정 전 로컬 모델 · 사전 비교용)")
+        Spacer(Modifier.height(6.dp))
+        MCard(padding = PaddingValues(vertical = 4.dp)) {
+            engines.forEach { (id, label) ->
+                val sel = id == selectedEngine
+                Row(
+                    Modifier.fillMaxWidth().heightIn(min = 52.dp).clip(RoundedCornerShape(12.dp))
+                        .selectable(selected = sel, role = Role.RadioButton, onClick = { if (!sel) onSelectEngine(id) })
+                        .padding(horizontal = 16.dp, vertical = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    RadioButton(selected = sel, onClick = null)
+                    Spacer(Modifier.width(10.dp))
+                    Column(Modifier.weight(1f)) {
+                        Text(label, style = MaterialTheme.typography.titleSmall, color = MColors.Ink)
+                        Text(if (id == "whisper") "비스트리밍 · 복수 후보 없음 · 무음 게이팅" else "스트리밍 · 복수 후보 3개 · 형태소 띄어쓰기 정리", style = MaterialTheme.typography.bodySmall, color = MColors.Muted)
+                    }
+                }
+            }
+            Text("엔진을 바꾸면 이전 모델을 내리고 새 모델을 불러와요. 같은 음원·같은 정리 규칙·같은 확인·승인 흐름으로 비교해요.", Modifier.padding(horizontal = 16.dp, vertical = 8.dp), style = MaterialTheme.typography.bodySmall, color = MColors.Muted)
         }
         Spacer(Modifier.height(14.dp))
         SectionLabel("진단 정보 (기기 지표)")

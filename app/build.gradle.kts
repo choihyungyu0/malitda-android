@@ -23,7 +23,24 @@ android {
         versionCode = 1
         versionName = "0.1.0"
         vectorDrawables { useSupportLibrary = true }
-        ndk { abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86_64") }
+        // 제출용 빌드: -PsubmitAbis=arm 이면 x86_64(에뮬레이터용)를 뺀다
+        val arm = listOf("arm64-v8a", "armeabi-v7a")
+        ndk { abiFilters += if (project.findProperty("submitAbis") == "arm") arm else arm + "x86_64" }
+        externalNativeBuild {
+            cmake {
+                val whisperDir = (project.findProperty("whisperCppDir") as String?) ?: rootProject.file("third_party/whisper.cpp").absolutePath
+                arguments += listOf("-DWHISPER_CPP_DIR=${whisperDir.replace('\\', '/')}", "-DANDROID_STL=c++_static")
+                cppFlags += listOf("-O2")
+            }
+        }
+    }
+
+    ndkVersion = "27.2.12479018"
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+            version = "3.22.1"
+        }
     }
 
     signingConfigs {
