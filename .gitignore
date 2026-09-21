@@ -20,3 +20,6 @@ app/src/main/assets/model-ko/
 # whisper.cpp 소스와 ggml 모델도 git 제외 → scripts/fetch-whisper.sh
 third_party/
 app/src/main/assets/whisper/
+
+# 제출용 APK 산출물
+dist/

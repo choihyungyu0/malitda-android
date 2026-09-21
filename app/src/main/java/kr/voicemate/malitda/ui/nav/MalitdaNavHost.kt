@@ -385,7 +385,7 @@ fun MalitdaNavHost(vm: SessionViewModel, nav: NavHostController = rememberNavCon
                 selectedEngine = selectedEngine,
                 onSelectEngine = { id -> vm.switchEngine(id); Toast.makeText(context, "엔진을 바꾸는 중이에요", Toast.LENGTH_SHORT).show() },
             )
-            LaunchedEffect(Unit) { vm.c.metrics.refresh() }
+            LaunchedEffect(prepare) { vm.c.metrics.refresh() }
         }
         composable(Routes.REWARD) {
             val count by remember(profileId) { vm.c.expressions.observeCount(profileId) }.collectAsStateWithLifecycle(0)
