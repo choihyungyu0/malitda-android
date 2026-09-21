@@ -30,6 +30,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxHeight
 import kr.voicemate.malitda.ui.vm.SessionViewModel
@@ -49,6 +50,8 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
     var checked by rememberSaveable { mutableStateOf(setOf<String>()) }
     fun isChecked(id: String) = "$current/$id" in checked
     fun toggle(id: String) { val k = "$current/$id"; checked = if (k in checked) checked - k else checked + k }
+    // 입력칸의 실제 텍스트. id = "화면/스팟".
+    val inputs = remember { androidx.compose.runtime.mutableStateMapOf<String, String>() }
 
     fun go(target: String) {
         if (target == current) return
@@ -118,6 +121,18 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
                             .requiredSize((s.w * w).dp, (s.h * h).dp),
                     )
                 }
+                // 이미지의 입력칸 위에 실제 입력칸을 얹는다(그림의 예시 글자를 덮고 직접 타이핑).
+                spots.filter { it.kind == "input" || it.kind == "textarea" }.forEach { s ->
+                    val key = "$current/${s.id}"
+                    FigmaInput(
+                        value = inputs[key] ?: "",
+                        onValue = { inputs[key] = it },
+                        singleLine = s.kind == "input",
+                        modifier = Modifier
+                            .offset((s.x * w).dp, (s.y * h).dp)
+                            .requiredSize((s.w * w).dp, (s.h * h).dp),
+                    )
+                }
             },
         )
 
@@ -149,6 +164,25 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
             }
         }
     }
+}
+
+/** 이미지의 입력칸 위에 얹는 실제 입력칸(흰 배경으로 예시 글자를 덮고 직접 타이핑). */
+@Composable
+private fun FigmaInput(value: String, onValue: (String) -> Unit, singleLine: Boolean, modifier: Modifier) {
+    androidx.compose.foundation.text.BasicTextField(
+        value = value,
+        onValueChange = onValue,
+        singleLine = singleLine,
+        textStyle = androidx.compose.ui.text.TextStyle(color = Color(0xFF1A2440), fontSize = 15.sp),
+        cursorBrush = androidx.compose.ui.graphics.SolidColor(Color(0xFF7545DC)),
+        modifier = modifier
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color.White)
+            .padding(horizontal = 10.dp, vertical = 8.dp),
+        decorationBox = { inner ->
+            Box(contentAlignment = if (singleLine) Alignment.CenterStart else Alignment.TopStart) { inner() }
+        },
+    )
 }
 
 /** 이미지의 빈 체크박스 위에 얹는 실제 체크 표시(디자인 보라색 원형+흰 체크). */
