@@ -46,3 +46,13 @@ adb push x.wav /data/local/tmp/ && adb shell "cat /data/local/tmp/x.wav | run-as
 ## 개인정보
 
 원음성 파일 미저장, 인식 문장 로그 미기록, 공유 이력·상대방 미저장, 사용자별 분리 저장, 앱 안에서 개별 삭제·전체 초기화, 백업 제외(`data_extraction_rules`).
+
+## 서드파티 라이선스
+
+- [whisper.cpp](https://github.com/ggml-org/whisper.cpp) — MIT · ggml 모델 `ggml-base-q5_1`(OpenAI Whisper, MIT)
+- [Vosk](https://alphacephei.com/vosk/) `vosk-android`, `vosk-model-small-ko-0.22` — Apache-2.0
+- [SQLCipher for Android](https://github.com/sqlcipher/sqlcipher-android) — BSD
+- [Pretendard](https://github.com/orioncactus/pretendard) — SIL OFL 1.1 (`app/PRETENDARD-LICENSE.txt`)
+- 캐릭터·로고 이미지는 팀 VOICE MATE 디자인 자산이며 별도 허락 없이 재사용할 수 없습니다.
+
+앱 소스 자체의 라이선스는 팀 결정 전까지 명시하지 않습니다(All rights reserved).
