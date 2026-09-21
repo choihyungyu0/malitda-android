@@ -9,7 +9,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import kr.voicemate.malitda.domain.SentenceCleanup
 import org.json.JSONObject
+import java.io.DataInputStream
+import java.io.EOFException
 import org.vosk.LibVosk
 import org.vosk.LogLevel
 import org.vosk.Model
@@ -100,12 +103,11 @@ class VoskSttEngine(
         val t0 = SystemClock.elapsedRealtime()
         Recognizer(m, SAMPLE_RATE).use { rec ->
             rec.setMaxAlternatives(MAX_ALTERNATIVES)
-            // WAV 헤더 44바이트 건너뜀(16kHz mono PCM16 가정)
-            input.skip(44)
+            val dataLen = skipWavHeader(input)
             val buf = ByteArray(4096)
             var total = 0L
             val segments = ArrayList<Parsed>()
-            while (true) {
+            while (dataLen < 0 || total < dataLen) {
                 val n = input.read(buf); if (n < 0) break
                 total += n
                 if (rec.acceptWaveForm(buf, n)) segments += parse(rec.result)
@@ -115,6 +117,35 @@ class VoskSttEngine(
             val audioMs = total * 1000 / (2 * SAMPLE_RATE.toLong())
             SttResult(merged.first, merged.second, SystemClock.elapsedRealtime() - t0, audioMs)
         }
+    }
+
+    /** RIFF/WAVE 청크를 읽어 'data' 청크 시작까지 건너뛴다. 16kHz mono PCM16이 아니면 예외. @return data 길이(모르면 -1) */
+    private fun skipWavHeader(input: InputStream): Long {
+        val din = DataInputStream(input)
+        val riff = ByteArray(12); din.readFully(riff)
+        require(String(riff, 0, 4) == "RIFF" && String(riff, 8, 4) == "WAVE") { "WAV 파일이 아니에요" }
+        while (true) {
+            val id = ByteArray(4)
+            try { din.readFully(id) } catch (e: EOFException) { throw IllegalArgumentException("data 청크가 없어요") }
+            val size = readLeInt(din)
+            when (String(id)) {
+                "fmt " -> {
+                    val fmt = ByteArray(size); din.readFully(fmt)
+                    val channels = (fmt[2].toInt() and 0xff) or ((fmt[3].toInt() and 0xff) shl 8)
+                    val rate = (fmt[4].toInt() and 0xff) or ((fmt[5].toInt() and 0xff) shl 8) or ((fmt[6].toInt() and 0xff) shl 16) or ((fmt[7].toInt() and 0xff) shl 24)
+                    val bits = (fmt[14].toInt() and 0xff) or ((fmt[15].toInt() and 0xff) shl 8)
+                    require(channels == 1 && rate == 16000 && bits == 16) { "16kHz mono 16bit WAV만 지원해요 (${rate}Hz/${channels}ch/${bits}bit)" }
+                    if (size % 2 == 1) din.skipBytes(1)
+                }
+                "data" -> return size.toLong().let { if (it <= 0 || it == 0xFFFFFFFFL) -1L else it }
+                else -> { din.skipBytes(size + (size % 2)) }
+            }
+        }
+    }
+
+    private fun readLeInt(din: DataInputStream): Int {
+        val b = ByteArray(4); din.readFully(b)
+        return (b[0].toInt() and 0xff) or ((b[1].toInt() and 0xff) shl 8) or ((b[2].toInt() and 0xff) shl 16) or ((b[3].toInt() and 0xff) shl 24)
     }
 
     override fun release() {
@@ -131,7 +162,7 @@ class VoskSttEngine(
         private var finished = false
 
         override fun onPartialResult(hypothesis: String?) {
-            val p = runCatching { JSONObject(hypothesis ?: "{}").optString("partial") }.getOrDefault("")
+            val p = runCatching { SentenceCleanup.clean(JSONObject(hypothesis ?: "{}").optString("partial")) }.getOrDefault("")
             if (p.isNotBlank()) callback.onPartial(p)
         }
 
@@ -164,16 +195,17 @@ class VoskSttEngine(
 
     private data class Parsed(val top: String, val alternatives: List<String>)
 
+    /** 인식기 JSON → (1순위, 후보들). 모든 문자열에 동일한 문장 정리 규칙(SentenceCleanup)을 적용한다. */
     private fun parse(json: String?): Parsed {
         if (json.isNullOrBlank()) return Parsed("", emptyList())
         return runCatching {
             val o = JSONObject(json)
             val alts = o.optJSONArray("alternatives")
             if (alts != null && alts.length() > 0) {
-                val list = (0 until alts.length()).map { alts.getJSONObject(it).optString("text").trim() }.filter { it.isNotEmpty() }
+                val list = (0 until alts.length()).map { SentenceCleanup.clean(alts.getJSONObject(it).optString("text")) }.filter { it.isNotEmpty() }.distinct()
                 Parsed(list.firstOrNull() ?: "", list)
             } else {
-                val t = o.optString("text").trim()
+                val t = SentenceCleanup.clean(o.optString("text"))
                 Parsed(t, if (t.isEmpty()) emptyList() else listOf(t))
             }
         }.getOrDefault(Parsed("", emptyList()))

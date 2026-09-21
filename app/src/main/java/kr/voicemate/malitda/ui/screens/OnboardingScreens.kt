@@ -23,11 +23,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CloudOff
 import androidx.compose.material.icons.rounded.MicOff
 import androidx.compose.material.icons.rounded.Shield
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -122,9 +126,18 @@ private fun IntroStep(n: Int, title: String, body: String, charRes: Int) {
 
 /** S03 안내·동의 (최신 기획서 반영) */
 @Composable
-fun ConsentScreen(onAccept: () -> Unit, onLater: () -> Unit, onPolicy: () -> Unit) {
+fun ConsentScreen(onAccept: () -> Unit, onLater: () -> Unit) {
     var read by remember { mutableStateOf(false) }
     var agree by remember { mutableStateOf(false) }
+    var policy by remember { mutableStateOf(false) }
+    if (policy) {
+        AlertDialog(
+            onDismissRequest = { policy = false },
+            title = { Text("개인정보 처리방침(안)") },
+            text = { Column(Modifier.heightIn(max = 440.dp).verticalScroll(rememberScrollState())) { Text(PRIVACY_POLICY_TEXT, style = MaterialTheme.typography.bodySmall) } },
+            confirmButton = { TextButton(onClick = { policy = false }) { Text("확인") } },
+        )
+    }
     ScreenScaffold(bottomBar = {
         GradientButton("안내를 확인했어요", onClick = onAccept, enabled = read && agree)
         TextAction("나중에 할게요", onClick = onLater)
@@ -139,7 +152,7 @@ fun ConsentScreen(onAccept: () -> Unit, onLater: () -> Unit, onPolicy: () -> Uni
         Spacer(Modifier.height(18.dp))
         CheckRow("위 내용을 확인했어요", read) { read = it }
         CheckRow("개인정보 처리방침에 동의해요", agree) { agree = it }
-        TextAction("개인정보 처리방침 보기", onClick = onPolicy, color = MColors.Ink2)
+        TextAction("개인정보 처리방침 보기", onClick = { policy = true }, color = MColors.Ink2)
     }
 }
 

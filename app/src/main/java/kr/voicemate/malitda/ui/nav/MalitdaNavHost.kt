@@ -77,10 +77,15 @@ fun MalitdaNavHost(vm: SessionViewModel, nav: NavHostController = rememberNavCon
     val progress by vm.ttsProgress.collectAsStateWithLifecycle()
     val ttsState by vm.ttsState.collectAsStateWithLifecycle()
     val metrics by vm.metrics.collectAsStateWithLifecycle()
+    val evalState by vm.eval.collectAsStateWithLifecycle()
     var sttErrorMessage by remember { mutableStateOf<String?>(null) }
     var micDeniedPermanently by remember { mutableStateOf(false) }
 
-    fun haptic() { if (settings.haptics) view.performHapticFeedback(HapticFeedbackConstants.CONFIRM) }
+    fun haptic() {
+        if (!settings.haptics) return
+        val type = if (android.os.Build.VERSION.SDK_INT >= 30) HapticFeedbackConstants.CONFIRM else HapticFeedbackConstants.LONG_PRESS
+        view.performHapticFeedback(type)
+    }
     fun goHome() { vm.resetSession(); nav.navigate(Routes.HOME) { popUpTo(0) { inclusive = true }; launchSingleTop = true } }
     fun openAppSettings() {
         runCatching { context.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", context.packageName, null)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
@@ -116,6 +121,12 @@ fun MalitdaNavHost(vm: SessionViewModel, nav: NavHostController = rememberNavCon
         }
     }
     fun onMicPressed() {
+        if (!settings.consentAccepted) {
+            // S03을 건너뛴 사용자: 마이크를 켜기 전에 안내·동의를 한 번은 확인한다(자동 진행 없음).
+            Toast.makeText(context, "말하기 전에 안내를 한 번 확인해 주세요", Toast.LENGTH_SHORT).show()
+            nav.navigate(Routes.CONSENT) { launchSingleTop = true }
+            return
+        }
         when (prepare) {
             is PrepareState.Ready -> { vm.prepareRespeak(); requestMicThenListen() }
             is PrepareState.Failed -> { sttErrorMessage = (prepare as PrepareState.Failed).message; nav.navigate(Routes.STT_ERROR) { launchSingleTop = true } }
@@ -134,10 +145,14 @@ fun MalitdaNavHost(vm: SessionViewModel, nav: NavHostController = rememberNavCon
             IntroScreen(onNext = { nav.navigate(Routes.CONSENT) }, onSkip = { finishOnboarding(vm, nav) })
         }
         composable(Routes.CONSENT) {
+            val onboarded = settings.onboarded
             ConsentScreen(
-                onAccept = { scope.launch { vm.c.settings.setConsent(true) }; nav.navigate(Routes.access(onboarding = true)) },
-                onLater = { finishOnboarding(vm, nav) },
-                onPolicy = { nav.navigate(Routes.SETTINGS) },
+                onAccept = {
+                    scope.launch { vm.c.settings.setConsent(true) }
+                    if (onboarded) { Toast.makeText(context, "이제 마이크를 눌러 말할 수 있어요", Toast.LENGTH_SHORT).show(); nav.popBackStack() }
+                    else nav.navigate(Routes.access(onboarding = true))
+                },
+                onLater = { if (onboarded) nav.popBackStack() else finishOnboarding(vm, nav) },
             )
         }
         composable(Routes.ACCESS + "?onboarding={onboarding}", arguments = listOf(navArgument("onboarding") { type = NavType.BoolType; defaultValue = false })) { entry ->
@@ -360,7 +375,13 @@ fun MalitdaNavHost(vm: SessionViewModel, nav: NavHostController = rememberNavCon
                 onRenameProfile = { id, name -> scope.launch { vm.c.profiles.rename(id, name) } },
                 onDeleteAll = { scope.launch { vm.c.expressions.deleteAll(profileId); vm.c.corrections.deleteAll(profileId); vm.c.counters.reset(profileId); vm.resetSession(); Toast.makeText(context, "이 사용자 자료를 모두 지웠어요", Toast.LENGTH_SHORT).show() } },
                 onBack = { nav.popBackStack() },
+                testFiles = remember { vm.testAudioFiles() },
+                onTestFile = { name -> if (prepare is PrepareState.Ready) { vm.prepareRespeak(); vm.recognizeTestFile(name) } else Toast.makeText(context, "음성인식 모델이 아직 준비되지 않았어요", Toast.LENGTH_SHORT).show() },
+                evalState = evalState,
+                onRunEval = { if (prepare is PrepareState.Ready) vm.runEvaluation() else Toast.makeText(context, "음성인식 모델이 아직 준비되지 않았어요", Toast.LENGTH_SHORT).show() },
+                onClearEval = { vm.clearEval() },
             )
+            LaunchedEffect(Unit) { vm.c.metrics.refresh() }
         }
         composable(Routes.REWARD) {
             val count by remember(profileId) { vm.c.expressions.observeCount(profileId) }.collectAsStateWithLifecycle(0)

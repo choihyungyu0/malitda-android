@@ -16,6 +16,7 @@ import kr.voicemate.malitda.tts.TtsManager
 
 /** 수동 DI 컨테이너. 앱 프로세스당 하나. */
 class AppContainer(private val app: Application) {
+    val filesDir: java.io.File get() = app.filesDir
     val settings: SettingsStore by lazy { SettingsStore(app) }
     val db: AppDatabase by lazy { AppDatabase.build(app, DbKeyManager(app).getOrCreateKey()) }
     val profiles: ProfileRepository by lazy { ProfileRepository(db.profileDao(), settings) }

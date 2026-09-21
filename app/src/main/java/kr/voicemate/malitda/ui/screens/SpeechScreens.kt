@@ -97,6 +97,7 @@ import kr.voicemate.malitda.ui.vm.ListenState
 @Composable
 fun ListeningScreen(listen: ListenState, onStart: () -> Unit, onStop: () -> Unit, onCancel: () -> Unit) {
     LaunchedEffect(Unit) { onStart() }
+    androidx.activity.compose.BackHandler { onCancel() }
     val processing = listen is ListenState.Processing
     val partial = (listen as? ListenState.Listening)?.partial.orEmpty()
     val segments = (listen as? ListenState.Listening)?.segments.orEmpty()
@@ -236,7 +237,8 @@ fun ConfirmScreen(
         MCard {
             SectionLabel("선택한 문장")
             Spacer(Modifier.height(6.dp))
-            Text(highlighted(draft, progress, a11y.visualEmphasis), style = MaterialTheme.typography.headlineSmall, color = MColors.Ink)
+            if (draft.isBlank()) Text("아래 칸에 문장을 직접 적어 주세요.", style = MaterialTheme.typography.bodyMedium, color = MColors.Muted)
+            else Text(highlighted(draft, progress, a11y.visualEmphasis), style = MaterialTheme.typography.headlineSmall, color = MColors.Ink)
             Spacer(Modifier.height(12.dp))
             OutlineButton(if (speaking) "멈추기" else "들어보기", onClick = { if (speaking) onStopListen() else onListen() }, icon = Icons.AutoMirrored.Rounded.VolumeUp, enabled = draft.isNotBlank())
         }

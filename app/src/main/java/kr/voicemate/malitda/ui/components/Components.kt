@@ -253,6 +253,3 @@ fun Pill(text: String, color: Color, modifier: Modifier = Modifier, textColor: C
         Text(text, Modifier.padding(horizontal = 10.dp, vertical = 4.dp), style = MaterialTheme.typography.labelSmall, color = textColor)
     }
 }
-
-@Composable
-fun BoxScope.Sparkles() { /* 장식 생략(성능·접근성) */ }

@@ -109,6 +109,69 @@ class SessionViewModel(val c: AppContainer) : ViewModel() {
 
     fun retryPrepare() { viewModelScope.launch { c.stt.prepare(); syncModelMetrics() } }
 
+    /** 평가·개발용: filesDir/testaudio 안의 WAV를 마이크 대신 인식기에 넣는다(같은 후보·M1·승인 흐름을 탄다). */
+    fun testAudioFiles(): List<String> =
+        java.io.File(c.filesDir, "testaudio").listFiles()?.filter { it.isFile && it.name.endsWith(".wav", true) }?.map { it.name }?.sorted() ?: emptyList()
+
+    // ---------- 평가 모드: 같은 음원을 같은 엔진·정리 규칙으로 일괄 인식해 기술지표를 낸다 ----------
+    sealed interface EvalState {
+        data class Running(val done: Int, val total: Int) : EvalState
+        data class Done(val summary: kr.voicemate.malitda.domain.EvalSummary) : EvalState
+        data class Failed(val message: String) : EvalState
+    }
+    private val _eval = MutableStateFlow<EvalState?>(null)
+    val eval: StateFlow<EvalState?> = _eval.asStateFlow()
+    fun clearEval() { _eval.value = null }
+
+    /** files/testaudio/refs.txt: `파일명<TAB>참조문` 한 줄씩. 없으면 CER/WER 없이 무응답·처리시간만 낸다. */
+    fun runEvaluation() {
+        if (_eval.value is EvalState.Running) return
+        val files = testAudioFiles()
+        if (files.isEmpty()) { _eval.value = EvalState.Failed("files/testaudio 에 WAV가 없어요"); return }
+        viewModelScope.launch {
+            try {
+                val dir = java.io.File(c.filesDir, "testaudio")
+                val refs = java.io.File(dir, "refs.txt").takeIf { it.exists() }?.readLines()
+                    ?.mapNotNull { l -> l.split('\t', limit = 2).takeIf { it.size == 2 }?.let { it[0].trim() to it[1].trim() } }?.toMap() ?: emptyMap()
+                val rows = ArrayList<kr.voicemate.malitda.domain.EvalRow>()
+                files.forEachIndexed { i, f ->
+                    _eval.value = EvalState.Running(i, files.size)
+                    val r = java.io.File(dir, f).inputStream().use { c.stt.recognizeWav(it) }
+                    c.metrics.onRecognition(r.processingMs, r.audioMs)
+                    val ref = refs[f]
+                    val top3 = ref != null && r.alternatives.take(3).any { kr.voicemate.malitda.domain.EvalMetrics.exact(ref, it) }
+                    rows += kr.voicemate.malitda.domain.EvalRow(
+                        file = f, ref = ref, hyp = r.raw, alternatives = r.alternatives,
+                        cer = ref?.let { kr.voicemate.malitda.domain.EvalMetrics.cer(it, r.raw) },
+                        wer = ref?.let { kr.voicemate.malitda.domain.EvalMetrics.wer(it, r.raw) },
+                        exact = ref != null && kr.voicemate.malitda.domain.EvalMetrics.exact(ref, r.raw),
+                        top3 = top3, noResult = r.raw.isBlank(), processingMs = r.processingMs, audioMs = r.audioMs,
+                    )
+                }
+                val outDir = java.io.File(c.filesDir, "eval").apply { mkdirs() }
+                val stamp = java.text.SimpleDateFormat("yyyyMMdd-HHmmss", java.util.Locale.US).format(java.util.Date())
+                val out = java.io.File(outDir, "eval-$stamp.csv")
+                val summary = kr.voicemate.malitda.domain.EvalSummary(rows, c.stt.name, out.absolutePath)
+                out.writeText(summary.toCsv())
+                _eval.value = EvalState.Done(summary)
+            } catch (e: Throwable) {
+                _eval.value = EvalState.Failed(e.message ?: e.javaClass.simpleName)
+            }
+        }
+    }
+
+    fun recognizeTestFile(name: String) {
+        if (_ui.value.listen !is ListenState.Idle) return
+        _ui.update { it.copy(listen = ListenState.Processing) }
+        viewModelScope.launch {
+            val r = runCatching { java.io.File(c.filesDir, "testaudio/$name").inputStream().use { c.stt.recognizeWav(it) } }
+            r.onSuccess { onSttFinal(it) }.onFailure { e ->
+                _ui.update { it.copy(listen = ListenState.Idle) }
+                _events.tryEmit(SessionEvent.GoSttError(e.message ?: "파일 인식 실패"))
+            }
+        }
+    }
+
     // ---------- 말하기(S09) ----------
     fun startListening() {
         if (_ui.value.listen !is ListenState.Idle) return

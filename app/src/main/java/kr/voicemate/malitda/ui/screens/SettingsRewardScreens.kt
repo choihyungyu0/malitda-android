@@ -96,6 +96,11 @@ fun SettingsScreen(
     onRenameProfile: (Long, String) -> Unit,
     onDeleteAll: () -> Unit,
     onBack: () -> Unit,
+    testFiles: List<String> = emptyList(),
+    onTestFile: (String) -> Unit = {},
+    evalState: kr.voicemate.malitda.ui.vm.SessionViewModel.EvalState? = null,
+    onRunEval: () -> Unit = {},
+    onClearEval: () -> Unit = {},
 ) {
     var policy by remember { mutableStateOf(false) }
     var aac by remember { mutableStateOf(false) }
@@ -160,9 +165,27 @@ fun SettingsScreen(
             MetricRow("마지막 인식", if (metrics.lastProcessingMs != null) "처리 ${metrics.lastProcessingMs}ms / 발화 ${metrics.lastAudioMs}ms" else "아직 없음")
             MetricRow("발화 길이 이내 처리", if (metrics.sttRuns > 0) "${metrics.withinAudioLength}/${metrics.sttRuns}회" else "-")
             MetricRow("메모리(PSS)", "현재 ${formatBytes(metrics.currentPssKb * 1024)} · 최대 ${formatBytes(metrics.peakPssKb * 1024)}")
-            MetricRow("TTS", when (tts) { is TtsState.Ready -> "${tts.engine.substringAfterLast('.')} · ${if (tts.offline) "오프라인 음성" else "오프라인 음성 미확인"}"; is TtsState.Unavailable -> "사용 불가: ${tts.reason}"; TtsState.Initializing -> "초기화 중" })
+            MetricRow("TTS", when (tts) { is TtsState.Ready -> "${tts.engine} · ${tts.voice ?: "기본 음성"} · ${if (tts.offline) "오프라인 음성" else "오프라인 음성 미확인"}"; is TtsState.Unavailable -> "사용 불가: ${tts.reason}"; TtsState.Initializing -> "초기화 중" })
             Spacer(Modifier.height(6.dp))
             Text("이 앱은 인터넷 권한이 없어요. 비행기 모드에서도 같은 값을 확인할 수 있어요.", style = MaterialTheme.typography.bodySmall, color = MColors.Muted)
+        }
+        if (testFiles.isNotEmpty()) {
+            Spacer(Modifier.height(14.dp))
+            SectionLabel("평가용 음원으로 인식 (files/testaudio)")
+            Spacer(Modifier.height(6.dp))
+            MCard(padding = PaddingValues(vertical = 4.dp)) {
+                val running = evalState is kr.voicemate.malitda.ui.vm.SessionViewModel.EvalState.Running
+                SettingRow(Icons.Rounded.History, if (running) "평가 실행 중… ${(evalState as kr.voicemate.malitda.ui.vm.SessionViewModel.EvalState.Running).done}/${evalState.total}" else "전체 음원 평가 실행", "CER·WER·완전일치·무응답·처리시간을 계산해 files/eval/*.csv 로 저장") { if (!running) onRunEval() }
+                HorizontalDivider(color = MColors.Line)
+                testFiles.forEach { f ->
+                    SettingRow(Icons.Rounded.Mic, f, "마이크 대신 이 음원을 인식기에 넣어요") { onTestFile(f) }
+                }
+            }
+        }
+        when (val es = evalState) {
+            is kr.voicemate.malitda.ui.vm.SessionViewModel.EvalState.Done -> EvalResultDialog(es.summary, onClearEval)
+            is kr.voicemate.malitda.ui.vm.SessionViewModel.EvalState.Failed -> AlertDialog(onDismissRequest = onClearEval, title = { Text("평가 실패") }, text = { Text(es.message) }, confirmButton = { TextButton(onClick = onClearEval) { Text("확인") } })
+            else -> {}
         }
         Spacer(Modifier.height(14.dp))
         TextAction("이 사용자 자료 전체 삭제", onClick = { deleteAll = true }, color = MColors.Danger)
@@ -180,6 +203,35 @@ fun SettingsScreen(
         text = { Text("현재 사용자의 개인표현·교정 이력·리워드 기록을 모두 지워요. 되돌릴 수 없어요.") },
         confirmButton = { TextButton(onClick = { deleteAll = false; onDeleteAll() }) { Text("모두 지우기", color = MColors.Danger) } },
         dismissButton = { TextButton(onClick = { deleteAll = false }) { Text("취소") } },
+    )
+}
+
+@Composable
+private fun EvalResultDialog(s: kr.voicemate.malitda.domain.EvalSummary, onDismiss: () -> Unit) {
+    fun pct(d: Double?) = if (d == null) "-" else "%.1f%%".format(d * 100)
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("평가 결과 · ${s.n}개 음원") },
+        text = {
+            Column(Modifier.heightIn(max = 460.dp).verticalScroll(rememberScrollState())) {
+                Text("엔진: ${s.engine}", style = MaterialTheme.typography.bodySmall, color = MColors.Muted)
+                Spacer(Modifier.height(6.dp))
+                MetricRow("평균 CER", pct(s.meanCer)); MetricRow("평균 WER", pct(s.meanWer))
+                MetricRow("완전일치율", pct(s.exactRate)); MetricRow("Top-3 포함률", pct(s.top3Rate))
+                MetricRow("무응답률", pct(s.noResultRate)); MetricRow("발화길이 내 처리", pct(s.withinAudioRate))
+                Spacer(Modifier.height(8.dp))
+                HorizontalDivider(color = MColors.Line)
+                s.rows.forEach { r ->
+                    Spacer(Modifier.height(6.dp))
+                    Text(r.file, style = MaterialTheme.typography.labelMedium, color = MColors.Violet)
+                    if (r.ref != null) Text("참조: ${r.ref}", style = MaterialTheme.typography.bodySmall, color = MColors.Ink2)
+                    Text("인식: ${r.hyp.ifBlank { "(무응답)" }}", style = MaterialTheme.typography.bodySmall, color = MColors.Ink)
+                    Text("CER ${pct(r.cer)} · WER ${pct(r.wer)} · ${if (r.exact) "일치" else if (r.top3) "Top-3" else "불일치"} · ${r.processingMs}ms/${r.audioMs}ms", style = MaterialTheme.typography.labelSmall, color = MColors.Muted)
+                }
+                if (s.csvPath != null) { Spacer(Modifier.height(8.dp)); Text("CSV: ${s.csvPath}", style = MaterialTheme.typography.labelSmall, color = MColors.Muted) }
+            }
+        },
+        confirmButton = { TextButton(onClick = onDismiss) { Text("확인") } },
     )
 }
 
