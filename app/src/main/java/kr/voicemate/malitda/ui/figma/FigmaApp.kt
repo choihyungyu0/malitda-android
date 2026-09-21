@@ -7,10 +7,20 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ChatBubble
 import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material.icons.rounded.Favorite
+import androidx.compose.material.icons.rounded.FavoriteBorder
+import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material.icons.rounded.Place
+import androidx.compose.material.icons.rounded.Schedule
+import androidx.compose.material.icons.rounded.Star
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.launch
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
@@ -43,6 +53,8 @@ import kr.voicemate.malitda.ui.vm.SessionViewModel
 @Composable
 fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
     val context = LocalContext.current
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
+    val profileId by vm.profileId.collectAsStateWithLifecycle()
     var current by rememberSaveable { mutableStateOf(start) }
     var overlay by rememberSaveable { mutableStateOf<String?>(null) }
     var history by rememberSaveable { mutableStateOf(listOf<String>()) }
@@ -92,7 +104,16 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
                 }
                 go("S26")
             }
-            a == "save_expression" -> go("S13")
+            a == "save_expression" -> {
+                val title = inputs["S07/title"].orEmpty()
+                val content = inputs["S07/content"].orEmpty()
+                if (content.isBlank()) Toast.makeText(context, "표현 내용을 입력해 주세요", Toast.LENGTH_SHORT).show()
+                else scope.launch {
+                    vm.c.expressions.save(profileId, null, kr.voicemate.malitda.domain.Category.MESSAGE, title, content)
+                    inputs.remove("S07/title"); inputs.remove("S07/content")
+                    go("S13")
+                }
+            }
             a == "choose_registered" -> go("S13")
             a == "new_expression" -> go("S07")
             a == "edit_expression" -> go("S07")
@@ -122,7 +143,7 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
                     )
                 }
                 // 이미지의 입력칸 위에 실제 입력칸을 얹는다(그림의 예시 글자를 덮고 직접 타이핑).
-                spots.filter { it.kind == "input" || it.kind == "textarea" }.forEach { s ->
+                spots.filter { (it.kind == "input" || it.kind == "textarea") && it.action != "overlay" || it.id == "title" || it.id == "content" }.forEach { s ->
                     val key = "$current/${s.id}"
                     FigmaInput(
                         value = inputs[key] ?: "",
@@ -131,6 +152,16 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
                         modifier = Modifier
                             .offset((s.x * w).dp, (s.y * h).dp)
                             .requiredSize((s.w * w).dp, (s.h * h).dp),
+                    )
+                }
+                // S13: 이미지의 예시 목록을 덮고, 사용자가 실제 등록한 표현 목록을 얹는다.
+                if (current == "S13") {
+                    S13RealList(
+                        vm = vm, profileId = profileId,
+                        modifier = Modifier
+                            .offset((0.03f * w).dp, (0.325f * h).dp)
+                            .requiredSize((0.94f * w).dp, (0.58f * h).dp),
+                        onOpen = { go("S14") },
                     )
                 }
             },
@@ -164,6 +195,83 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
             }
         }
     }
+}
+
+/** S13 목록 자리에 얹는 사용자의 실제 등록 표현 목록(예시 이미지를 덮음). */
+@Composable
+private fun S13RealList(
+    vm: SessionViewModel,
+    profileId: Long,
+    modifier: Modifier,
+    onOpen: (Long) -> Unit,
+) {
+    val exprs by androidx.compose.runtime.remember(profileId) { vm.c.expressions.observeAll(profileId) }
+        .collectAsStateWithLifecycle(emptyList())
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
+    Box(modifier.clip(RoundedCornerShape(8.dp)).background(Color(0xFFFBFAF6))) {
+        if (exprs.isEmpty()) {
+            Box(Modifier.fillMaxSize().padding(20.dp), contentAlignment = Alignment.TopCenter) {
+                androidx.compose.material3.Text(
+                    "아직 등록한 표현이 없어요.\n아래 ‘새 표현 추가’로 시작해요.",
+                    color = Color(0xFF9A93AC), fontSize = 14.sp,
+                    textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                )
+            }
+        } else {
+            androidx.compose.foundation.lazy.LazyColumn(
+                Modifier.fillMaxSize(),
+                verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp),
+            ) {
+                items(exprs, key = { it.id }) { e ->
+                    val cat = kr.voicemate.malitda.domain.Category.fromKey(e.category)
+                    androidx.compose.foundation.layout.Row(
+                        Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(Color.White)
+                            .pointerInput(e.id) { detectTapGestures(onTap = { onOpen(e.id) }) }
+                            .padding(horizontal = 12.dp, vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Box(
+                            Modifier.requiredSize(38.dp).clip(androidx.compose.foundation.shape.CircleShape)
+                                .background(catColor(cat).copy(alpha = 0.16f)),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            androidx.compose.material3.Icon(catIcon(cat), null, tint = catColor(cat), modifier = Modifier.requiredSize(20.dp))
+                        }
+                        androidx.compose.foundation.layout.Spacer(Modifier.requiredSize(10.dp))
+                        androidx.compose.foundation.layout.Column(Modifier.weight(1f)) {
+                            androidx.compose.material3.Text(cat.label, color = catColor(cat), fontSize = 12.sp)
+                            androidx.compose.material3.Text(
+                                e.text, color = Color(0xFF1A2440), fontSize = 15.sp,
+                                maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                            )
+                        }
+                        androidx.compose.material3.Icon(
+                            if (e.favorite) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
+                            "즐겨찾기", tint = if (e.favorite) Color(0xFFFF6B9D) else Color(0xFFC9C4D6),
+                            modifier = Modifier.requiredSize(22.dp)
+                                .pointerInput(e.id) { detectTapGestures(onTap = { scope.launch { vm.c.expressions.toggleFavorite(e.id) } }) },
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+private fun catColor(c: kr.voicemate.malitda.domain.Category): Color = when (c) {
+    kr.voicemate.malitda.domain.Category.NAME -> Color(0xFF41AFFC)
+    kr.voicemate.malitda.domain.Category.PLACE -> Color(0xFF22B573)
+    kr.voicemate.malitda.domain.Category.TIME -> Color(0xFFF2B300)
+    kr.voicemate.malitda.domain.Category.MESSAGE -> Color(0xFFFF6B9D)
+    kr.voicemate.malitda.domain.Category.OFTEN -> Color(0xFF8B5CF6)
+}
+
+private fun catIcon(c: kr.voicemate.malitda.domain.Category) = when (c) {
+    kr.voicemate.malitda.domain.Category.NAME -> Icons.Rounded.Person
+    kr.voicemate.malitda.domain.Category.PLACE -> Icons.Rounded.Place
+    kr.voicemate.malitda.domain.Category.TIME -> Icons.Rounded.Schedule
+    kr.voicemate.malitda.domain.Category.MESSAGE -> Icons.Rounded.ChatBubble
+    kr.voicemate.malitda.domain.Category.OFTEN -> Icons.Rounded.Star
 }
 
 /** 이미지의 입력칸 위에 얹는 실제 입력칸(흰 배경으로 예시 글자를 덮고 직접 타이핑). */
