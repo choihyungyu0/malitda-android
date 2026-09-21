@@ -7,6 +7,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Check
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
@@ -41,6 +45,10 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
     var current by rememberSaveable { mutableStateOf(start) }
     var overlay by rememberSaveable { mutableStateOf<String?>(null) }
     var history by rememberSaveable { mutableStateOf(listOf<String>()) }
+    // 이미지 위에 얹는 실제 상태(체크박스 토글 등). id = "화면/스팟".
+    var checked by rememberSaveable { mutableStateOf(setOf<String>()) }
+    fun isChecked(id: String) = "$current/$id" in checked
+    fun toggle(id: String) { val k = "$current/$id"; checked = if (k in checked) checked - k else checked + k }
 
     fun go(target: String) {
         if (target == current) return
@@ -60,7 +68,12 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
         val t = s.target
         when {
             a == "overlay" && t != null -> overlay = t
-            a == "consent_gate" -> go(t ?: "S04")
+            a.startsWith("toggle:") -> toggle(s.id)
+            a == "consent_gate" -> {
+                val boxes = (HOTSPOTS[current] ?: emptyList()).filter { it.kind == "checkbox" }
+                if (boxes.all { "$current/${it.id}" in checked }) go(t ?: "S04")
+                else Toast.makeText(context, "위 두 항목을 모두 확인해 주세요", Toast.LENGTH_SHORT).show()
+            }
             a == "record" -> go("S09")
             a == "finish_record" -> go("S10")
             a == "cancel_record" -> go("S08")
@@ -94,7 +107,19 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
     Box(Modifier.fillMaxSize().background(Color(0xFFF6F4F0)).safeDrawingPadding()) {
         val img = FIGMA_IMAGE[current] ?: FIGMA_IMAGE["S01"]!!
         val spots = HOTSPOTS[current] ?: EXTRA_SPOTS[current] ?: emptyList()
-        FigmaScreen(imageRes = img, spots = spots, onSpot = { handle(it) })
+        FigmaScreen(
+            imageRes = img, spots = spots, onSpot = { handle(it) },
+            overlay = { w, h ->
+                // 이미지에 그려진 빈 체크박스 위에, 체크한 항목만 실제 체크 표시를 얹는다.
+                spots.filter { it.kind == "checkbox" && isChecked(it.id) }.forEach { s ->
+                    CheckMark(
+                        Modifier
+                            .offset((s.x * w).dp, (s.y * h).dp)
+                            .requiredSize((s.w * w).dp, (s.h * h).dp),
+                    )
+                }
+            },
+        )
 
         // 상단 좌측 뒤로가기(정적 이미지엔 항상 있으므로 안전망)
         if (history.isNotEmpty() && overlay == null) {
@@ -122,6 +147,25 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
                     contentScale = ContentScale.FillWidth,
                 )
             }
+        }
+    }
+}
+
+/** 이미지의 빈 체크박스 위에 얹는 실제 체크 표시(디자인 보라색 원형+흰 체크). */
+@Composable
+private fun CheckMark(modifier: Modifier) {
+    Box(modifier, contentAlignment = Alignment.Center) {
+        Box(
+            Modifier.fillMaxSize().clip(RoundedCornerShape(6.dp))
+                .background(androidx.compose.ui.graphics.Brush.linearGradient(listOf(Color(0xFF6C5CE7), Color(0xFF9B5CFB)))),
+            contentAlignment = Alignment.Center,
+        ) {
+            androidx.compose.material3.Icon(
+                Icons.Rounded.Check,
+                contentDescription = "선택됨",
+                tint = Color.White,
+                modifier = Modifier.fillMaxSize(0.8f),
+            )
         }
     }
 }
