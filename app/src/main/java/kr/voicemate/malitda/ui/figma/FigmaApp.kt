@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxHeight
+import kr.voicemate.malitda.R
 import kr.voicemate.malitda.ui.vm.SessionViewModel
 
 /**
@@ -230,13 +231,12 @@ private fun S13RealList(
                             .padding(horizontal = 12.dp, vertical = 10.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Box(
-                            Modifier.requiredSize(38.dp).clip(androidx.compose.foundation.shape.CircleShape)
-                                .background(catColor(cat).copy(alpha = 0.16f)),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            androidx.compose.material3.Icon(catIcon(cat), null, tint = catColor(cat), modifier = Modifier.requiredSize(20.dp))
-                        }
+                        // 디자이너 원안에서 추출한 실제 카테고리 아이콘(내가 그린 게 아님)
+                        Image(
+                            painter = painterResource(catIconRes(cat)),
+                            contentDescription = null,
+                            modifier = Modifier.requiredSize(40.dp),
+                        )
                         androidx.compose.foundation.layout.Spacer(Modifier.requiredSize(10.dp))
                         androidx.compose.foundation.layout.Column(Modifier.weight(1f)) {
                             androidx.compose.material3.Text(cat.label, color = catColor(cat), fontSize = 12.sp)
@@ -245,10 +245,11 @@ private fun S13RealList(
                                 maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
                             )
                         }
-                        androidx.compose.material3.Icon(
-                            if (e.favorite) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
-                            "즐겨찾기", tint = if (e.favorite) Color(0xFFFF6B9D) else Color(0xFFC9C4D6),
-                            modifier = Modifier.requiredSize(22.dp)
+                        // 디자이너 원안 하트(채워짐/빈) 아이콘
+                        Image(
+                            painter = painterResource(if (e.favorite) R.drawable.heart_on else R.drawable.heart_off),
+                            contentDescription = "즐겨찾기",
+                            modifier = Modifier.requiredSize(26.dp)
                                 .pointerInput(e.id) { detectTapGestures(onTap = { scope.launch { vm.c.expressions.toggleFavorite(e.id) } }) },
                         )
                     }
@@ -266,12 +267,13 @@ private fun catColor(c: kr.voicemate.malitda.domain.Category): Color = when (c) 
     kr.voicemate.malitda.domain.Category.OFTEN -> Color(0xFF8B5CF6)
 }
 
-private fun catIcon(c: kr.voicemate.malitda.domain.Category) = when (c) {
-    kr.voicemate.malitda.domain.Category.NAME -> Icons.Rounded.Person
-    kr.voicemate.malitda.domain.Category.PLACE -> Icons.Rounded.Place
-    kr.voicemate.malitda.domain.Category.TIME -> Icons.Rounded.Schedule
-    kr.voicemate.malitda.domain.Category.MESSAGE -> Icons.Rounded.ChatBubble
-    kr.voicemate.malitda.domain.Category.OFTEN -> Icons.Rounded.Star
+/** 디자이너 원안에서 추출한 카테고리 아이콘 리소스. */
+private fun catIconRes(c: kr.voicemate.malitda.domain.Category): Int = when (c) {
+    kr.voicemate.malitda.domain.Category.NAME -> R.drawable.cat_name
+    kr.voicemate.malitda.domain.Category.PLACE -> R.drawable.cat_place
+    kr.voicemate.malitda.domain.Category.TIME -> R.drawable.cat_time
+    kr.voicemate.malitda.domain.Category.MESSAGE -> R.drawable.cat_message
+    kr.voicemate.malitda.domain.Category.OFTEN -> R.drawable.cat_often
 }
 
 /** 이미지의 입력칸 위에 얹는 실제 입력칸(흰 배경으로 예시 글자를 덮고 직접 타이핑). */
