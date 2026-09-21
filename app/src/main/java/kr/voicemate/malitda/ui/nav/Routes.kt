@@ -40,5 +40,7 @@ object Routes {
     fun detail(id: Long) = "$DETAIL/$id"
     fun newFriend(id: String) = "$NEW_FRIEND/$id"
 
-    private fun enc(s: String) = java.net.URLEncoder.encode(s, "UTF-8")
+    // URLEncoder는 공백을 '+'로 만들지만 Navigation의 Uri.decode는 '+'를 공백으로 되돌리지 않는다.
+    // '+'를 '%20'으로 바꿔 공백이 그대로 복원되게 한다.
+    private fun enc(s: String) = java.net.URLEncoder.encode(s, "UTF-8").replace("+", "%20")
 }
