@@ -65,6 +65,19 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
     fun toggle(id: String) { val k = "$current/$id"; checked = if (k in checked) checked - k else checked + k }
     // 입력칸의 실제 텍스트. id = "화면/스팟".
     val inputs = remember { androidx.compose.runtime.mutableStateMapOf<String, String>() }
+    // S07에서 고른 카테고리(기본 시간, 목업 기본값과 일치).
+    var s07CatKey by rememberSaveable { mutableStateOf("time") }
+    val s07Cat = kr.voicemate.malitda.domain.Category.fromKey(s07CatKey)
+    // 라디오 단일 선택(화면 → 선택된 스팟 id). S06 템플릿은 기본 category0.
+    val selected = remember { androidx.compose.runtime.mutableStateMapOf("S06" to "category0") }
+    // category0..4 → 카테고리(카드 순서: 이름·장소·시간·메시지·자주쓰는말)
+    fun catOf(spotId: String) = when (spotId) {
+        "category0" -> kr.voicemate.malitda.domain.Category.NAME
+        "category1" -> kr.voicemate.malitda.domain.Category.PLACE
+        "category2" -> kr.voicemate.malitda.domain.Category.TIME
+        "category3" -> kr.voicemate.malitda.domain.Category.MESSAGE
+        else -> kr.voicemate.malitda.domain.Category.OFTEN
+    }
 
     fun go(target: String) {
         if (target == current) return
@@ -93,7 +106,8 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
             a == "record" -> go("S09")
             a == "finish_record" -> go("S10")
             a == "cancel_record" -> go("S08")
-            a.startsWith("candidate") -> { /* 정적 이미지: 선택 표시 없음 */ }
+            // 라디오 단일 선택(S06 템플릿 카드, S10 후보): 선택만 하고 이동하지 않음
+            s.kind == "radio" -> selected[current] = s.id
             a == "confirm_selection" -> go("S11")
             a == "confirm_message" -> go("S12")
             a == "approve" -> go("S21")
@@ -110,7 +124,7 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
                 val content = inputs["S07/content"].orEmpty()
                 if (content.isBlank()) Toast.makeText(context, "표현 내용을 입력해 주세요", Toast.LENGTH_SHORT).show()
                 else scope.launch {
-                    vm.c.expressions.save(profileId, null, kr.voicemate.malitda.domain.Category.MESSAGE, title, content)
+                    vm.c.expressions.save(profileId, null, s07Cat, title, content)
                     inputs.remove("S07/title"); inputs.remove("S07/content")
                     go("S13")
                 }
@@ -124,7 +138,13 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
             a.startsWith("category:") || a.startsWith("filter:") || a.startsWith("favorite:") ||
                 a.startsWith("speed:") || a.startsWith("toggle:") || a.startsWith("quick:") ||
                 a == "reset_settings" || a == "inputmode:text" -> { t?.let { go(it) } }
-            a == "start" || a == "navigate" -> t?.let { go(it) }
+            a == "start" || a == "navigate" -> {
+                // S06 '다음'으로 S07 진입 시, 선택한 템플릿 카테고리를 S07로 넘긴다.
+                if (current == "S06" && t == "S07" && s.id == "next") {
+                    s07CatKey = catOf(selected["S06"] ?: "category0").key
+                }
+                t?.let { go(it) }
+            }
             else -> t?.let { go(it) }
         }
     }
@@ -154,6 +174,49 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
                             .offset((s.x * w).dp, (s.y * h).dp)
                             .requiredSize((s.w * w).dp, (s.h * h).dp),
                     )
+                }
+                // S07 카테고리 칸: 이미지의 고정 "시간"을 덮고 선택한 카테고리(아이콘+이름)를 표시.
+                if (current == "S07") {
+                    HOTSPOTS["S07"]?.firstOrNull { it.id == "category" }?.let { s ->
+                        androidx.compose.foundation.layout.Row(
+                            Modifier
+                                .offset((s.x * w).dp, (s.y * h).dp)
+                                .requiredSize((s.w * 0.62f * w).dp, (s.h * h).dp)
+                                .background(Color.White)
+                                .padding(start = (s.w * 0.06f * w).dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Image(painterResource(catIconRes(s07Cat)), null, modifier = Modifier.requiredSize((s.h * h * 0.82f).dp))
+                            androidx.compose.foundation.layout.Spacer(Modifier.requiredSize(8.dp))
+                            androidx.compose.material3.Text(s07Cat.label, color = Color(0xFF1A2440), fontSize = 15.sp)
+                        }
+                    }
+                }
+                // S06 템플릿: 라디오 단일 선택 표시. 고정 체크(category0)를 덮고 선택한 카드에 디자이너 체크를 얹는다.
+                if (current == "S06") {
+                    val sel = selected["S06"] ?: "category0"
+                    val checkSize = 0.082f          // 이미지 폭 기준 체크 지름(측정)
+                    val cxCenter = 0.892f           // 카드 우측 체크 가로 중심(측정)
+                    val sizePx = checkSize * w
+                    HOTSPOTS["S06"]?.filter { it.kind == "radio" }?.forEach { card ->
+                        val cyCenter = card.y + card.h / 2f
+                        val left = (cxCenter * w - sizePx / 2f)
+                        val top = (cyCenter * h - sizePx / 2f)
+                        if (card.id == sel) {
+                            Image(
+                                painter = painterResource(R.drawable.sel_check),
+                                contentDescription = "선택됨",
+                                modifier = Modifier.offset(left.dp, top.dp).requiredSize(sizePx.dp),
+                            )
+                        } else if (card.id == "category0") {
+                            // 기존 고정 체크를 카드 배경색(살짝 큰 원)으로 덮어 완전히 가림
+                            Box(
+                                Modifier.offset((left - sizePx * 0.12f).dp, (top - sizePx * 0.12f).dp)
+                                    .requiredSize((sizePx * 1.24f).dp)
+                                    .clip(androidx.compose.foundation.shape.CircleShape).background(Color.White),
+                            )
+                        }
+                    }
                 }
                 // S13: 이미지의 예시 목록을 덮고, 사용자가 실제 등록한 표현 목록을 얹는다.
                 if (current == "S13") {
