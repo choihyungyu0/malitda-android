@@ -1,0 +1,18 @@
+*.iml
+.gradle/
+/local.properties
+/.idea/
+.DS_Store
+/build/
+/captures/
+.externalNativeBuild/
+.cxx/
+local.properties
+/app/build/
+/keystore.properties
+/keys/
+*.jks
+*.keystore
+
+# Vosk 모델(253MB)은 git에 넣지 않는다 → scripts/fetch-model.sh 로 받는다
+app/src/main/assets/model-ko/
