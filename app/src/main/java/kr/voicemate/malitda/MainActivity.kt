@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kr.voicemate.malitda.ui.nav.MalitdaNavHost
+import kr.voicemate.malitda.ui.figma.FigmaApp
 import kr.voicemate.malitda.ui.theme.A11yPrefs
 import kr.voicemate.malitda.ui.theme.MalitdaTheme
 import kr.voicemate.malitda.ui.vm.SessionViewModel
@@ -24,7 +24,8 @@ class MainActivity : ComponentActivity() {
                 fontScale = settings.fontScale,
                 a11y = A11yPrefs(visualEmphasis = settings.visualEmphasis, haptics = settings.haptics, ttsRate = settings.ttsRate),
             ) {
-                MalitdaNavHost(vm)
+                // Figma 목업 이미지를 그대로 쓰는 이미지 기반 화면(디자이너 프로토타입 방식)
+                FigmaApp(vm, start = "S01")
             }
         }
     }
