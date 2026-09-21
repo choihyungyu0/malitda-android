@@ -1,0 +1,178 @@
+[
+  {
+    "file": "cloud.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "format": "PNG RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "transparent_ratio": 0.5039,
+    "sha256": "54147714959cf1e9b8afa5c0079a0b84dabf1d8730c9fbda48570f484fe14ae5",
+    "source_pdf_page": 23,
+    "method": "AI background extraction, not pixel-identical"
+  },
+  {
+    "file": "crystal.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "format": "PNG RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "transparent_ratio": 0.6103,
+    "sha256": "901a090884d7af85288a055dab7d0213ab8440763f3812e9a09a718f538d6ef8",
+    "source_pdf_page": 29,
+    "method": "AI background extraction, not pixel-identical"
+  },
+  {
+    "file": "green.png",
+    "size": [
+      1387,
+      1134
+    ],
+    "format": "PNG RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "transparent_ratio": 0.3928,
+    "sha256": "9cd5a244d10727ec8736cd28c3c7889494021269206db3770679f070d7edb5c9",
+    "source_pdf_page": 25,
+    "method": "AI background extraction, not pixel-identical"
+  },
+  {
+    "file": "heart.png",
+    "size": [
+      1334,
+      1179
+    ],
+    "format": "PNG RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "transparent_ratio": 0.4598,
+    "sha256": "86f64051b5dd458cebe8daca50429a6a671f36493820094a70ef33ae31ab064c",
+    "source_pdf_page": 27,
+    "method": "AI background extraction, not pixel-identical"
+  },
+  {
+    "file": "malitda-logo-original.png",
+    "size": [
+      3840,
+      2160
+    ],
+    "format": "PNG RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "transparent_ratio": 0.8061,
+    "sha256": "bfcef447026abc46edff6fef8fa7e68b5869363b05f84253b1e9ab9901b427f7",
+    "source_pdf_page": 1,
+    "method": "PDF native image + alpha, unchanged"
+  },
+  {
+    "file": "planet.png",
+    "size": [
+      1368,
+      1150
+    ],
+    "format": "PNG RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "transparent_ratio": 0.4109,
+    "sha256": "2c153f5dd0f0090908a751f5d9de034c4b79de6e5a35533535a1b69abdade074",
+    "source_pdf_page": 28,
+    "method": "AI background extraction, not pixel-identical"
+  },
+  {
+    "file": "purple.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "format": "PNG RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "transparent_ratio": 0.5041,
+    "sha256": "b6198e27b83b2aa940855ed72a51309dc22dd6153292b7807ba0d953ff455463",
+    "source_pdf_page": 25,
+    "method": "AI background extraction, not pixel-identical"
+  },
+  {
+    "file": "robot-mint.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "format": "PNG RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "transparent_ratio": 0.5812,
+    "sha256": "caf34558986b5013240851401c8719eb71b1179d894e3008f9d140b4c2be9c48",
+    "source_pdf_page": 22,
+    "method": "AI background extraction, not pixel-identical"
+  },
+  {
+    "file": "robot-pink.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "format": "PNG RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "transparent_ratio": 0.4796,
+    "sha256": "b988bf5df3ca10149aeda0754e859e345449a26c0689cb5df2f7eed114b5f085",
+    "source_pdf_page": 24,
+    "method": "AI background extraction, not pixel-identical"
+  },
+  {
+    "file": "water.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "format": "PNG RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "transparent_ratio": 0.626,
+    "sha256": "1d4d93c92f76fc9b8507b11e2d3a64e387a74af3c6a67e1e26838219f824ed05",
+    "source_pdf_page": 29,
+    "method": "AI background extraction, not pixel-identical"
+  },
+  {
+    "file": "yellow.png",
+    "size": [
+      1368,
+      1150
+    ],
+    "format": "PNG RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "transparent_ratio": 0.4654,
+    "sha256": "a50e7036c76f53cf2dabcaf36d17dd01b0d9079d135cf1d7956248c94cb1a6c1",
+    "source_pdf_page": 28,
+    "method": "AI background extraction, not pixel-identical"
+  }
+]

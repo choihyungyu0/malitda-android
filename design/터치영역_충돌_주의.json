@@ -1,0 +1,128 @@
+[
+  {
+    "screen": "S04",
+    "a": "save",
+    "b": "default",
+    "overlap": [
+      169.62,
+      4.33
+    ]
+  },
+  {
+    "screen": "S07",
+    "a": "content",
+    "b": "clear",
+    "overlap": [
+      45.03,
+      47.32
+    ]
+  },
+  {
+    "screen": "S08",
+    "a": "more",
+    "b": "recent0",
+    "overlap": [
+      46.62,
+      17.14
+    ]
+  },
+  {
+    "screen": "S08",
+    "a": "recent0",
+    "b": "recent1",
+    "overlap": [
+      331.48,
+      18.29
+    ]
+  },
+  {
+    "screen": "S08",
+    "a": "recent1",
+    "b": "recent2",
+    "overlap": [
+      331.48,
+      18.28
+    ]
+  },
+  {
+    "screen": "S13",
+    "a": "expression0",
+    "b": "favorite0",
+    "overlap": [
+      9.6,
+      48.0
+    ]
+  },
+  {
+    "screen": "S13",
+    "a": "expression1",
+    "b": "favorite1",
+    "overlap": [
+      9.6,
+      48.0
+    ]
+  },
+  {
+    "screen": "S13",
+    "a": "expression2",
+    "b": "favorite2",
+    "overlap": [
+      9.6,
+      48.0
+    ]
+  },
+  {
+    "screen": "S13",
+    "a": "expression3",
+    "b": "favorite3",
+    "overlap": [
+      9.6,
+      48.0
+    ]
+  },
+  {
+    "screen": "S13",
+    "a": "expression4",
+    "b": "favorite4",
+    "overlap": [
+      9.6,
+      48.0
+    ]
+  },
+  {
+    "screen": "S13",
+    "a": "expression5",
+    "b": "favorite5",
+    "overlap": [
+      9.6,
+      48.0
+    ]
+  },
+  {
+    "screen": "S13",
+    "a": "expression6",
+    "b": "favorite6",
+    "overlap": [
+      9.6,
+      48.0
+    ]
+  },
+  {
+    "screen": "S13",
+    "a": "expression7",
+    "b": "favorite7",
+    "overlap": [
+      9.6,
+      48.0
+    ]
+  },
+  {
+    "screen": "S19",
+    "a": "catalog",
+    "b": "guide",
+    "overlap": [
+      124.36,
+      8.45
+    ]
+  }
+]

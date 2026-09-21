@@ -1,0 +1,4603 @@
+[
+  {
+    "screen": "S01",
+    "id": "start",
+    "label": "시작",
+    "kind": "button",
+    "sourceRect": [
+      0,
+      0,
+      853,
+      1844
+    ],
+    "target": "S02",
+    "action": "start",
+    "visualRect": [
+      0,
+      0,
+      390,
+      843.09
+    ],
+    "touchRect": [
+      0,
+      0,
+      390,
+      843.09
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S02",
+    "id": "next",
+    "label": "다음",
+    "kind": "button",
+    "sourceRect": [
+      60,
+      1541,
+      735,
+      128
+    ],
+    "target": "S03",
+    "action": "navigate",
+    "visualRect": [
+      27.43,
+      704.56,
+      336.05,
+      58.52
+    ],
+    "touchRect": [
+      27.43,
+      704.56,
+      336.05,
+      58.52
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S02",
+    "id": "skip",
+    "label": "건너뛰기",
+    "kind": "button",
+    "sourceRect": [
+      306,
+      1705,
+      252,
+      78
+    ],
+    "target": "S08",
+    "action": "navigate",
+    "visualRect": [
+      139.91,
+      779.54,
+      115.22,
+      35.66
+    ],
+    "touchRect": [
+      139.91,
+      773.37,
+      115.22,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S03",
+    "id": "notice",
+    "label": "위 내용을 확인했어요",
+    "kind": "checkbox",
+    "sourceRect": [
+      102,
+      1345,
+      44,
+      45
+    ],
+    "target": null,
+    "action": "toggle:notice",
+    "visualRect": [
+      46.64,
+      614.95,
+      20.12,
+      20.57
+    ],
+    "touchRect": [
+      36,
+      606,
+      48,
+      47
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S03",
+    "id": "privacy",
+    "label": "처리방침에 동의",
+    "kind": "checkbox",
+    "sourceRect": [
+      102,
+      1448,
+      44,
+      45
+    ],
+    "target": null,
+    "action": "toggle:privacy",
+    "visualRect": [
+      46.64,
+      662.04,
+      20.12,
+      20.57
+    ],
+    "touchRect": [
+      36,
+      653,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S03",
+    "id": "privacy-info",
+    "label": "개인정보 처리방침 보기",
+    "kind": "link",
+    "sourceRect": [
+      174,
+      1448,
+      324,
+      46
+    ],
+    "target": "O_PRIVACY",
+    "action": "overlay",
+    "visualRect": [
+      79.55,
+      662.04,
+      148.14,
+      21.03
+    ],
+    "touchRect": [
+      93,
+      655,
+      170,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S03",
+    "id": "continue",
+    "label": "동의하고 시작",
+    "kind": "button",
+    "sourceRect": [
+      71,
+      1534,
+      711,
+      112
+    ],
+    "target": "S04",
+    "action": "consent_gate",
+    "visualRect": [
+      32.46,
+      701.36,
+      325.08,
+      51.21
+    ],
+    "touchRect": [
+      32.46,
+      701.36,
+      325.08,
+      51.21
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S03",
+    "id": "later",
+    "label": "나중에 할게요",
+    "kind": "button",
+    "sourceRect": [
+      289,
+      1663,
+      319,
+      98
+    ],
+    "target": "S08",
+    "action": "navigate",
+    "visualRect": [
+      132.13,
+      760.34,
+      145.85,
+      44.81
+    ],
+    "touchRect": [
+      132.13,
+      758.75,
+      145.85,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S04",
+    "id": "font",
+    "label": "글자 크기",
+    "kind": "slider",
+    "sourceRect": [
+      166,
+      625,
+      520,
+      90
+    ],
+    "target": "O_FONT",
+    "action": "overlay",
+    "visualRect": [
+      75.9,
+      285.76,
+      237.75,
+      41.15
+    ],
+    "touchRect": [
+      75.9,
+      282.33,
+      237.75,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S04",
+    "id": "speed0",
+    "label": "아주 느리게",
+    "kind": "tab",
+    "sourceRect": [
+      78,
+      887,
+      140,
+      56
+    ],
+    "target": null,
+    "action": "speed:0",
+    "visualRect": [
+      35.66,
+      405.55,
+      64.01,
+      25.6
+    ],
+    "touchRect": [
+      35.66,
+      394.35,
+      64.01,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S04",
+    "id": "speed1",
+    "label": "느리게",
+    "kind": "tab",
+    "sourceRect": [
+      218,
+      887,
+      140,
+      56
+    ],
+    "target": null,
+    "action": "speed:1",
+    "visualRect": [
+      99.67,
+      405.55,
+      64.01,
+      25.6
+    ],
+    "touchRect": [
+      99.67,
+      394.35,
+      64.01,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S04",
+    "id": "speed2",
+    "label": "보통",
+    "kind": "tab",
+    "sourceRect": [
+      358,
+      887,
+      140,
+      56
+    ],
+    "target": null,
+    "action": "speed:2",
+    "visualRect": [
+      163.68,
+      405.55,
+      64.01,
+      25.6
+    ],
+    "touchRect": [
+      163.68,
+      394.35,
+      64.01,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S04",
+    "id": "speed3",
+    "label": "빠르게",
+    "kind": "tab",
+    "sourceRect": [
+      498,
+      887,
+      140,
+      56
+    ],
+    "target": null,
+    "action": "speed:3",
+    "visualRect": [
+      227.69,
+      405.55,
+      64.01,
+      25.6
+    ],
+    "touchRect": [
+      227.69,
+      394.35,
+      64.01,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S04",
+    "id": "speed4",
+    "label": "아주 빠르게",
+    "kind": "tab",
+    "sourceRect": [
+      638,
+      887,
+      140,
+      56
+    ],
+    "target": null,
+    "action": "speed:4",
+    "visualRect": [
+      291.7,
+      405.55,
+      64.01,
+      25.6
+    ],
+    "touchRect": [
+      291.7,
+      394.35,
+      64.01,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S04",
+    "id": "vibration",
+    "label": "진동 알림",
+    "kind": "switch",
+    "sourceRect": [
+      688,
+      1008,
+      92,
+      49
+    ],
+    "target": null,
+    "action": "toggle:vibration",
+    "visualRect": [
+      314.56,
+      460.87,
+      42.06,
+      22.4
+    ],
+    "touchRect": [
+      311.59,
+      448.07,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S04",
+    "id": "emphasis",
+    "label": "시각 강조",
+    "kind": "switch",
+    "sourceRect": [
+      688,
+      1135,
+      92,
+      51
+    ],
+    "target": null,
+    "action": "toggle:emphasis",
+    "visualRect": [
+      314.56,
+      518.93,
+      42.06,
+      23.32
+    ],
+    "touchRect": [
+      311.59,
+      506.59,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S04",
+    "id": "quick-off",
+    "label": "빠른 확인 끄기",
+    "kind": "tab",
+    "sourceRect": [
+      533,
+      1263,
+      117,
+      63
+    ],
+    "target": null,
+    "action": "quick:false",
+    "visualRect": [
+      243.69,
+      577.46,
+      53.49,
+      28.8
+    ],
+    "touchRect": [
+      243.69,
+      567.86,
+      53.49,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S04",
+    "id": "quick-on",
+    "label": "빠른 확인 켜기",
+    "kind": "tab",
+    "sourceRect": [
+      650,
+      1263,
+      120,
+      63
+    ],
+    "target": null,
+    "action": "quick:true",
+    "visualRect": [
+      297.19,
+      577.46,
+      54.87,
+      28.8
+    ],
+    "touchRect": [
+      297.19,
+      567.86,
+      54.87,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S04",
+    "id": "save",
+    "label": "저장하고 계속",
+    "kind": "button",
+    "sourceRect": [
+      42,
+      1608,
+      769,
+      112
+    ],
+    "target": "S05",
+    "action": "navigate",
+    "visualRect": [
+      19.2,
+      735.19,
+      351.59,
+      51.21
+    ],
+    "touchRect": [
+      19.2,
+      735.19,
+      351.59,
+      51.21
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S04",
+    "id": "default",
+    "label": "기본값으로 시작",
+    "kind": "button",
+    "sourceRect": [
+      246,
+      1725,
+      371,
+      76
+    ],
+    "target": "S05",
+    "action": "reset_settings",
+    "visualRect": [
+      112.47,
+      788.69,
+      169.62,
+      34.75
+    ],
+    "touchRect": [
+      112.47,
+      782.07,
+      169.62,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S05",
+    "id": "register",
+    "label": "등록 시작",
+    "kind": "button",
+    "sourceRect": [
+      49,
+      1549,
+      754,
+      110
+    ],
+    "target": "S06",
+    "action": "navigate",
+    "visualRect": [
+      22.4,
+      708.22,
+      344.74,
+      50.29
+    ],
+    "touchRect": [
+      22.4,
+      708.22,
+      344.74,
+      50.29
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S05",
+    "id": "later",
+    "label": "나중에 할게요",
+    "kind": "button",
+    "sourceRect": [
+      50,
+      1685,
+      752,
+      102
+    ],
+    "target": "S08",
+    "action": "navigate",
+    "visualRect": [
+      22.86,
+      770.4,
+      343.82,
+      46.64
+    ],
+    "touchRect": [
+      22.86,
+      769.72,
+      343.82,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S05",
+    "id": "category-이름",
+    "label": "이름",
+    "kind": "card",
+    "sourceRect": [
+      48,
+      766,
+      367,
+      360
+    ],
+    "target": "S06",
+    "action": "category:이름",
+    "visualRect": [
+      21.95,
+      350.22,
+      167.8,
+      164.6
+    ],
+    "touchRect": [
+      21.95,
+      350.22,
+      167.8,
+      164.6
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S05",
+    "id": "category-장소",
+    "label": "장소",
+    "kind": "card",
+    "sourceRect": [
+      435,
+      766,
+      367,
+      360
+    ],
+    "target": "S06",
+    "action": "category:장소",
+    "visualRect": [
+      198.89,
+      350.22,
+      167.8,
+      164.6
+    ],
+    "touchRect": [
+      198.89,
+      350.22,
+      167.8,
+      164.6
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S05",
+    "id": "category-시간",
+    "label": "시간",
+    "kind": "card",
+    "sourceRect": [
+      48,
+      1143,
+      367,
+      366
+    ],
+    "target": "S06",
+    "action": "category:시간",
+    "visualRect": [
+      21.95,
+      522.59,
+      167.8,
+      167.34
+    ],
+    "touchRect": [
+      21.95,
+      522.59,
+      167.8,
+      167.34
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S05",
+    "id": "category-자주 쓰는 말",
+    "label": "자주 쓰는 말",
+    "kind": "card",
+    "sourceRect": [
+      435,
+      1143,
+      367,
+      366
+    ],
+    "target": "S06",
+    "action": "category:자주 쓰는 말",
+    "visualRect": [
+      198.89,
+      522.59,
+      167.8,
+      167.34
+    ],
+    "touchRect": [
+      198.89,
+      522.59,
+      167.8,
+      167.34
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S06",
+    "id": "search",
+    "label": "템플릿 검색",
+    "kind": "input",
+    "sourceRect": [
+      178,
+      459,
+      493,
+      67
+    ],
+    "target": "O_SEARCH_TEMPLATE",
+    "action": "overlay",
+    "maxLength": 40,
+    "placeholder": "어떤 표현을 등록할까요?",
+    "value": "",
+    "inputType": "search",
+    "keyboard": "text",
+    "visualRect": [
+      81.38,
+      209.86,
+      225.4,
+      30.63
+    ],
+    "touchRect": [
+      81.38,
+      201.18,
+      225.4,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S06",
+    "id": "category0",
+    "label": "이름",
+    "kind": "radio",
+    "sourceRect": [
+      53,
+      559,
+      746,
+      185
+    ],
+    "target": null,
+    "action": "category:0",
+    "visualRect": [
+      24.23,
+      255.58,
+      341.08,
+      84.58
+    ],
+    "touchRect": [
+      24.23,
+      255.58,
+      341.08,
+      84.58
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S06",
+    "id": "category1",
+    "label": "장소",
+    "kind": "radio",
+    "sourceRect": [
+      53,
+      761,
+      746,
+      185
+    ],
+    "target": null,
+    "action": "category:1",
+    "visualRect": [
+      24.23,
+      347.94,
+      341.08,
+      84.58
+    ],
+    "touchRect": [
+      24.23,
+      347.94,
+      341.08,
+      84.58
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S06",
+    "id": "category2",
+    "label": "시간",
+    "kind": "radio",
+    "sourceRect": [
+      53,
+      963,
+      746,
+      185
+    ],
+    "target": null,
+    "action": "category:2",
+    "visualRect": [
+      24.23,
+      440.29,
+      341.08,
+      84.58
+    ],
+    "touchRect": [
+      24.23,
+      440.29,
+      341.08,
+      84.58
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S06",
+    "id": "category3",
+    "label": "메시지",
+    "kind": "radio",
+    "sourceRect": [
+      53,
+      1165,
+      746,
+      185
+    ],
+    "target": null,
+    "action": "category:3",
+    "visualRect": [
+      24.23,
+      532.65,
+      341.08,
+      84.58
+    ],
+    "touchRect": [
+      24.23,
+      532.65,
+      341.08,
+      84.58
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S06",
+    "id": "category4",
+    "label": "자주 쓰는 말",
+    "kind": "radio",
+    "sourceRect": [
+      53,
+      1367,
+      746,
+      185
+    ],
+    "target": null,
+    "action": "category:4",
+    "visualRect": [
+      24.23,
+      625.01,
+      341.08,
+      84.58
+    ],
+    "touchRect": [
+      24.23,
+      625.01,
+      341.08,
+      84.58
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S06",
+    "id": "next",
+    "label": "다음",
+    "kind": "button",
+    "sourceRect": [
+      74,
+      1596,
+      703,
+      108
+    ],
+    "target": "S07",
+    "action": "navigate",
+    "visualRect": [
+      33.83,
+      729.71,
+      321.42,
+      49.38
+    ],
+    "touchRect": [
+      33.83,
+      729.71,
+      321.42,
+      49.38
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S06",
+    "id": "direct",
+    "label": "직접 만들기",
+    "kind": "button",
+    "sourceRect": [
+      262,
+      1719,
+      327,
+      85
+    ],
+    "target": "S07",
+    "action": "navigate",
+    "visualRect": [
+      119.79,
+      785.94,
+      149.51,
+      38.86
+    ],
+    "touchRect": [
+      119.79,
+      781.37,
+      149.51,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S07",
+    "id": "back",
+    "label": "이전 화면",
+    "kind": "icon",
+    "sourceRect": [
+      47,
+      43,
+      79,
+      77
+    ],
+    "target": "S06",
+    "action": "navigate",
+    "visualRect": [
+      21.49,
+      19.66,
+      36.12,
+      35.21
+    ],
+    "touchRect": [
+      15.55,
+      13.27,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S07",
+    "id": "type",
+    "label": "직접 입력",
+    "kind": "tab",
+    "sourceRect": [
+      61,
+      309,
+      372,
+      91
+    ],
+    "target": null,
+    "action": "inputmode:text",
+    "visualRect": [
+      27.89,
+      141.28,
+      170.08,
+      41.61
+    ],
+    "touchRect": [
+      27.89,
+      138.09,
+      170.08,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S07",
+    "id": "voice",
+    "label": "음성으로 입력",
+    "kind": "tab",
+    "sourceRect": [
+      434,
+      309,
+      370,
+      91
+    ],
+    "target": "O_VOICE_REGISTER",
+    "action": "overlay",
+    "visualRect": [
+      198.43,
+      141.28,
+      169.17,
+      41.61
+    ],
+    "touchRect": [
+      198.43,
+      138.09,
+      169.17,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S07",
+    "id": "category",
+    "label": "카테고리",
+    "kind": "select",
+    "sourceRect": [
+      89,
+      769,
+      677,
+      82
+    ],
+    "target": "O_CATEGORY",
+    "action": "overlay",
+    "visualRect": [
+      40.69,
+      351.59,
+      309.53,
+      37.49
+    ],
+    "touchRect": [
+      40.69,
+      346.34,
+      309.53,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S07",
+    "id": "title",
+    "label": "표현 제목",
+    "kind": "input",
+    "sourceRect": [
+      89,
+      948,
+      677,
+      83
+    ],
+    "target": "O_EDIT_TITLE",
+    "action": "overlay",
+    "maxLength": 40,
+    "placeholder": "제목을 입력해 주세요 (선택)",
+    "value": "잠시 후 연락드릴게요",
+    "inputType": "text",
+    "keyboard": "text",
+    "visualRect": [
+      40.69,
+      433.43,
+      309.53,
+      37.95
+    ],
+    "touchRect": [
+      40.69,
+      428.41,
+      309.53,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S07",
+    "id": "content",
+    "label": "표현 내용",
+    "kind": "textarea",
+    "sourceRect": [
+      89,
+      1127,
+      678,
+      228
+    ],
+    "target": "O_EDIT_EXPRESSION",
+    "action": "overlay",
+    "maxLength": 80,
+    "placeholder": "자주 쓰는 표현을 입력해 주세요",
+    "value": "잠시 후 연락드릴게요.",
+    "inputType": "text",
+    "keyboard": "text",
+    "visualRect": [
+      40.69,
+      515.28,
+      309.99,
+      104.24
+    ],
+    "touchRect": [
+      40.69,
+      515.28,
+      309.99,
+      104.24
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S07",
+    "id": "clear",
+    "label": "표현 내용 지우기",
+    "kind": "icon",
+    "sourceRect": [
+      700,
+      1155,
+      42,
+      46
+    ],
+    "target": null,
+    "action": "clear:expression",
+    "visualRect": [
+      320.05,
+      528.08,
+      19.2,
+      21.03
+    ],
+    "touchRect": [
+      305.65,
+      514.6,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S07",
+    "id": "listen",
+    "label": "TTS 미리 듣기",
+    "kind": "button",
+    "sourceRect": [
+      89,
+      1386,
+      269,
+      79
+    ],
+    "target": "O_LISTEN",
+    "action": "overlay",
+    "visualRect": [
+      40.69,
+      633.69,
+      122.99,
+      36.12
+    ],
+    "touchRect": [
+      40.69,
+      627.75,
+      122.99,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S07",
+    "id": "cancel",
+    "label": "취소",
+    "kind": "button",
+    "sourceRect": [
+      55,
+      1679,
+      199,
+      98
+    ],
+    "target": "S13",
+    "action": "navigate",
+    "visualRect": [
+      25.15,
+      767.66,
+      90.98,
+      44.81
+    ],
+    "touchRect": [
+      25.15,
+      766.07,
+      90.98,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S07",
+    "id": "delete",
+    "label": "표현 삭제",
+    "kind": "button",
+    "sourceRect": [
+      277,
+      1679,
+      171,
+      98
+    ],
+    "target": "S27",
+    "action": "navigate",
+    "visualRect": [
+      126.65,
+      767.66,
+      78.18,
+      44.81
+    ],
+    "touchRect": [
+      126.65,
+      766.07,
+      78.18,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S07",
+    "id": "save",
+    "label": "저장",
+    "kind": "button",
+    "sourceRect": [
+      469,
+      1678,
+      332,
+      99
+    ],
+    "target": "S13",
+    "action": "save_expression",
+    "visualRect": [
+      214.43,
+      767.2,
+      151.79,
+      45.26
+    ],
+    "touchRect": [
+      214.43,
+      765.83,
+      151.79,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S08",
+    "id": "menu",
+    "label": "알림·설정 메뉴",
+    "kind": "icon",
+    "sourceRect": [
+      752,
+      59,
+      64,
+      65
+    ],
+    "target": "O_MENU",
+    "action": "overlay",
+    "visualRect": [
+      343.82,
+      26.98,
+      29.26,
+      29.72
+    ],
+    "touchRect": [
+      334.45,
+      17.84,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S08",
+    "id": "mic",
+    "label": "눌러서 말하기",
+    "kind": "mic",
+    "sourceRect": [
+      275,
+      646,
+      304,
+      310
+    ],
+    "target": "S09",
+    "action": "record",
+    "visualRect": [
+      125.73,
+      295.36,
+      138.99,
+      141.74
+    ],
+    "touchRect": [
+      125.73,
+      295.36,
+      138.99,
+      141.74
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S08",
+    "id": "reward",
+    "label": "말친구 리워드",
+    "kind": "card",
+    "sourceRect": [
+      46,
+      332,
+      760,
+      282
+    ],
+    "target": "S19",
+    "action": "navigate",
+    "visualRect": [
+      21.03,
+      151.79,
+      347.48,
+      128.93
+    ],
+    "touchRect": [
+      21.03,
+      151.79,
+      347.48,
+      128.93
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S08",
+    "id": "more",
+    "label": "최근 등록 문장 전체",
+    "kind": "link",
+    "sourceRect": [
+      693,
+      1014,
+      91,
+      48
+    ],
+    "target": "S13",
+    "action": "navigate",
+    "visualRect": [
+      316.85,
+      463.61,
+      41.61,
+      21.95
+    ],
+    "touchRect": [
+      313.66,
+      450.59,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S08",
+    "id": "recent0",
+    "label": "등록 문장 1",
+    "kind": "card",
+    "sourceRect": [
+      63,
+      1077,
+      725,
+      57
+    ],
+    "target": "S11",
+    "action": "choose_registered",
+    "visualRect": [
+      28.8,
+      492.42,
+      331.48,
+      26.06
+    ],
+    "touchRect": [
+      28.8,
+      481.45,
+      331.48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S08",
+    "id": "recent1",
+    "label": "등록 문장 2",
+    "kind": "card",
+    "sourceRect": [
+      63,
+      1142,
+      725,
+      57
+    ],
+    "target": "S11",
+    "action": "choose_registered",
+    "visualRect": [
+      28.8,
+      522.13,
+      331.48,
+      26.06
+    ],
+    "touchRect": [
+      28.8,
+      511.16,
+      331.48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S08",
+    "id": "recent2",
+    "label": "등록 문장 3",
+    "kind": "card",
+    "sourceRect": [
+      63,
+      1207,
+      725,
+      57
+    ],
+    "target": "S11",
+    "action": "choose_registered",
+    "visualRect": [
+      28.8,
+      551.85,
+      331.48,
+      26.06
+    ],
+    "touchRect": [
+      28.8,
+      540.88,
+      331.48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S08",
+    "id": "quick0",
+    "label": "이름",
+    "kind": "card",
+    "sourceRect": [
+      45,
+      1394,
+      176,
+      199
+    ],
+    "target": "S13",
+    "action": "filter:0",
+    "visualRect": [
+      20.57,
+      637.35,
+      80.47,
+      90.98
+    ],
+    "touchRect": [
+      20.57,
+      637.35,
+      80.47,
+      90.98
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S08",
+    "id": "quick1",
+    "label": "장소",
+    "kind": "card",
+    "sourceRect": [
+      236,
+      1394,
+      176,
+      199
+    ],
+    "target": "S13",
+    "action": "filter:1",
+    "visualRect": [
+      107.9,
+      637.35,
+      80.47,
+      90.98
+    ],
+    "touchRect": [
+      107.9,
+      637.35,
+      80.47,
+      90.98
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S08",
+    "id": "quick2",
+    "label": "시간",
+    "kind": "card",
+    "sourceRect": [
+      427,
+      1394,
+      176,
+      199
+    ],
+    "target": "S13",
+    "action": "filter:2",
+    "visualRect": [
+      195.23,
+      637.35,
+      80.47,
+      90.98
+    ],
+    "touchRect": [
+      195.23,
+      637.35,
+      80.47,
+      90.98
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S08",
+    "id": "quick3",
+    "label": "자주 쓰는 말",
+    "kind": "card",
+    "sourceRect": [
+      618,
+      1394,
+      176,
+      199
+    ],
+    "target": "S13",
+    "action": "filter:3",
+    "visualRect": [
+      282.56,
+      637.35,
+      80.47,
+      90.98
+    ],
+    "touchRect": [
+      282.56,
+      637.35,
+      80.47,
+      90.98
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S08",
+    "id": "streak",
+    "label": "말친구 사용 기록",
+    "kind": "card",
+    "sourceRect": [
+      48,
+      1640,
+      754,
+      130
+    ],
+    "target": "S19",
+    "action": "navigate",
+    "visualRect": [
+      21.95,
+      749.82,
+      344.74,
+      59.44
+    ],
+    "touchRect": [
+      21.95,
+      749.82,
+      344.74,
+      59.44
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S09",
+    "id": "stop",
+    "label": "녹음 중지",
+    "kind": "button",
+    "sourceRect": [
+      103,
+      1450,
+      646,
+      150
+    ],
+    "target": "S10",
+    "action": "finish_record",
+    "visualRect": [
+      47.09,
+      662.95,
+      295.36,
+      68.58
+    ],
+    "touchRect": [
+      47.09,
+      662.95,
+      295.36,
+      68.58
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S09",
+    "id": "cancel",
+    "label": "녹음 취소",
+    "kind": "button",
+    "sourceRect": [
+      325,
+      1635,
+      202,
+      103
+    ],
+    "target": "S08",
+    "action": "cancel_record",
+    "visualRect": [
+      148.59,
+      747.54,
+      92.36,
+      47.09
+    ],
+    "touchRect": [
+      148.59,
+      747.08,
+      92.36,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S10",
+    "id": "listen-original",
+    "label": "원문 듣기",
+    "kind": "icon",
+    "sourceRect": [
+      657,
+      627,
+      103,
+      104
+    ],
+    "target": "O_LISTEN",
+    "action": "overlay",
+    "visualRect": [
+      300.39,
+      286.67,
+      47.09,
+      47.55
+    ],
+    "touchRect": [
+      299.94,
+      286.45,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S10",
+    "id": "candidate0",
+    "label": "인식 후보 1",
+    "kind": "radio",
+    "sourceRect": [
+      64,
+      934,
+      581,
+      132
+    ],
+    "target": null,
+    "action": "candidate:0",
+    "visualRect": [
+      29.26,
+      427.03,
+      265.64,
+      60.35
+    ],
+    "touchRect": [
+      29.26,
+      427.03,
+      265.64,
+      60.35
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S10",
+    "id": "listen0",
+    "label": "후보 1 듣기",
+    "kind": "icon",
+    "sourceRect": [
+      660,
+      960,
+      86,
+      88
+    ],
+    "target": "O_LISTEN",
+    "action": "overlay",
+    "visualRect": [
+      301.76,
+      438.92,
+      39.32,
+      40.23
+    ],
+    "touchRect": [
+      297.42,
+      435.04,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S10",
+    "id": "candidate1",
+    "label": "인식 후보 2",
+    "kind": "radio",
+    "sourceRect": [
+      64,
+      1088,
+      581,
+      132
+    ],
+    "target": null,
+    "action": "candidate:1",
+    "visualRect": [
+      29.26,
+      497.44,
+      265.64,
+      60.35
+    ],
+    "touchRect": [
+      29.26,
+      497.44,
+      265.64,
+      60.35
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S10",
+    "id": "listen1",
+    "label": "후보 2 듣기",
+    "kind": "icon",
+    "sourceRect": [
+      660,
+      1114,
+      86,
+      88
+    ],
+    "target": "O_LISTEN",
+    "action": "overlay",
+    "visualRect": [
+      301.76,
+      509.33,
+      39.32,
+      40.23
+    ],
+    "touchRect": [
+      297.42,
+      505.45,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S10",
+    "id": "candidate2",
+    "label": "인식 후보 3",
+    "kind": "radio",
+    "sourceRect": [
+      64,
+      1242,
+      581,
+      132
+    ],
+    "target": null,
+    "action": "candidate:2",
+    "visualRect": [
+      29.26,
+      567.85,
+      265.64,
+      60.35
+    ],
+    "touchRect": [
+      29.26,
+      567.85,
+      265.64,
+      60.35
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S10",
+    "id": "listen2",
+    "label": "후보 3 듣기",
+    "kind": "icon",
+    "sourceRect": [
+      660,
+      1268,
+      86,
+      88
+    ],
+    "target": "O_LISTEN",
+    "action": "overlay",
+    "visualRect": [
+      301.76,
+      579.74,
+      39.32,
+      40.23
+    ],
+    "touchRect": [
+      297.42,
+      575.86,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S10",
+    "id": "next",
+    "label": "이 문장으로 할게요",
+    "kind": "button",
+    "sourceRect": [
+      65,
+      1569,
+      723,
+      118
+    ],
+    "target": "S11",
+    "action": "confirm_selection",
+    "visualRect": [
+      29.72,
+      717.36,
+      330.56,
+      53.95
+    ],
+    "touchRect": [
+      29.72,
+      717.36,
+      330.56,
+      53.95
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S10",
+    "id": "edit",
+    "label": "직접 수정",
+    "kind": "button",
+    "sourceRect": [
+      302,
+      1713,
+      256,
+      94
+    ],
+    "target": "S11",
+    "action": "navigate",
+    "visualRect": [
+      138.08,
+      783.2,
+      117.05,
+      42.98
+    ],
+    "touchRect": [
+      138.08,
+      780.69,
+      117.05,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S11",
+    "id": "listen",
+    "label": "선택한 문장 듣기",
+    "kind": "button",
+    "sourceRect": [
+      96,
+      802,
+      662,
+      100
+    ],
+    "target": "O_LISTEN",
+    "action": "overlay",
+    "visualRect": [
+      43.89,
+      366.68,
+      302.67,
+      45.72
+    ],
+    "touchRect": [
+      43.89,
+      365.54,
+      302.67,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S11",
+    "id": "listen-icon",
+    "label": "선택 문장 음성 아이콘",
+    "kind": "icon",
+    "sourceRect": [
+      641,
+      652,
+      117,
+      121
+    ],
+    "target": "O_LISTEN",
+    "action": "overlay",
+    "visualRect": [
+      293.07,
+      298.1,
+      53.49,
+      55.32
+    ],
+    "touchRect": [
+      293.07,
+      298.1,
+      53.49,
+      55.32
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S11",
+    "id": "content",
+    "label": "보낼 문장 직접 수정",
+    "kind": "textarea",
+    "sourceRect": [
+      74,
+      1129,
+      708,
+      274
+    ],
+    "target": "O_EDIT_MESSAGE",
+    "action": "overlay",
+    "maxLength": 200,
+    "placeholder": "보낼 문장을 입력해 주세요",
+    "value": "와, 오늘 날씨 너무 좋다!",
+    "inputType": "text",
+    "keyboard": "text",
+    "visualRect": [
+      33.83,
+      516.19,
+      323.7,
+      125.28
+    ],
+    "touchRect": [
+      33.83,
+      516.19,
+      323.7,
+      125.28
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S11",
+    "id": "rerecord",
+    "label": "다시 말하기",
+    "kind": "card",
+    "sourceRect": [
+      51,
+      1455,
+      750,
+      121
+    ],
+    "target": "S09",
+    "action": "record",
+    "visualRect": [
+      23.32,
+      665.24,
+      342.91,
+      55.32
+    ],
+    "touchRect": [
+      23.32,
+      665.24,
+      342.91,
+      55.32
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S11",
+    "id": "next",
+    "label": "이 문장으로 진행",
+    "kind": "button",
+    "sourceRect": [
+      54,
+      1616,
+      742,
+      111
+    ],
+    "target": "S12",
+    "action": "confirm_message",
+    "visualRect": [
+      24.69,
+      738.85,
+      339.25,
+      50.75
+    ],
+    "touchRect": [
+      24.69,
+      738.85,
+      339.25,
+      50.75
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S12",
+    "id": "approve",
+    "label": "문장을 확인했어요",
+    "kind": "checkbox",
+    "sourceRect": [
+      50,
+      856,
+      753,
+      166
+    ],
+    "target": "S21",
+    "action": "approve",
+    "visualRect": [
+      22.86,
+      391.37,
+      344.28,
+      75.9
+    ],
+    "touchRect": [
+      22.86,
+      391.37,
+      344.28,
+      75.9
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S12",
+    "id": "edit",
+    "label": "문장 다시 수정",
+    "kind": "card",
+    "sourceRect": [
+      50,
+      415,
+      753,
+      408
+    ],
+    "target": "S11",
+    "action": "edit_reset",
+    "visualRect": [
+      22.86,
+      189.74,
+      344.28,
+      186.54
+    ],
+    "touchRect": [
+      22.86,
+      189.74,
+      344.28,
+      186.54
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S12",
+    "id": "home",
+    "label": "홈으로",
+    "kind": "button",
+    "sourceRect": [
+      300,
+      1706,
+      256,
+      84
+    ],
+    "target": "S08",
+    "action": "navigate",
+    "visualRect": [
+      137.16,
+      780,
+      117.05,
+      38.41
+    ],
+    "touchRect": [
+      137.16,
+      775.21,
+      117.05,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "menu",
+    "label": "앱 메뉴",
+    "kind": "icon",
+    "sourceRect": [
+      748,
+      46,
+      68,
+      74
+    ],
+    "target": "O_MENU",
+    "action": "overlay",
+    "visualRect": [
+      341.99,
+      21.03,
+      31.09,
+      33.83
+    ],
+    "touchRect": [
+      333.54,
+      13.95,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S18",
+    "id": "menu",
+    "label": "앱 메뉴",
+    "kind": "icon",
+    "sourceRect": [
+      748,
+      46,
+      68,
+      74
+    ],
+    "target": "O_MENU",
+    "action": "overlay",
+    "visualRect": [
+      341.99,
+      21.03,
+      31.09,
+      33.83
+    ],
+    "touchRect": [
+      333.54,
+      13.95,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S19",
+    "id": "menu",
+    "label": "앱 메뉴",
+    "kind": "icon",
+    "sourceRect": [
+      748,
+      46,
+      68,
+      74
+    ],
+    "target": "O_MENU",
+    "action": "overlay",
+    "visualRect": [
+      341.99,
+      21.03,
+      31.09,
+      33.83
+    ],
+    "touchRect": [
+      333.54,
+      13.95,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "search",
+    "label": "핵심표현 검색",
+    "kind": "input",
+    "sourceRect": [
+      44,
+      354,
+      765,
+      84
+    ],
+    "target": "O_SEARCH_EXPRESSION",
+    "action": "overlay",
+    "maxLength": 40,
+    "placeholder": "표현을 검색해 보세요",
+    "value": "",
+    "inputType": "search",
+    "keyboard": "text",
+    "visualRect": [
+      20.12,
+      161.85,
+      349.77,
+      38.41
+    ],
+    "touchRect": [
+      20.12,
+      157.06,
+      349.77,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "filter0",
+    "label": "이름",
+    "kind": "tab",
+    "sourceRect": [
+      42,
+      465,
+      132,
+      68
+    ],
+    "target": null,
+    "action": "filter:0",
+    "visualRect": [
+      19.2,
+      212.6,
+      60.35,
+      31.09
+    ],
+    "touchRect": [
+      19.2,
+      204.15,
+      60.35,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "filter1",
+    "label": "장소",
+    "kind": "tab",
+    "sourceRect": [
+      192,
+      465,
+      133,
+      68
+    ],
+    "target": null,
+    "action": "filter:1",
+    "visualRect": [
+      87.78,
+      212.6,
+      60.81,
+      31.09
+    ],
+    "touchRect": [
+      87.78,
+      204.15,
+      60.81,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "filter2",
+    "label": "시간",
+    "kind": "tab",
+    "sourceRect": [
+      341,
+      465,
+      132,
+      68
+    ],
+    "target": null,
+    "action": "filter:2",
+    "visualRect": [
+      155.91,
+      212.6,
+      60.35,
+      31.09
+    ],
+    "touchRect": [
+      155.91,
+      204.15,
+      60.35,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "filter3",
+    "label": "메시지",
+    "kind": "tab",
+    "sourceRect": [
+      489,
+      465,
+      140,
+      68
+    ],
+    "target": null,
+    "action": "filter:3",
+    "visualRect": [
+      223.58,
+      212.6,
+      64.01,
+      31.09
+    ],
+    "touchRect": [
+      223.58,
+      204.15,
+      64.01,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "filter4",
+    "label": "자주 쓰는 말",
+    "kind": "tab",
+    "sourceRect": [
+      646,
+      465,
+      181,
+      68
+    ],
+    "target": null,
+    "action": "filter:4",
+    "visualRect": [
+      295.36,
+      212.6,
+      82.75,
+      31.09
+    ],
+    "touchRect": [
+      295.36,
+      204.15,
+      82.75,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "expression0",
+    "label": "핵심표현 1 상세",
+    "kind": "card",
+    "sourceRect": [
+      45,
+      630,
+      514,
+      119
+    ],
+    "target": "S14",
+    "action": "navigate",
+    "visualRect": [
+      20.57,
+      288.04,
+      235.01,
+      54.41
+    ],
+    "touchRect": [
+      20.57,
+      288.04,
+      235.01,
+      54.41
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S13",
+    "id": "favorite0",
+    "label": "표현 1 즐겨찾기",
+    "kind": "icon",
+    "sourceRect": [
+      566,
+      665,
+      49,
+      51
+    ],
+    "target": null,
+    "action": "favorite:0",
+    "visualRect": [
+      258.78,
+      304.04,
+      22.4,
+      23.32
+    ],
+    "touchRect": [
+      245.98,
+      291.7,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "expression1",
+    "label": "핵심표현 2 상세",
+    "kind": "card",
+    "sourceRect": [
+      45,
+      760,
+      514,
+      119
+    ],
+    "target": "S14",
+    "action": "navigate",
+    "visualRect": [
+      20.57,
+      347.48,
+      235.01,
+      54.41
+    ],
+    "touchRect": [
+      20.57,
+      347.48,
+      235.01,
+      54.41
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S13",
+    "id": "favorite1",
+    "label": "표현 2 즐겨찾기",
+    "kind": "icon",
+    "sourceRect": [
+      566,
+      795,
+      49,
+      51
+    ],
+    "target": null,
+    "action": "favorite:1",
+    "visualRect": [
+      258.78,
+      363.48,
+      22.4,
+      23.32
+    ],
+    "touchRect": [
+      245.98,
+      351.14,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "expression2",
+    "label": "핵심표현 3 상세",
+    "kind": "card",
+    "sourceRect": [
+      45,
+      890,
+      514,
+      119
+    ],
+    "target": "S14",
+    "action": "navigate",
+    "visualRect": [
+      20.57,
+      406.92,
+      235.01,
+      54.41
+    ],
+    "touchRect": [
+      20.57,
+      406.92,
+      235.01,
+      54.41
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S13",
+    "id": "favorite2",
+    "label": "표현 3 즐겨찾기",
+    "kind": "icon",
+    "sourceRect": [
+      566,
+      925,
+      49,
+      51
+    ],
+    "target": null,
+    "action": "favorite:2",
+    "visualRect": [
+      258.78,
+      422.92,
+      22.4,
+      23.32
+    ],
+    "touchRect": [
+      245.98,
+      410.58,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "expression3",
+    "label": "핵심표현 4 상세",
+    "kind": "card",
+    "sourceRect": [
+      45,
+      1020,
+      514,
+      119
+    ],
+    "target": "S14",
+    "action": "navigate",
+    "visualRect": [
+      20.57,
+      466.35,
+      235.01,
+      54.41
+    ],
+    "touchRect": [
+      20.57,
+      466.35,
+      235.01,
+      54.41
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S13",
+    "id": "favorite3",
+    "label": "표현 4 즐겨찾기",
+    "kind": "icon",
+    "sourceRect": [
+      566,
+      1055,
+      49,
+      51
+    ],
+    "target": null,
+    "action": "favorite:3",
+    "visualRect": [
+      258.78,
+      482.36,
+      22.4,
+      23.32
+    ],
+    "touchRect": [
+      245.98,
+      470.02,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "expression4",
+    "label": "핵심표현 5 상세",
+    "kind": "card",
+    "sourceRect": [
+      45,
+      1150,
+      514,
+      119
+    ],
+    "target": "S14",
+    "action": "navigate",
+    "visualRect": [
+      20.57,
+      525.79,
+      235.01,
+      54.41
+    ],
+    "touchRect": [
+      20.57,
+      525.79,
+      235.01,
+      54.41
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S13",
+    "id": "favorite4",
+    "label": "표현 5 즐겨찾기",
+    "kind": "icon",
+    "sourceRect": [
+      566,
+      1185,
+      49,
+      51
+    ],
+    "target": null,
+    "action": "favorite:4",
+    "visualRect": [
+      258.78,
+      541.79,
+      22.4,
+      23.32
+    ],
+    "touchRect": [
+      245.98,
+      529.45,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "expression5",
+    "label": "핵심표현 6 상세",
+    "kind": "card",
+    "sourceRect": [
+      45,
+      1280,
+      514,
+      119
+    ],
+    "target": "S14",
+    "action": "navigate",
+    "visualRect": [
+      20.57,
+      585.23,
+      235.01,
+      54.41
+    ],
+    "touchRect": [
+      20.57,
+      585.23,
+      235.01,
+      54.41
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S13",
+    "id": "favorite5",
+    "label": "표현 6 즐겨찾기",
+    "kind": "icon",
+    "sourceRect": [
+      566,
+      1315,
+      49,
+      51
+    ],
+    "target": null,
+    "action": "favorite:5",
+    "visualRect": [
+      258.78,
+      601.23,
+      22.4,
+      23.32
+    ],
+    "touchRect": [
+      245.98,
+      588.89,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "expression6",
+    "label": "핵심표현 7 상세",
+    "kind": "card",
+    "sourceRect": [
+      45,
+      1410,
+      514,
+      119
+    ],
+    "target": "S14",
+    "action": "navigate",
+    "visualRect": [
+      20.57,
+      644.67,
+      235.01,
+      54.41
+    ],
+    "touchRect": [
+      20.57,
+      644.67,
+      235.01,
+      54.41
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S13",
+    "id": "favorite6",
+    "label": "표현 7 즐겨찾기",
+    "kind": "icon",
+    "sourceRect": [
+      566,
+      1445,
+      49,
+      51
+    ],
+    "target": null,
+    "action": "favorite:6",
+    "visualRect": [
+      258.78,
+      660.67,
+      22.4,
+      23.32
+    ],
+    "touchRect": [
+      245.98,
+      648.33,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "expression7",
+    "label": "핵심표현 8 상세",
+    "kind": "card",
+    "sourceRect": [
+      45,
+      1540,
+      514,
+      119
+    ],
+    "target": "S14",
+    "action": "navigate",
+    "visualRect": [
+      20.57,
+      704.1,
+      235.01,
+      54.41
+    ],
+    "touchRect": [
+      20.57,
+      704.1,
+      235.01,
+      54.41
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S13",
+    "id": "favorite7",
+    "label": "표현 8 즐겨찾기",
+    "kind": "icon",
+    "sourceRect": [
+      566,
+      1575,
+      49,
+      51
+    ],
+    "target": null,
+    "action": "favorite:7",
+    "visualRect": [
+      258.78,
+      720.11,
+      22.4,
+      23.32
+    ],
+    "touchRect": [
+      245.98,
+      707.77,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S13",
+    "id": "add",
+    "label": "새 표현 추가",
+    "kind": "button",
+    "sourceRect": [
+      43,
+      1685,
+      604,
+      96
+    ],
+    "target": "S07",
+    "action": "new_expression",
+    "visualRect": [
+      19.66,
+      770.4,
+      276.15,
+      43.89
+    ],
+    "touchRect": [
+      19.66,
+      768.35,
+      276.15,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S14",
+    "id": "back",
+    "label": "내 핵심표현으로",
+    "kind": "icon",
+    "sourceRect": [
+      43,
+      52,
+      77,
+      81
+    ],
+    "target": "S13",
+    "action": "navigate",
+    "visualRect": [
+      19.66,
+      23.77,
+      35.21,
+      37.03
+    ],
+    "touchRect": [
+      13.27,
+      18.29,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S14",
+    "id": "favorite",
+    "label": "즐겨찾기",
+    "kind": "button",
+    "sourceRect": [
+      578,
+      415,
+      188,
+      70
+    ],
+    "target": null,
+    "action": "toggle:detail_favorite",
+    "visualRect": [
+      264.27,
+      189.74,
+      85.96,
+      32
+    ],
+    "touchRect": [
+      264.27,
+      181.74,
+      85.96,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S14",
+    "id": "edit",
+    "label": "표현 수정",
+    "kind": "button",
+    "sourceRect": [
+      48,
+      1417,
+      757,
+      102
+    ],
+    "target": "S07",
+    "action": "edit_expression",
+    "visualRect": [
+      21.95,
+      647.87,
+      346.11,
+      46.64
+    ],
+    "touchRect": [
+      21.95,
+      647.19,
+      346.11,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S14",
+    "id": "delete",
+    "label": "표현 삭제",
+    "kind": "button",
+    "sourceRect": [
+      49,
+      1535,
+      754,
+      101
+    ],
+    "target": "S27",
+    "action": "navigate",
+    "visualRect": [
+      22.4,
+      701.82,
+      344.74,
+      46.18
+    ],
+    "touchRect": [
+      22.4,
+      700.91,
+      344.74,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S14",
+    "id": "listen",
+    "label": "등록 표현 듣기",
+    "kind": "button",
+    "sourceRect": [
+      49,
+      1652,
+      754,
+      105
+    ],
+    "target": "O_LISTEN",
+    "action": "overlay",
+    "visualRect": [
+      22.4,
+      755.31,
+      344.74,
+      48.01
+    ],
+    "touchRect": [
+      22.4,
+      755.31,
+      344.74,
+      48.01
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S15",
+    "id": "reset",
+    "label": "교정 이력 전체 초기화",
+    "kind": "button",
+    "sourceRect": [
+      605,
+      76,
+      203,
+      62
+    ],
+    "target": "S22",
+    "action": "navigate",
+    "visualRect": [
+      276.61,
+      34.75,
+      92.81,
+      28.35
+    ],
+    "touchRect": [
+      276.61,
+      24.93,
+      92.81,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S15",
+    "id": "delete0",
+    "label": "승인 교정 1 삭제",
+    "kind": "icon",
+    "sourceRect": [
+      695,
+      815,
+      80,
+      82
+    ],
+    "target": "O_DELETE_CORRECTION",
+    "action": "overlay",
+    "visualRect": [
+      317.76,
+      372.63,
+      36.58,
+      37.49
+    ],
+    "touchRect": [
+      312.05,
+      367.38,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S15",
+    "id": "delete1",
+    "label": "승인 교정 2 삭제",
+    "kind": "icon",
+    "sourceRect": [
+      695,
+      1023,
+      80,
+      82
+    ],
+    "target": "O_DELETE_CORRECTION",
+    "action": "overlay",
+    "visualRect": [
+      317.76,
+      467.73,
+      36.58,
+      37.49
+    ],
+    "touchRect": [
+      312.05,
+      462.48,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S15",
+    "id": "delete2",
+    "label": "승인 교정 3 삭제",
+    "kind": "icon",
+    "sourceRect": [
+      695,
+      1224,
+      80,
+      82
+    ],
+    "target": "O_DELETE_CORRECTION",
+    "action": "overlay",
+    "visualRect": [
+      317.76,
+      559.62,
+      36.58,
+      37.49
+    ],
+    "touchRect": [
+      312.05,
+      554.37,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S15",
+    "id": "delete3",
+    "label": "승인 교정 4 삭제",
+    "kind": "icon",
+    "sourceRect": [
+      695,
+      1412,
+      80,
+      82
+    ],
+    "target": "O_DELETE_CORRECTION",
+    "action": "overlay",
+    "visualRect": [
+      317.76,
+      645.58,
+      36.58,
+      37.49
+    ],
+    "touchRect": [
+      312.05,
+      640.33,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S15",
+    "id": "delete4",
+    "label": "승인 교정 5 삭제",
+    "kind": "icon",
+    "sourceRect": [
+      695,
+      1611,
+      80,
+      82
+    ],
+    "target": "O_DELETE_CORRECTION",
+    "action": "overlay",
+    "visualRect": [
+      317.76,
+      736.57,
+      36.58,
+      37.49
+    ],
+    "touchRect": [
+      312.05,
+      731.32,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S15",
+    "id": "home",
+    "label": "홈 메뉴",
+    "kind": "link",
+    "sourceRect": [
+      59,
+      67,
+      266,
+      84
+    ],
+    "target": "O_MENU",
+    "action": "overlay",
+    "visualRect": [
+      26.98,
+      30.63,
+      121.62,
+      38.41
+    ],
+    "touchRect": [
+      26.98,
+      25.83,
+      121.62,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S16",
+    "id": "settings",
+    "label": "기기 마이크 설정으로",
+    "kind": "button",
+    "sourceRect": [
+      74,
+      1344,
+      705,
+      132
+    ],
+    "target": "O_PERMISSION",
+    "action": "overlay",
+    "visualRect": [
+      33.83,
+      614.49,
+      322.33,
+      60.35
+    ],
+    "touchRect": [
+      33.83,
+      614.49,
+      322.33,
+      60.35
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S16",
+    "id": "registered",
+    "label": "등록문장 선택",
+    "kind": "button",
+    "sourceRect": [
+      76,
+      1500,
+      702,
+      121
+    ],
+    "target": "S13",
+    "action": "navigate",
+    "visualRect": [
+      34.75,
+      685.81,
+      320.96,
+      55.32
+    ],
+    "touchRect": [
+      34.75,
+      685.81,
+      320.96,
+      55.32
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S16",
+    "id": "type",
+    "label": "직접 입력",
+    "kind": "button",
+    "sourceRect": [
+      76,
+      1639,
+      702,
+      121
+    ],
+    "target": "S11",
+    "action": "navigate",
+    "visualRect": [
+      34.75,
+      749.37,
+      320.96,
+      55.32
+    ],
+    "touchRect": [
+      34.75,
+      749.37,
+      320.96,
+      55.32
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S17",
+    "id": "again",
+    "label": "다시 말하기",
+    "kind": "button",
+    "sourceRect": [
+      82,
+      1196,
+      688,
+      133
+    ],
+    "target": "S09",
+    "action": "record",
+    "visualRect": [
+      37.49,
+      546.82,
+      314.56,
+      60.81
+    ],
+    "touchRect": [
+      37.49,
+      546.82,
+      314.56,
+      60.81
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S17",
+    "id": "edit",
+    "label": "직접 수정",
+    "kind": "button",
+    "sourceRect": [
+      83,
+      1355,
+      687,
+      131
+    ],
+    "target": "S11",
+    "action": "navigate",
+    "visualRect": [
+      37.95,
+      619.52,
+      314.1,
+      59.89
+    ],
+    "touchRect": [
+      37.95,
+      619.52,
+      314.1,
+      59.89
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S17",
+    "id": "registered",
+    "label": "등록문장 선택",
+    "kind": "button",
+    "sourceRect": [
+      82,
+      1510,
+      688,
+      132
+    ],
+    "target": "S13",
+    "action": "navigate",
+    "visualRect": [
+      37.49,
+      690.39,
+      314.56,
+      60.35
+    ],
+    "touchRect": [
+      37.49,
+      690.39,
+      314.56,
+      60.35
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S17",
+    "id": "back",
+    "label": "이전 단계로 돌아가기",
+    "kind": "link",
+    "sourceRect": [
+      250,
+      1680,
+      407,
+      103
+    ],
+    "target": "S08",
+    "action": "navigate",
+    "visualRect": [
+      114.3,
+      768.11,
+      186.08,
+      47.09
+    ],
+    "touchRect": [
+      114.3,
+      767.66,
+      186.08,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S17",
+    "id": "menu",
+    "label": "앱 메뉴",
+    "kind": "icon",
+    "sourceRect": [
+      739,
+      94,
+      79,
+      82
+    ],
+    "target": "O_MENU",
+    "action": "overlay",
+    "visualRect": [
+      337.88,
+      42.98,
+      36.12,
+      37.49
+    ],
+    "touchRect": [
+      331.94,
+      37.72,
+      48,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S18",
+    "id": "access",
+    "label": "접근성 설정",
+    "kind": "card",
+    "sourceRect": [
+      46,
+      529,
+      760,
+      148
+    ],
+    "target": "S04",
+    "action": "navigate",
+    "visualRect": [
+      21.03,
+      241.86,
+      347.48,
+      67.67
+    ],
+    "touchRect": [
+      21.03,
+      241.86,
+      347.48,
+      67.67
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S18",
+    "id": "tts",
+    "label": "TTS 설정",
+    "kind": "card",
+    "sourceRect": [
+      46,
+      682,
+      760,
+      150
+    ],
+    "target": "O_TTS",
+    "action": "overlay",
+    "visualRect": [
+      21.03,
+      311.82,
+      347.48,
+      68.58
+    ],
+    "touchRect": [
+      21.03,
+      311.82,
+      347.48,
+      68.58
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S18",
+    "id": "delete-data",
+    "label": "기기 데이터 삭제",
+    "kind": "card",
+    "sourceRect": [
+      46,
+      835,
+      760,
+      156
+    ],
+    "target": "O_DELETE_ALL",
+    "action": "overlay",
+    "visualRect": [
+      21.03,
+      381.77,
+      347.48,
+      71.32
+    ],
+    "touchRect": [
+      21.03,
+      381.77,
+      347.48,
+      71.32
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S18",
+    "id": "privacy",
+    "label": "개인정보 처리방침",
+    "kind": "card",
+    "sourceRect": [
+      46,
+      1107,
+      760,
+      148
+    ],
+    "target": "O_PRIVACY",
+    "action": "overlay",
+    "visualRect": [
+      21.03,
+      506.13,
+      347.48,
+      67.67
+    ],
+    "touchRect": [
+      21.03,
+      506.13,
+      347.48,
+      67.67
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S18",
+    "id": "help",
+    "label": "서비스 사용법",
+    "kind": "card",
+    "sourceRect": [
+      46,
+      1258,
+      760,
+      150
+    ],
+    "target": "S02",
+    "action": "navigate",
+    "visualRect": [
+      21.03,
+      575.17,
+      347.48,
+      68.58
+    ],
+    "touchRect": [
+      21.03,
+      575.17,
+      347.48,
+      68.58
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S18",
+    "id": "contact",
+    "label": "문의하기",
+    "kind": "card",
+    "sourceRect": [
+      46,
+      1411,
+      760,
+      150
+    ],
+    "target": "O_CONTACT",
+    "action": "overlay",
+    "visualRect": [
+      21.03,
+      645.12,
+      347.48,
+      68.58
+    ],
+    "touchRect": [
+      21.03,
+      645.12,
+      347.48,
+      68.58
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S19",
+    "id": "catalog",
+    "label": "말친구 도감 보기",
+    "kind": "button",
+    "sourceRect": [
+      104,
+      1649,
+      645,
+      90
+    ],
+    "target": "O_CATALOG",
+    "action": "overlay",
+    "visualRect": [
+      47.55,
+      753.94,
+      294.9,
+      41.15
+    ],
+    "touchRect": [
+      47.55,
+      750.52,
+      294.9,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S19",
+    "id": "guide",
+    "label": "리워드 안내",
+    "kind": "link",
+    "sourceRect": [
+      301,
+      1750,
+      272,
+      61
+    ],
+    "target": "O_REWARD",
+    "action": "overlay",
+    "visualRect": [
+      137.62,
+      800.12,
+      124.36,
+      27.89
+    ],
+    "touchRect": [
+      137.62,
+      790.07,
+      124.36,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S19",
+    "id": "register",
+    "label": "표현 등록 미션",
+    "kind": "icon",
+    "sourceRect": [
+      654,
+      756,
+      126,
+      125
+    ],
+    "target": "S07",
+    "action": "navigate",
+    "visualRect": [
+      299.02,
+      345.65,
+      57.61,
+      57.15
+    ],
+    "touchRect": [
+      299.02,
+      345.65,
+      57.61,
+      57.15
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S19",
+    "id": "approve",
+    "label": "문장 승인 미션",
+    "kind": "icon",
+    "sourceRect": [
+      654,
+      956,
+      126,
+      124
+    ],
+    "target": "S08",
+    "action": "navigate",
+    "visualRect": [
+      299.02,
+      437.09,
+      57.61,
+      56.69
+    ],
+    "touchRect": [
+      299.02,
+      437.09,
+      57.61,
+      56.69
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S19",
+    "id": "streak",
+    "label": "연속 사용 미션",
+    "kind": "icon",
+    "sourceRect": [
+      654,
+      1157,
+      126,
+      130
+    ],
+    "target": "O_REWARD",
+    "action": "overlay",
+    "visualRect": [
+      299.02,
+      528.99,
+      57.61,
+      59.44
+    ],
+    "touchRect": [
+      299.02,
+      528.99,
+      57.61,
+      59.44
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S20",
+    "id": "set",
+    "label": "대표 캐릭터로 설정",
+    "kind": "button",
+    "sourceRect": [
+      87,
+      1420,
+      678,
+      113
+    ],
+    "target": "S08",
+    "action": "select_character",
+    "visualRect": [
+      39.78,
+      649.24,
+      309.99,
+      51.66
+    ],
+    "touchRect": [
+      39.78,
+      649.24,
+      309.99,
+      51.66
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S20",
+    "id": "catalog",
+    "label": "도감에서 보기",
+    "kind": "button",
+    "sourceRect": [
+      89,
+      1558,
+      678,
+      114
+    ],
+    "target": "O_CATALOG",
+    "action": "overlay",
+    "visualRect": [
+      40.69,
+      712.33,
+      309.99,
+      52.12
+    ],
+    "touchRect": [
+      40.69,
+      712.33,
+      309.99,
+      52.12
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S20",
+    "id": "later",
+    "label": "나중에 할게요",
+    "kind": "link",
+    "sourceRect": [
+      307,
+      1710,
+      293,
+      64
+    ],
+    "target": "S08",
+    "action": "navigate",
+    "visualRect": [
+      140.36,
+      781.83,
+      133.96,
+      29.26
+    ],
+    "touchRect": [
+      140.36,
+      772.46,
+      133.96,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  },
+  {
+    "screen": "S21",
+    "id": "unapprove",
+    "label": "승인 취소",
+    "kind": "checkbox",
+    "sourceRect": [
+      50,
+      856,
+      753,
+      166
+    ],
+    "target": "S12",
+    "action": "unapprove",
+    "visualRect": [
+      22.86,
+      391.37,
+      344.28,
+      75.9
+    ],
+    "touchRect": [
+      22.86,
+      391.37,
+      344.28,
+      75.9
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S21",
+    "id": "edit",
+    "label": "보낼 문장 다시 수정",
+    "kind": "card",
+    "sourceRect": [
+      50,
+      415,
+      753,
+      408
+    ],
+    "target": "S11",
+    "action": "edit_reset",
+    "visualRect": [
+      22.86,
+      189.74,
+      344.28,
+      186.54
+    ],
+    "touchRect": [
+      22.86,
+      189.74,
+      344.28,
+      186.54
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S21",
+    "id": "share-system",
+    "label": "시스템 공유",
+    "kind": "button",
+    "sourceRect": [
+      50,
+      1362,
+      234,
+      165
+    ],
+    "target": "O_SHARE",
+    "action": "share_gate",
+    "visualRect": [
+      22.86,
+      622.72,
+      106.99,
+      75.44
+    ],
+    "touchRect": [
+      22.86,
+      622.72,
+      106.99,
+      75.44
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S21",
+    "id": "copy",
+    "label": "텍스트 복사",
+    "kind": "button",
+    "sourceRect": [
+      307,
+      1362,
+      235,
+      165
+    ],
+    "target": "O_COPIED",
+    "action": "share_gate",
+    "visualRect": [
+      140.36,
+      622.72,
+      107.44,
+      75.44
+    ],
+    "touchRect": [
+      140.36,
+      622.72,
+      107.44,
+      75.44
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S21",
+    "id": "message",
+    "label": "메시지 공유",
+    "kind": "button",
+    "sourceRect": [
+      563,
+      1362,
+      240,
+      165
+    ],
+    "target": "O_SHARE",
+    "action": "share_gate",
+    "visualRect": [
+      257.41,
+      622.72,
+      109.73,
+      75.44
+    ],
+    "touchRect": [
+      257.41,
+      622.72,
+      109.73,
+      75.44
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S21",
+    "id": "share",
+    "label": "공유하기",
+    "kind": "button",
+    "sourceRect": [
+      50,
+      1553,
+      752,
+      135
+    ],
+    "target": "O_SHARE",
+    "action": "share_gate",
+    "visualRect": [
+      22.86,
+      710.05,
+      343.82,
+      61.72
+    ],
+    "touchRect": [
+      22.86,
+      710.05,
+      343.82,
+      61.72
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 영역이 최소 터치 기준 이상"
+  },
+  {
+    "screen": "S21",
+    "id": "home",
+    "label": "홈으로",
+    "kind": "button",
+    "sourceRect": [
+      300,
+      1706,
+      256,
+      84
+    ],
+    "target": "S08",
+    "action": "navigate",
+    "visualRect": [
+      137.16,
+      780,
+      117.05,
+      38.41
+    ],
+    "touchRect": [
+      137.16,
+      775.21,
+      117.05,
+      48
+    ],
+    "frameSize": [
+      390,
+      843.09
+    ],
+    "coordinateSource": "디자이너 PDF 내장 이미지, 853×1844 → 390 비율 환산",
+    "touchNote": "시각 위치 보존. 개발 시 겹치지 않는 48dp 터치 영역 확보"
+  }
+]

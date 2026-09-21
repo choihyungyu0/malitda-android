@@ -1,0 +1,40 @@
+{
+  "tokens": {
+    "blue": "#515AFF",
+    "purple": "#B34EFF",
+    "ink": "#152346",
+    "muted": "#667085",
+    "surface": "#FFFFFF",
+    "canvas": "#FFFDFA",
+    "tint": "#F4EEFF",
+    "line": "#DDD7E9",
+    "accent": "#7142E8",
+    "danger": "#E8396D",
+    "disabled": "#DDD3EA",
+    "teal": "#00CDBA",
+    "space4": 4,
+    "space8": 8,
+    "space16": 16,
+    "space24": 24,
+    "radius12": 12,
+    "radius20": 20,
+    "radius28": 28,
+    "touch48": 48,
+    "button56": 56
+  },
+  "fontFamily": "Noto Sans KR",
+  "typeScale": {
+    "title": 26,
+    "button": 20,
+    "body": 16,
+    "label": 14
+  },
+  "referenceImage": [
+    853,
+    1844
+  ],
+  "referenceFrame": [
+    390,
+    843.094958968347
+  ]
+}
