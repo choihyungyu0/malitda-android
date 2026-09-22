@@ -261,7 +261,14 @@ fun MalitdaFaithfulApp(vm: SessionViewModel, start: String = "S01") {
             onDefault = { vm.resetAccessibility(); quick = false; toast("기본값으로 되돌렸어요") },
         )
         "S16" -> S16Permission(
-            onSettings = { micPermLauncher.launch(Manifest.permission.RECORD_AUDIO) },
+            onSettings = {
+                ctx.startActivity(
+                    android.content.Intent(
+                        android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                        android.net.Uri.fromParts("package", ctx.packageName, null),
+                    ),
+                )
+            },
             onRegistered = { route = "S13" },
             onType = { vm.startDirectInput() },
         )

@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -97,7 +100,9 @@ fun FaithfulFrame(
     content: @Composable FrameScope.() -> Unit,
 ) {
     Surface(color = canvas, modifier = modifier.fillMaxSize()) {
-        BoxWithConstraints(Modifier.fillMaxSize()) {
+        // 캔버스(배경색)는 화면 끝까지 채우되, 프레임(디자인 좌표계)은 시스템 바(상태·내비게이션)를
+        // 제외한 안전영역에 맞춘다 → 짧은 화면(16:9)에서도 하단 버튼이 내비게이션 바에 가리지 않음.
+        BoxWithConstraints(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.systemBars)) {
             val density = LocalDensity.current
             val availW: Float; val availH: Float
             with(density) { availW = maxWidth.toPx(); availH = maxHeight.toPx() }

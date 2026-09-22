@@ -56,7 +56,7 @@ fun S18Settings(
         T("앱 사용 환경을 설정하고,\n도움이 필요할 때 확인해 보세요.", 23f, 153f, 286f, 14f, FontWeight.Normal, color = MalMuted)
         T("설정", 23f, 216f, 242f, 18f, FontWeight.Bold, color = MalInk)
         T("도움말 & 정보", 22f, 481f, 292f, 18f, FontWeight.Bold, color = MalInk)
-        T("버전 1.0.0", 37f, 789f, 223f, 12f, FontWeight.Normal, color = Color(0xFF8B8795))
+        T("버전 0.1.1", 37f, 789f, 223f, 12f, FontWeight.Normal, color = Color(0xFF8B8795))
 
         // 행
         rows.forEach { r ->

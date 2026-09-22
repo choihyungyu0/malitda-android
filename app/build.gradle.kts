@@ -20,8 +20,8 @@ android {
         applicationId = "kr.voicemate.malitda"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 2
+        versionName = "0.1.1"
         vectorDrawables { useSupportLibrary = true }
         // 제출용 빌드: -PsubmitAbis=arm 이면 x86_64(에뮬레이터용)를 뺀다
         val arm = listOf("arm64-v8a", "armeabi-v7a")
