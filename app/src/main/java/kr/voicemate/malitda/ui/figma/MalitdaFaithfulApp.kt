@@ -1,7 +1,12 @@
 package kr.voicemate.malitda.ui.figma
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -68,11 +73,18 @@ fun MalitdaFaithfulApp(vm: SessionViewModel, start: String = "S01") {
     val regCat = Category.fromKey(regCatKey)
     val s13Filter = if (s13FilterKey.isBlank()) null else Category.fromKey(s13FilterKey)
 
+    // 실제 마이크 권한(RECORD_AUDIO) 런처: 허용 시 인식 시작, 거부 시 대체 안내(S16)로.
+    val micPermLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        if (granted) { route = "S09"; vm.startListening() } else route = "S16"
+    }
+    fun hasMic() = ContextCompat.checkSelfPermission(ctx, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+
     fun startMic() {
-        route = "S09"
         val files = vm.testAudioFiles()
-        if (files.isNotEmpty()) vm.recognizeTestFile(if ("weather.wav" in files) "weather.wav" else files.first())
-        else vm.startListening()
+        // 에뮬레이터 등 평가음원이 있으면 마이크 없이 같은 인식 흐름을 탄다.
+        if (files.isNotEmpty()) { route = "S09"; vm.recognizeTestFile(if ("weather.wav" in files) "weather.wav" else files.first()); return }
+        // 실기기: 권한이 있으면 바로 인식, 없으면 권한 요청 후 허용 콜백에서 인식 시작.
+        if (hasMic()) { route = "S09"; vm.startListening() } else micPermLauncher.launch(Manifest.permission.RECORD_AUDIO)
     }
 
     fun goRegisterForm(cat: Category) { regEditId = -1L; regCatKey = cat.key; regTitle = ""; regContent = ""; route = "S07" }
@@ -249,7 +261,7 @@ fun MalitdaFaithfulApp(vm: SessionViewModel, start: String = "S01") {
             onDefault = { vm.resetAccessibility(); quick = false; toast("기본값으로 되돌렸어요") },
         )
         "S16" -> S16Permission(
-            onSettings = { toast("기기 설정에서 마이크를 허용해 주세요") },
+            onSettings = { micPermLauncher.launch(Manifest.permission.RECORD_AUDIO) },
             onRegistered = { route = "S13" },
             onType = { vm.startDirectInput() },
         )
