@@ -1,0 +1,68 @@
+{
+  "_comment": "말잇다 구현정본(Figma dev-master) 노드 맵. get_design_context/get_metadata 호출 시 nodeId로 사용. fileKey 고정.",
+  "fileKey": "rRl8r1ktRCzPcKl5jyu7uR",
+  "pages": {
+    "12_devmaster_root_subtree": "86:2",
+    "13_assets_icons_backgrounds": "91:382",
+    "14_handoff_and_qa": "104:2",
+    "ref_v2_buttons_mic": "28:6",
+    "ref_v2_input_selection": "28:7"
+  },
+  "handoff": {
+    "impl_rules_frame": "104:8",
+    "start_guide_frame": "104:3",
+    "s13_qa_full": "104:14",
+    "s13_qa_bg_hidden": "104:144"
+  },
+  "components": {
+    "button": {"set": "31:12", "primary": "31:2", "pressed": "31:4", "secondary": "31:6", "danger": "31:8", "disabled": "31:10"},
+    "iconButton": {"set": "31:36", "back": "31:13", "listen": "31:16", "edit": "31:20", "delete": "31:23", "share": "31:26", "settings": "31:32"},
+    "micButton": {"set": "31:52", "idle": "31:37", "recording": "31:42", "disabled": "31:47"},
+    "input": {"set": "31:61", "default": "31:53", "focused": "31:55", "error": "31:57", "disabled": "31:59"},
+    "checkbox": {"set": "31:70", "off": "31:62", "on": "31:65"},
+    "switch": {"set": "31:77", "off": "31:71", "on": "31:74"},
+    "tab": {"set": "31:82", "default": "31:78", "selected": "31:80"},
+    "candidate": {"set": "31:89", "default": "31:83", "selected": "31:86"}
+  },
+  "screens": {
+    "S01": {"node": "86:135", "name": "S01 · 스플래시/시작"},
+    "S02": {"node": "86:141", "name": "S02 · 시작 안내"},
+    "S03": {"node": "86:147", "name": "S03 · 안내·동의", "status": "네이티브 완료"},
+    "S04": {"node": "86:153", "name": "S04 · 접근성 설정"},
+    "S05": {"node": "86:159", "name": "S05 · 핵심표현 등록"},
+    "S06": {"node": "86:165", "name": "S06 · 표현 템플릿"},
+    "S07": {"node": "86:171", "name": "S07 · 표현 추가/카테고리"},
+    "S08": {"node": "86:177", "name": "S08 · 홈"},
+    "S09": {"node": "86:183", "name": "S09 · 말하기"},
+    "S10": {"node": "86:189", "name": "S10 · 인식 중"},
+    "S11": {"node": "86:195", "name": "S11 · 인식 확인·후보"},
+    "S12": {"node": "86:201", "name": "S12 · 문장 확인·수정"},
+    "S13": {"node": "86:207", "name": "S13 · 내 핵심표현(홈 목록)"},
+    "S14": {"node": "86:213", "name": "S14 · 표현 상세"},
+    "S15": {"node": "86:219", "name": "S15 · 교정 이력"},
+    "S16": {"node": "86:225", "name": "S16 · 마이크 권한"},
+    "S17": {"node": "86:231", "name": "S17 · 인식 결과 없음"},
+    "S18": {"node": "86:237", "name": "S18 · 설정"},
+    "S19": {"node": "86:243", "name": "S19 · 친구 초대"},
+    "S20": {"node": "86:249", "name": "S20 · 새로운 친구"},
+    "S21": {"node": "86:255", "name": "S21 · 승인 완료/공유"},
+    "S22": {"node": "86:261", "name": "S22 · 교정 이력 안내"},
+    "S23": {"node": "86:267", "name": "S23 · 음성 인식 불가 안내"},
+    "S24": {"node": "86:273", "name": "S24 · 음성 읽기 불가 안내"},
+    "S25": {"node": "86:279", "name": "S25 · 자주 쓰는 표현 안내"},
+    "S26": {"node": "86:285", "name": "S26 · 문장 유지 안내"},
+    "S27": {"node": "86:291", "name": "S27 · 표현 삭제 확인"}
+  },
+  "dialogs": {
+    "O_CATALOG": "86:3", "O_CATEGORY": "86:9", "O_CONSENT": "86:15", "O_CONTACT": "86:21",
+    "O_COPIED": "86:27", "O_DELETE_ALL": "86:33", "O_DELETE_CORRECTION": "86:39",
+    "O_EDIT_EXPRESSION": "86:45", "O_EDIT_MESSAGE": "86:51", "O_EDIT_TITLE": "86:57",
+    "O_FONT": "86:63", "O_INPUT_ERROR": "86:69", "O_LISTEN": "86:75", "O_MENU": "86:81",
+    "O_PERMISSION": "86:87", "O_PRIVACY": "86:93", "O_REWARD": "86:99",
+    "O_SEARCH_EXPRESSION": "86:105", "O_SEARCH_TEMPLATE": "86:111", "O_SHARE": "86:117",
+    "O_TTS": "86:123", "O_VOICE_REGISTER": "86:129"
+  },
+  "fields": {
+    "title": "94:2", "expression": "94:4", "message": "94:6", "query": "94:10"
+  }
+}

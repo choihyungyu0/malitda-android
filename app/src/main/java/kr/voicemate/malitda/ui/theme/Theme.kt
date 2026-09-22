@@ -49,7 +49,8 @@ fun MalitdaTheme(
     content: @Composable () -> Unit,
 ) {
     val base = LocalDensity.current
-    val density = Density(base.density, base.fontScale * fontScale)
+    // 기기 시스템 글꼴 크기는 무시하고 앱 내 설정만 반영(픽셀 고정 레이아웃 보호).
+    val density = Density(base.density, fontScale)
     CompositionLocalProvider(LocalDensity provides density, LocalA11y provides a11y) {
         MaterialTheme(colorScheme = LightScheme, typography = MalitdaTypography, shapes = MalitdaShapes, content = content)
     }

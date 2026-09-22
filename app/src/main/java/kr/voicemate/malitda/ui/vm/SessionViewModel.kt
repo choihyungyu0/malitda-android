@@ -12,11 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import kr.voicemate.malitda.data.db.CounterEntity
+import kr.voicemate.malitda.data.db.ExpressionEntity
+import kr.voicemate.malitda.data.repo.ExpressionRepository
 import kr.voicemate.malitda.data.settings.Settings
 import kr.voicemate.malitda.di.AppContainer
 import kr.voicemate.malitda.domain.Approval
 import kr.voicemate.malitda.domain.Candidate
 import kr.voicemate.malitda.domain.CandidateBuilder
+import kr.voicemate.malitda.domain.Category
 import kr.voicemate.malitda.domain.Friends
 import kr.voicemate.malitda.domain.MalFriend
 import kr.voicemate.malitda.stt.PrepareState
@@ -84,6 +87,14 @@ class SessionViewModel(val c: AppContainer) : ViewModel() {
         .stateIn(viewModelScope, SharingStarted.Eagerly, "")
     val counters: StateFlow<CounterEntity?> = _profileId.flatMapLatest { c.counters.observe(it) }
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
+    val expressions: StateFlow<List<ExpressionEntity>> = _profileId.flatMapLatest { c.expressions.observeAll(it) }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+    val recentExpressions: StateFlow<List<ExpressionEntity>> = _profileId.flatMapLatest { c.expressions.observeRecent(it, 3) }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+    val expressionCount: StateFlow<Int> = _profileId.flatMapLatest { c.expressions.observeCount(it) }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, 0)
+    val corrections: StateFlow<List<kr.voicemate.malitda.data.db.CorrectionEntity>> = _profileId.flatMapLatest { c.corrections.observeAll(it) }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
     val prepareState: StateFlow<PrepareState> = c.stt.prepareState
     val ttsState = c.tts.state
     val ttsProgress = c.tts.progress
@@ -323,6 +334,28 @@ class SessionViewModel(val c: AppContainer) : ViewModel() {
         viewModelScope.launch { c.counters.onShare(_profileId.value) }
         _events.tryEmit(SessionEvent.GoAfterShare)
     }
+
+    // ---------- 핵심표현(등록·목록) ----------
+    fun saveExpression(id: Long?, category: Category, label: String, text: String, onResult: (ExpressionRepository.SaveResult) -> Unit = {}) {
+        viewModelScope.launch {
+            val r = c.expressions.save(_profileId.value, id, category, label, text)
+            if (r is ExpressionRepository.SaveResult.Ok && (id == null || id == 0L)) c.counters.onExpressionAdded(_profileId.value)
+            onResult(r)
+        }
+    }
+    fun deleteExpression(id: Long) { viewModelScope.launch { c.expressions.delete(id) } }
+    fun toggleFavorite(id: Long) { viewModelScope.launch { c.expressions.toggleFavorite(id) } }
+
+    // ---------- 접근성 설정 ----------
+    fun setFontScale(v: Float) { viewModelScope.launch { c.settings.setFontScale(v) } }
+    fun setTtsRate(v: Float) { viewModelScope.launch { c.settings.setTtsRate(v) } }
+    fun setHaptics(v: Boolean) { viewModelScope.launch { c.settings.setHaptics(v) } }
+    fun setVisualEmphasis(v: Boolean) { viewModelScope.launch { c.settings.setVisualEmphasis(v) } }
+    fun resetAccessibility() { viewModelScope.launch { c.settings.setFontScale(1f); c.settings.setTtsRate(1f); c.settings.setHaptics(true); c.settings.setVisualEmphasis(false) } }
+
+    // ---------- 교정 이력 ----------
+    fun deleteCorrection(id: Long) { viewModelScope.launch { c.corrections.delete(id) } }
+    fun resetCorrections() { viewModelScope.launch { c.corrections.deleteAll(_profileId.value) } }
 
     // ---------- TTS ----------
     fun speak(text: String) {

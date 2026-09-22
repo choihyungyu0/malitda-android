@@ -1,0 +1,25 @@
+<!-- 디자이너 원본 SVG(ICON/globe) → Android 벡터 드로어블 무손실 변환. 52x52. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="52dp"
+    android:height="52dp"
+    android:viewportWidth="52"
+    android:viewportHeight="52">
+    <path
+        android:pathData="M26 47.6667C37.9662 47.6667 47.6667 37.9662 47.6667 26C47.6667 14.0338 37.9662 4.33333 26 4.33333C14.0338 4.33333 4.33333 14.0338 4.33333 26C4.33333 37.9662 14.0338 47.6667 26 47.6667Z"
+        android:strokeColor="#2784FF"
+        android:strokeWidth="3.9"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M26 47.6667C30.7865 47.6667 34.6667 37.9662 34.6667 26C34.6667 14.0338 30.7865 4.33333 26 4.33333C21.2135 4.33333 17.3333 14.0338 17.3333 26C17.3333 37.9662 21.2135 47.6667 26 47.6667Z"
+        android:strokeColor="#2784FF"
+        android:strokeWidth="3.9"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M6.5 17.3333H45.5M6.5 34.6667H45.5"
+        android:strokeColor="#2784FF"
+        android:strokeWidth="3.9"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

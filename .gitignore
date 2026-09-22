@@ -23,3 +23,12 @@ app/src/main/assets/whisper/
 
 # 제출용 APK 산출물
 dist/
+
+# 디자인 원본·참조 이미지(대용량, Figma에서 재추출 가능) — 앱 빌드/실행에 불필요.
+# 경량 핸드오프 문서(*.md, *.json, *.csv)와 tools/는 커밋한다.
+design/reference-screens/
+design/brand-assets/
+design/figma/
+design/devmaster/
+design/previews/
+design/ui-assets/

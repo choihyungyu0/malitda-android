@@ -24,8 +24,8 @@ class MainActivity : ComponentActivity() {
                 fontScale = settings.fontScale,
                 a11y = A11yPrefs(visualEmphasis = settings.visualEmphasis, haptics = settings.haptics, ttsRate = settings.ttsRate),
             ) {
-                // Figma 목업 이미지를 그대로 쓰는 이미지 기반 화면(디자이너 프로토타입 방식)
-                FigmaApp(vm, start = "S01")
+                // 구현정본 네이티브 앱 — 온보딩→홈→말하기 흐름(실 STT·승인·공유 연결)
+                kr.voicemate.malitda.ui.figma.MalitdaFaithfulApp(vm)
             }
         }
     }

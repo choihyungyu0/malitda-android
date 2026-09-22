@@ -1,0 +1,10 @@
+<!-- S08 리워드 하트(8px, 원본 SVG가 빈 인스턴스라 수동 작성). 채워진 분홍 하트. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="8dp"
+    android:height="8dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M12 20.5C11.6 20.5 4 15.2 4 9.4C4 6.9 6 5 8.3 5C9.9 5 11.3 5.9 12 7.2C12.7 5.9 14.1 5 15.7 5C18 5 20 6.9 20 9.4C20 15.2 12.4 20.5 12 20.5Z"
+        android:fillColor="#FF6FA6" />
+</vector>

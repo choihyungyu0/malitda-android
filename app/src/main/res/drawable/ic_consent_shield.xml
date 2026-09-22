@@ -1,0 +1,26 @@
+<!-- 디자이너 원본 SVG(ICON/shield) → Android 벡터 드로어블 무손실 변환. 52x52. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="52dp"
+    android:height="52dp"
+    android:viewportWidth="52"
+    android:viewportHeight="52">
+    <path
+        android:pathData="M26 2.16667L6.5 10.8333V26C6.5 36.8333 26 49.8333 26 49.8333C26 49.8333 45.5 36.8333 45.5 26V10.8333L26 2.16667Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="6.5" android:startY="2.16667"
+                android:endX="45.5" android:endY="2.16667"
+                android:type="linear">
+                <item android:offset="0" android:color="#FF00BDB0" />
+                <item android:offset="1" android:color="#BF00BDB0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M15.1667 26L23.8333 34.6667L36.8333 19.5"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.9"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

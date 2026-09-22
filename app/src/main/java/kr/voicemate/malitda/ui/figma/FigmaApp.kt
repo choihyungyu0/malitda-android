@@ -113,11 +113,19 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
             a == "approve" -> go("S21")
             a == "unapprove" -> go("S12")
             a.startsWith("share_gate") -> {
-                runCatching {
-                    val send = Intent(Intent.ACTION_SEND).apply { type = "text/plain"; putExtra(Intent.EXTRA_TEXT, "와, 오늘 날씨 너무 좋다!") }
-                    context.startActivity(Intent.createChooser(send, "공유할 앱 선택"))
+                val sentence = inputs["S11/content"].orEmpty().trim()
+                if (sentence.isBlank()) Toast.makeText(context, "먼저 문장을 확인해 주세요", Toast.LENGTH_SHORT).show()
+                else {
+                    if (s.id == "copy") {
+                        val cm = context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                        cm.setPrimaryClip(android.content.ClipData.newPlainText("말잇다", sentence))
+                        if (android.os.Build.VERSION.SDK_INT < 33) Toast.makeText(context, "복사했어요", Toast.LENGTH_SHORT).show()
+                    } else runCatching {
+                        val send = Intent(Intent.ACTION_SEND).apply { type = "text/plain"; putExtra(Intent.EXTRA_TEXT, sentence) }
+                        context.startActivity(Intent.createChooser(send, "공유할 앱 선택").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    }
+                    go("S26")
                 }
-                go("S26")
             }
             a == "save_expression" -> {
                 val title = inputs["S07/title"].orEmpty()
@@ -174,6 +182,25 @@ fun FigmaApp(vm: SessionViewModel, start: String = "S01") {
                             .offset((s.x * w).dp, (s.y * h).dp)
                             .requiredSize((s.w * w).dp, (s.h * h).dp),
                     )
+                }
+                // S12/S21: 이미지의 고정 예시 문장을 덮고, S11에서 확인·수정한 실제 문장을 표시.
+                if (current == "S12" || current == "S21") {
+                    val sentence = inputs["S11/content"].orEmpty().trim()
+                    Box(
+                        Modifier
+                            .offset((0.09f * w).dp, (0.255f * h).dp)
+                            .requiredSize((0.82f * w).dp, (0.155f * h).dp)
+                            .background(Color(0xFFF9F6FC))
+                            .padding(horizontal = 12.dp),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        androidx.compose.material3.Text(
+                            if (sentence.isBlank()) "확인할 문장이 없어요" else "“ $sentence ”",
+                            color = if (sentence.isBlank()) Color(0xFF9A93AC) else Color(0xFF081F45),
+                            fontSize = 20.sp, textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, lineHeight = 28.sp,
+                        )
+                    }
                 }
                 // S07 카테고리 칸: 이미지의 고정 "시간"을 덮고 선택한 카테고리(아이콘+이름)를 표시.
                 if (current == "S07") {
