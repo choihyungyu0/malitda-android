@@ -40,11 +40,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.drawOutline
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -78,8 +83,8 @@ val LocalPilotComplete = androidx.compose.runtime.staticCompositionLocalOf<(() -
 val LocalPilotStop = androidx.compose.runtime.staticCompositionLocalOf<(() -> Unit)?> { null }
 object V2C {
     var highContrast by androidx.compose.runtime.mutableStateOf(false)
-    val BgTop get() = if (highContrast) Color(0xFFFFFFFF) else Color(0xFFF7F4FD)
-    val BgBottom get() = if (highContrast) Color(0xFFFFFFFF) else Color(0xFFEFECF8)
+    val BgTop get() = if (highContrast) Color(0xFFFFFFFF) else Color(0xFFFDFAF6)
+    val BgBottom get() = if (highContrast) Color(0xFFFFFFFF) else Color(0xFFF8F4FA)
     val Title get() = if (highContrast) Color(0xFF321168) else Color(0xFF7B4FF0)
     val Ink get() = if (highContrast) Color(0xFF111111) else Color(0xFF2E2E4A)
     val Muted get() = if (highContrast) Color(0xFF333333) else Color(0xFF625A76)
@@ -95,6 +100,79 @@ object V2C {
 }
 
 val V2Gradient get() = Brush.horizontalGradient(listOf(V2C.GradStart, V2C.GradEnd))
+
+/** Paint-only porcelain finish: no size, padding, hit target, or state changes. */
+internal fun Modifier.v2PorcelainFinish(shape: Shape, enabled: Boolean = true, lavenderBase: Boolean = false): Modifier {
+    if (V2C.highContrast || !enabled) return this
+    return drawWithCache {
+        val outline = shape.createOutline(size, layoutDirection, this)
+        val glaze = Brush.verticalGradient(
+            listOf(Color.White.copy(alpha = 0.38f), Color.White.copy(alpha = 0.04f), if (lavenderBase) Color(0xFFE8E1F7).copy(alpha = 0.14f) else Color.White.copy(alpha = 0.14f)),
+        )
+        onDrawWithContent {
+            drawOutline(outline, glaze)
+            drawOutline(outline, Color.White.copy(alpha = 0.68f), style = Stroke(0.8.dp.toPx()))
+            drawContent()
+        }
+    }
+}
+
+/** Low-opacity glaze stays behind button content and is disabled in high contrast. */
+internal fun Modifier.v2ButtonGlaze(shape: Shape, enabled: Boolean = true): Modifier {
+    if (V2C.highContrast || !enabled) return this
+    return drawWithCache {
+        val outline = shape.createOutline(size, layoutDirection, this)
+        val glaze = Brush.verticalGradient(
+            listOf(Color.White.copy(alpha = 0.035f), Color.Transparent, Color(0xFF321168).copy(alpha = 0.045f)),
+        )
+        onDrawWithContent {
+            // Keep the gradient tokens unchanged; dim only this enabled button's reading surface.
+            drawOutline(outline, Color.Black.copy(alpha = 0.13f))
+            drawOutline(outline, glaze)
+            drawOutline(outline, Color.White.copy(alpha = 0.24f), style = Stroke(0.8.dp.toPx()))
+            drawContent()
+        }
+    }
+}
+
+/** Original microphone face: a shallow upper light and inner rim, without animation. */
+internal fun Modifier.v2MicrophoneResin(): Modifier {
+    if (V2C.highContrast) return this
+    return drawWithCache {
+        val outline = CircleShape.createOutline(size, layoutDirection, this)
+        // A continuous curved reflection replaces the previous horizontal reading shade.
+        // At y >= 20%, the radial falloff contributes less than 3.5% white behind glyphs.
+        val upperLight = Brush.radialGradient(
+            0f to Color.White.copy(alpha = 0.10f),
+            0.15f to Color.White.copy(alpha = 0.035f),
+            1f to Color.Transparent,
+            center = Offset(size.width * 0.19f, size.height * 0.08f),
+            radius = size.minDimension * 0.60f,
+        )
+        onDrawWithContent {
+            drawOutline(outline, upperLight)
+            drawOutline(outline, Color.White.copy(alpha = 0.32f), style = Stroke(1.dp.toPx()))
+            drawContent()
+        }
+    }
+}
+
+/** Apply only to the decorative image; the parent draws native icon/text siblings afterward. */
+internal fun Modifier.v2MicAssetWash(): Modifier {
+    if (V2C.highContrast) return this
+    return drawWithCache {
+        val wash = Brush.radialGradient(
+            0f to Color(0xFF7535CC).copy(alpha = 0.40f),
+            1f to Color.Transparent,
+            center = Offset(size.width * 0.80f, size.height * 0.68f),
+            radius = size.minDimension * 0.42f,
+        )
+        onDrawWithContent {
+            drawContent()
+            drawRect(wash)
+        }
+    }
+}
 
 fun jua(size: Int, color: Color, lineMul: Float = 1.35f) = TextStyle(
     fontFamily = JuaV2, fontWeight = FontWeight.Normal,
@@ -155,6 +233,7 @@ fun V2Header(onBack: (() -> Unit)? = null, onHelp: () -> Unit, logoStart: Boolea
                     .shadow(3.dp, CircleShape, clip = false, spotColor = V2C.Shadow)
                     .background(V2C.Surface, CircleShape)
                     .clip(CircleShape)
+                    .v2PorcelainFinish(CircleShape)
                     .clickable(role = Role.Button, onClickLabel = "뒤로 가기") { onBack() },
                 contentAlignment = Alignment.Center,
             ) { Image(painterResource(R.drawable.ic_back), null, Modifier.size(22.dp)) }
@@ -168,6 +247,7 @@ fun V2Header(onBack: (() -> Unit)? = null, onHelp: () -> Unit, logoStart: Boolea
                 .shadow(3.dp, CircleShape, clip = false, spotColor = V2C.Shadow)
                 .background(V2C.Surface, CircleShape)
                 .clip(CircleShape)
+                .v2PorcelainFinish(CircleShape)
                 .clickable(role = Role.Button, onClickLabel = "도움말 열기") { onHelp() }
                 .padding(horizontal = 14.dp, vertical = 8.dp),
             contentAlignment = Alignment.Center,
@@ -202,9 +282,10 @@ fun V2PrimaryButton(text: String, modifier: Modifier = Modifier, icon: String? =
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
             .heightIn(min = 64.dp)
-            .shadow(6.dp, RoundedCornerShape(32.dp), clip = false, spotColor = V2C.Shadow)
+            .shadow(6.dp, RoundedCornerShape(32.dp), clip = false, ambientColor = if (V2C.highContrast) Color.Black else Color(0x1F615188), spotColor = V2C.Shadow)
             .background(if (enabled) V2Gradient else Brush.horizontalGradient(listOf(Color(0xFFDCD8E8), Color(0xFFDCD8E8))), RoundedCornerShape(32.dp))
             .clip(RoundedCornerShape(32.dp))
+            .v2ButtonGlaze(RoundedCornerShape(32.dp), enabled)
             .then(if (emphasis) Modifier.border(3.dp, V2C.Ink, RoundedCornerShape(32.dp)) else Modifier)
             .clickable(interactionSource = press.interaction, indication = androidx.compose.material3.ripple(), role = Role.Button, enabled = enabled) { feedback(); onClick() }
             .padding(horizontal = 16.dp, vertical = 14.dp),
@@ -225,9 +306,10 @@ fun V2SecondaryButton(text: String, modifier: Modifier = Modifier, enabled: Bool
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
             .heightIn(min = 60.dp)
-            .shadow(4.dp, RoundedCornerShape(30.dp), clip = false, spotColor = V2C.Shadow)
+            .shadow(4.dp, RoundedCornerShape(30.dp), clip = false, ambientColor = if (V2C.highContrast) Color.Black else Color(0x1A5F5277), spotColor = if (V2C.highContrast) V2C.Shadow else Color(0x2E5F5277))
             .background(if (enabled) V2C.Surface else V2C.CardInner, RoundedCornerShape(30.dp))
             .clip(RoundedCornerShape(30.dp))
+            .v2PorcelainFinish(RoundedCornerShape(30.dp), enabled, lavenderBase = true)
             .then(if (emphasis) Modifier.border(3.dp, V2C.Ink, RoundedCornerShape(30.dp)) else Modifier)
             .clickable(interactionSource = press.interaction, indication = androidx.compose.material3.ripple(), enabled = enabled, role = Role.Button) { feedback(); onClick() }
             .padding(horizontal = 16.dp, vertical = 12.dp),
@@ -259,6 +341,7 @@ fun V2Banner(text: String, icon: ImageVector? = null, green: Boolean = false, le
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
             .background(if (green) V2C.GreenBg else V2C.BannerBg, RoundedCornerShape(22.dp))
+            .v2PorcelainFinish(RoundedCornerShape(22.dp))
             .padding(horizontal = 20.dp, vertical = 18.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -280,9 +363,10 @@ fun V2Card(modifier: Modifier = Modifier, radius: Int = 32, content: @Composable
         modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
-            .shadow(8.dp, RoundedCornerShape(radius.dp), clip = false, spotColor = V2C.Shadow)
+            .shadow(8.dp, RoundedCornerShape(radius.dp), clip = false, ambientColor = if (V2C.highContrast) Color.Black else Color(0x1A5F5277), spotColor = if (V2C.highContrast) V2C.Shadow else Color(0x2E5F5277))
             .background(V2C.Surface, RoundedCornerShape(radius.dp))
-            .clip(RoundedCornerShape(radius.dp)),
+            .clip(RoundedCornerShape(radius.dp))
+            .v2PorcelainFinish(RoundedCornerShape(radius.dp), lavenderBase = true),
         content = content,
     )
 }
@@ -432,8 +516,9 @@ fun V2BottomNav(selected: String, onHome: () -> Unit, onLibrary: () -> Unit, onS
         Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
-            .shadow(6.dp, RoundedCornerShape(28.dp), clip = false, spotColor = V2C.Shadow)
+            .shadow(6.dp, RoundedCornerShape(28.dp), clip = false, ambientColor = if (V2C.highContrast) Color.Black else Color(0x1A5F5277), spotColor = if (V2C.highContrast) V2C.Shadow else Color(0x2E5F5277))
             .background(V2C.Surface, RoundedCornerShape(28.dp))
+            .v2PorcelainFinish(RoundedCornerShape(28.dp), lavenderBase = true)
             .padding(vertical = 10.dp),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.Top,
@@ -539,7 +624,8 @@ private fun NavItem(icon: ImageVector, label: String, selected: Boolean, modifie
         Box(
             Modifier
                 .size(width = 56.dp, height = 34.dp)
-                .background(if (selected) V2C.BannerBg else Color.Transparent, RoundedCornerShape(17.dp)),
+                .background(if (selected) V2C.BannerBg else Color.Transparent, RoundedCornerShape(17.dp))
+                .then(if (selected) Modifier.v2PorcelainFinish(RoundedCornerShape(17.dp)) else Modifier),
             contentAlignment = Alignment.Center,
         ) { Icon(icon, contentDescription = null, tint = tint, modifier = Modifier.size(24.dp)) }
         Spacer(Modifier.height(4.dp))

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,7 +27,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -38,6 +41,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kr.voicemate.malitda.R
 import kr.voicemate.malitda.data.db.MeaningEntity
+import kr.voicemate.malitda.domain.HomeMeaningsOrder
 
 /** U01 · 학생 홈(화면 01) / U01-E · 등록 없는 홈(화면 13). */
 @Composable
@@ -105,6 +109,7 @@ private fun FilledHome(
             Modifier
                 .fillMaxWidth()
                 .background(Brush.horizontalGradient(listOf(Color(0xFFF6EFFB), Color(0xFFEFF2FC))))
+                .v2PorcelainFinish(RoundedCornerShape(26.dp))
                 .clickable(role = Role.Button, onClick = onRegister)
                 .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -127,7 +132,20 @@ private fun FilledHome(
     // At large text sizes, keep the microphone label above the first fold.
     // Decorative images and a larger circle must not displace the action name.
     val microphonePress = rememberV2Press()
-    Box(Modifier.fillMaxWidth().height(if (large) 228.dp else 182.dp), contentAlignment = Alignment.Center) {
+    val useMicSurfaceAsset = !large && !V2C.highContrast
+    Box(
+        Modifier.fillMaxWidth().height(if (large) 228.dp else 182.dp)
+            .drawBehind {
+                if (!V2C.highContrast) {
+                    val radius = size.minDimension * 0.64f
+                    val cyan = Offset(size.width * 0.61f, size.height * 0.48f)
+                    val lavender = Offset(size.width * 0.42f, size.height * 0.61f)
+                    drawCircle(Brush.radialGradient(listOf(Color(0x1456C8E8), Color.Transparent), center = cyan, radius = radius), radius, cyan)
+                    drawCircle(Brush.radialGradient(listOf(Color(0x169C7AEF), Color.Transparent), center = lavender, radius = radius), radius, lavender)
+                }
+            },
+        contentAlignment = Alignment.Center,
+    ) {
         if (!large) {
             Image(painterResource(R.drawable.char_green), null,
                 Modifier.align(Alignment.BottomStart).size(64.dp), contentScale = ContentScale.Fit)
@@ -136,13 +154,24 @@ private fun FilledHome(
         }
         Box(
             Modifier.then(microphonePress.modifier).size(if (large) 212.dp else 170.dp)
-                .shadow(14.dp, CircleShape, clip = false, spotColor = V2C.Shadow)
-                .background(Color.White, CircleShape).padding(9.dp)
-                .background(Brush.linearGradient(if (V2C.highContrast) listOf(V2C.GradStart, V2C.GradEnd) else listOf(Color(0xFF62C9FF), Color(0xFF8960FF), Color(0xFFF276E7))), CircleShape)
-                .clip(CircleShape).clickable(interactionSource = microphonePress.interaction, indication = androidx.compose.material3.ripple(), role = Role.Button, onClick = onSpeak)
+                .shadow(14.dp, CircleShape, clip = false, ambientColor = if (V2C.highContrast) Color.Black else Color(0x266D61B5), spotColor = V2C.Shadow)
+                .background(Color.White, CircleShape)
+                .v2PorcelainFinish(CircleShape)
+                .padding(9.dp)
+                .background(Brush.linearGradient(if (V2C.highContrast) listOf(V2C.GradStart, V2C.GradEnd) else listOf(Color(0xFF5C85E5), Color(0xFF8B5CE7), Color(0xFFBA58D8))), CircleShape)
+                .clip(CircleShape)
+                .then(if (useMicSurfaceAsset) Modifier else Modifier.v2MicrophoneResin())
+                .clickable(interactionSource = microphonePress.interaction, indication = androidx.compose.material3.ripple(), role = Role.Button, onClick = onSpeak)
                 .semantics { contentDescription = "눌러서 말하기" },
             contentAlignment = Alignment.Center,
         ) {
+            if (useMicSurfaceAsset) {
+                Image(
+                    painterResource(R.drawable.mic_surface_c), contentDescription = null,
+                    modifier = Modifier.fillMaxSize().clip(CircleShape).v2MicAssetWash(),
+                    contentScale = ContentScale.Fit,
+                )
+            }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Image(painterResource(R.drawable.ic_mic_white), null, Modifier.size(42.dp))
                 Spacer(Modifier.height(10.dp))
@@ -158,7 +187,7 @@ private fun FilledHome(
     )
     Spacer(Modifier.height(12.dp))
     // 의미 카드 2열 격자
-    meanings.chunked(if (large) 1 else 2).forEach { rowItems ->
+    HomeMeaningsOrder.personalFirst(meanings).chunked(if (large) 1 else 2).forEach { rowItems ->
         Row(
             Modifier.fillMaxWidth().padding(horizontal = 24.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -178,9 +207,10 @@ private fun MeaningCard(m: MeaningEntity, modifier: Modifier = Modifier, onClick
     val press = rememberV2Press()
     Column(
         modifier.then(press.modifier)
-            .shadow(6.dp, RoundedCornerShape(24.dp), clip = false, spotColor = V2C.Shadow)
+            .shadow(6.dp, RoundedCornerShape(24.dp), clip = false, ambientColor = if (V2C.highContrast) Color.Black else Color(0x1A5F5277), spotColor = if (V2C.highContrast) V2C.Shadow else Color(0x2E5F5277))
             .background(V2C.Surface, RoundedCornerShape(24.dp))
             .clip(RoundedCornerShape(24.dp))
+            .v2PorcelainFinish(RoundedCornerShape(24.dp), lavenderBase = true)
             .clickable(interactionSource = press.interaction, indication = androidx.compose.material3.ripple(), role = Role.Button, onClick = onClick)
             .padding(10.dp)
             .semantics { contentDescription = m.text },

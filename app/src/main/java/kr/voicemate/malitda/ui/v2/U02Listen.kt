@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.dp
 import kr.voicemate.malitda.R
 import kr.voicemate.malitda.ui.vm.ListenState
 
-/** U02 · 녹음 중(화면 02) / U02-P · 처리 중(화면 03). listen 상태로 두 모습을 오간다. */
+/** U02 · 준비·녹음·처리·중단 상태에 맞는 안내와 기존 중단·카드 경로를 제공한다. */
 @Composable
 fun U02Listen(
     listen: ListenState,
@@ -51,43 +51,62 @@ fun U02Listen(
     onHelp: () -> Unit,
 ) {
     val processing = listen is ListenState.Processing
+    val listening = listen as? ListenState.Listening
+    val recording = listening != null && !listening.isPreparing
     V2Screen {
         V2Header(onBack = onCancel, onHelp = onHelp)
         Column(
             Modifier.weight(1f).verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            if (!processing) {
-                V2Title("천천히 말해 주세요")
-                V2SubTitle("편안한 목소리로 말해 주세요.")
-                Spacer(Modifier.height(16.dp))
-                ListeningCard(listen as? ListenState.Listening)
-            } else {
-                V2Title("말을 확인하고 있어요")
-                Spacer(Modifier.height(16.dp))
-                CharacterCard(
-                    chip = { Image(painterResource(R.drawable.ic_consent_mic), null, Modifier.size(24.dp)) },
-                    caption = "잠시 기다려 주세요.",
-                )
+            when {
+                listening?.isPreparing == true -> {
+                    V2Title("말하기를 준비하고 있어요")
+                    V2SubTitle("아직 녹음하지 않습니다.")
+                    Spacer(Modifier.height(16.dp))
+                    CharacterCard(chip = null, caption = "잠시 기다려 주세요.")
+                }
+                listening != null -> {
+                    V2Title("천천히 말해 주세요")
+                    V2SubTitle("편안한 목소리로 말해 주세요.")
+                    Spacer(Modifier.height(16.dp))
+                    ListeningCard(listening)
+                }
+                processing -> {
+                    V2Title("말을 확인하고 있어요")
+                    Spacer(Modifier.height(16.dp))
+                    CharacterCard(
+                        chip = { Image(painterResource(R.drawable.ic_consent_mic), null, Modifier.size(24.dp)) },
+                        caption = "잠시 기다려 주세요.",
+                    )
+                }
+                else -> {
+                    V2Title("녹음이 멈췄어요")
+                    V2SubTitle("다시 말하려면 홈으로 돌아가 주세요.")
+                    Spacer(Modifier.height(16.dp))
+                    CharacterCard(chip = null, caption = "카드로 뜻을 골라도 돼요.")
+                }
             }
             Spacer(Modifier.height(16.dp))
         }
-        if (!processing) {
+        if (recording) {
             V2PrimaryButton("말하기 끝내기", icon = "■") { onStop() }
             Spacer(Modifier.height(12.dp))
             V2SecondaryButton("카드로 고르기") { onPickCards() }
-        } else {
+        } else if (processing) {
             V2SecondaryButton("취소하고 카드로 고르기") { onPickCards() }
+        } else {
+            V2SecondaryButton("카드로 고르기") { onPickCards() }
         }
-        V2TextButton("취소") { onCancel() }
+        V2TextButton(if (listen is ListenState.Idle) "홈으로 돌아가기" else "취소") { onCancel() }
         Spacer(Modifier.height(8.dp))
     }
 }
 
 @Composable
-private fun ListeningCard(listening: ListenState.Listening?) {
+private fun ListeningCard(listening: ListenState.Listening) {
     val motion = rememberV2MotionEnabled()
-    val pulse = if (motion && listening != null) {
+    val pulse = if (motion) {
         val value by rememberInfiniteTransition(label = "pulse").animateFloat(
             initialValue = 1f, targetValue = 1.035f,
             animationSpec = infiniteRepeatable(tween(1100, easing = androidx.compose.animation.core.FastOutSlowInEasing), RepeatMode.Reverse),
@@ -99,14 +118,16 @@ private fun ListeningCard(listening: ListenState.Listening?) {
         Column(
             Modifier
                 .fillMaxWidth()
-                .background(Brush.verticalGradient(listOf(Color(0xFFF4F0FB), Color(0xFFF0F4FB))))
+                .background(Brush.verticalGradient(if (V2C.highContrast) listOf(V2C.CardInner, V2C.CardInner)
+                    else listOf(Color(0xFFF4F0FB), Color(0xFFF0F4FB))))
+                .v2PorcelainFinish(RoundedCornerShape(32.dp))
                 .padding(vertical = 30.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Box(contentAlignment = Alignment.Center) {
                 Box(Modifier.size(240.dp).scale(pulse).background(Color(0x22A64DF3), CircleShape))
                 Box(Modifier.size(196.dp).scale(pulse).background(Color(0x338B6CF5), CircleShape))
-                Box(Modifier.size(150.dp).background(V2C.Surface, CircleShape))
+                Box(Modifier.size(150.dp).background(V2C.Surface, CircleShape).v2PorcelainFinish(CircleShape))
                 Box(
                     Modifier.size(132.dp).background(V2Gradient, CircleShape),
                     contentAlignment = Alignment.Center,
@@ -124,7 +145,7 @@ private fun ListeningCard(listening: ListenState.Listening?) {
                     .clip(RoundedCornerShape(16.dp)),
                 contentScale = ContentScale.Fit,
             )
-            val partial = listening?.partial.orEmpty().ifBlank { listening?.segments.orEmpty() }
+            val partial = listening.partial.ifBlank { listening.segments }
             Text("듣고 있어요", style = jua(26, V2C.Title))
             if (partial.isNotBlank()) {
                 Spacer(Modifier.height(6.dp))
@@ -136,7 +157,8 @@ private fun ListeningCard(listening: ListenState.Listening?) {
             Spacer(Modifier.height(12.dp))
             Dots()
             Spacer(Modifier.height(10.dp))
-            Text("말을 마치면 말하기 끝내기를 누릅니다.\n20초가 지나면 저절로 끝나요.", style = jua(14, V2C.Muted), textAlign = TextAlign.Center)
+            Text(listening.timeLimit.guidance, style = jua(14, V2C.Muted), textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = 24.dp))
         }
     }
 }
@@ -171,15 +193,19 @@ fun CharacterCard(chip: (@Composable () -> Unit)?, caption: String?) {
         Box(
             Modifier
                 .fillMaxWidth()
-                .background(Brush.linearGradient(listOf(Color(0xFFF7F1FA), Color(0xFFF0F3FC)))),
+                .background(Brush.linearGradient(if (V2C.highContrast) listOf(V2C.CardInner, V2C.CardInner)
+                    else listOf(Color(0xFFF7F1FA), Color(0xFFF0F3FC))))
+                .v2PorcelainFinish(RoundedCornerShape(32.dp)),
         ) {
             if (chip != null) {
                 Box(
                     Modifier
                         .padding(20.dp)
                         .size(52.dp)
-                        .shadow(3.dp, CircleShape, clip = false, spotColor = V2C.Shadow)
-                        .background(V2C.Surface, CircleShape),
+                        .shadow(3.dp, CircleShape, clip = false,
+                            ambientColor = V2C.Shadow.copy(alpha = 0.08f), spotColor = V2C.Shadow.copy(alpha = 0.16f))
+                        .background(V2C.Surface, CircleShape)
+                        .v2PorcelainFinish(CircleShape),
                     contentAlignment = Alignment.Center,
                 ) { chip() }
             }

@@ -100,6 +100,7 @@ class SettingsStore(context: Context, dataStoreOverride: DataStore<Preferences>?
             ttsRate = p[floatKey("tts_rate_$profileId")] ?: (p[K.ttsRate] ?: 1f),
             haptics = p[booleanKey("haptics_$profileId")] ?: (p[K.haptics] ?: true),
             allowSimilarExpressions = p[booleanKey("allow_similar_$profileId")] ?: true,
+            listenTimeLimitSeconds = p[intKey("listen_time_limit_$profileId")] ?: ListeningTimeLimit.TWENTY_SECONDS.seconds,
         ).normalized()
     }
 
@@ -112,6 +113,7 @@ class SettingsStore(context: Context, dataStoreOverride: DataStore<Preferences>?
             p[floatKey("tts_rate_$profileId")] = v.ttsRate
             p[booleanKey("haptics_$profileId")] = v.haptics
             p[booleanKey("allow_similar_$profileId")] = v.allowSimilarExpressions
+            p[intKey("listen_time_limit_$profileId")] = v.listenTimeLimitSeconds
         }
     }
 
@@ -187,6 +189,7 @@ class SettingsStore(context: Context, dataStoreOverride: DataStore<Preferences>?
             p.remove(floatKey("tts_rate_$profileId"))
             p.remove(booleanKey("haptics_$profileId"))
             p.remove(booleanKey("allow_similar_$profileId"))
+            p.remove(intKey("listen_time_limit_$profileId"))
             if (p[K.profile] == profileId) p[K.profile] = 0L
         }
     }

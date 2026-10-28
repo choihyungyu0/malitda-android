@@ -2,6 +2,7 @@ package kr.voicemate.malitda.ui.v2
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -45,7 +47,12 @@ fun OriginBadge(origin: V2Origin) {
         Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp)
-            .background(V2C.BannerBg, RoundedCornerShape(22.dp))
+            .shadow(3.dp, RoundedCornerShape(22.dp), clip = false,
+                ambientColor = V2C.Shadow.copy(alpha = 0.07f), spotColor = V2C.Shadow.copy(alpha = 0.12f))
+            .background(Brush.horizontalGradient(if (V2C.highContrast) listOf(V2C.BannerBg, V2C.BannerBg)
+                else listOf(V2C.BannerBg, V2C.CardInner, V2C.GreenBg.copy(alpha = 0.45f))), RoundedCornerShape(22.dp))
+            .border(if (V2C.highContrast) 2.dp else 0.75.dp,
+                if (V2C.highContrast) V2C.Ink else Color.White.copy(alpha = 0.85f), RoundedCornerShape(22.dp))
             .padding(horizontal = 20.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -124,7 +131,10 @@ fun U03Confirm(
             Box(
                 Modifier
                     .padding(horizontal = 20.dp)
-                    .background(Color(0xFFE9E4F4), RoundedCornerShape(16.dp))
+                    .background(Brush.horizontalGradient(if (V2C.highContrast) listOf(V2C.CardInner, V2C.CardInner)
+                        else listOf(V2C.CardInner, V2C.BannerBg)), RoundedCornerShape(16.dp))
+                    .border(if (V2C.highContrast) 2.dp else 0.75.dp,
+                        if (V2C.highContrast) V2C.Ink else Color.White.copy(alpha = 0.8f), RoundedCornerShape(16.dp))
                     .padding(horizontal = 14.dp, vertical = 8.dp),
             ) { Text(if (meaning.isSample) "연습용 예시 · 개인 확인 전" else "${withJosa(studentName)} 함께 등록한 뜻", style = jua(14, Color(0xFF6B6485))) }
             Spacer(Modifier.height(14.dp))

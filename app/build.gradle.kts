@@ -35,8 +35,8 @@ android {
         minSdk = 26
         targetSdk = 36
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        versionCode = 12
-        versionName = "0.3.3"
+        versionCode = 13
+        versionName = "0.3.4"
         // 그림 만들기용 R4 서버 주소. 키는 서버에만 있고 앱에는 넣지 않는다. 릴리스는 비워 기능을 끈다.
         buildConfigField("String", "R4_SERVER_URL", "\"\"")
         buildConfigField("boolean", "PILOT_TOOLS_ENABLED", "false")

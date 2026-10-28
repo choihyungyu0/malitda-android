@@ -70,6 +70,7 @@ fun U08Library(
                     Box(Modifier.weight(1f).heightIn(min = 48.dp)
                         .background(if (section == value) V2C.BannerBg else V2C.Surface, RoundedCornerShape(18.dp))
                         .clip(RoundedCornerShape(18.dp))
+                        .v2PorcelainFinish(RoundedCornerShape(18.dp))
                         .selectable(section == value, role = Role.Tab) { section = value; category = ""; situation = null }
                         .padding(horizontal = 6.dp, vertical = 12.dp), contentAlignment = Alignment.Center) {
                         Text(label, style = jua(16, if (section == value) V2C.Title else V2C.Muted), textAlign = TextAlign.Center)
@@ -134,9 +135,11 @@ fun LibraryRow(m: MeaningEntity, chip: String? = null, onClick: () -> Unit) {
         Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
-            .shadow(6.dp, RoundedCornerShape(26.dp), clip = false, spotColor = V2C.Shadow)
+            .shadow(6.dp, RoundedCornerShape(26.dp), clip = false,
+                ambientColor = V2C.Shadow.copy(alpha = 0.08f), spotColor = V2C.Shadow.copy(alpha = 0.16f))
             .background(V2C.Surface, RoundedCornerShape(26.dp))
             .clip(RoundedCornerShape(26.dp))
+            .v2PorcelainFinish(RoundedCornerShape(26.dp))
             .clickable { onClick() }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -148,7 +151,8 @@ fun LibraryRow(m: MeaningEntity, chip: String? = null, onClick: () -> Unit) {
             if (chip != null) {
                 Spacer(Modifier.height(6.dp))
                 Box(
-                    Modifier.background(Color(0xFFE9E4F4), RoundedCornerShape(10.dp)).padding(horizontal = 10.dp, vertical = 3.dp),
+                    Modifier.background(Color(0xFFE9E4F4), RoundedCornerShape(10.dp))
+                        .v2PorcelainFinish(RoundedCornerShape(10.dp)).padding(horizontal = 10.dp, vertical = 3.dp),
                 ) { Text(chip, style = jua(12, Color(0xFF6B6485))) }
             }
             Spacer(Modifier.height(8.dp))

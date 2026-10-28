@@ -31,7 +31,9 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -120,7 +122,12 @@ fun U05Register(
                     Row(
                         Modifier
                             .fillMaxWidth()
-                            .background(V2C.BannerBg, RoundedCornerShape(20.dp))
+                            .shadow(3.dp, RoundedCornerShape(20.dp), clip = false,
+                                ambientColor = V2C.Shadow.copy(alpha = 0.07f), spotColor = V2C.Shadow.copy(alpha = 0.12f))
+                            .background(Brush.linearGradient(if (V2C.highContrast) listOf(V2C.BannerBg, V2C.BannerBg)
+                                else listOf(V2C.BannerBg, V2C.CardInner, V2C.GreenBg.copy(alpha = 0.45f))), RoundedCornerShape(20.dp))
+                            .border(if (V2C.highContrast) 2.dp else 0.75.dp,
+                                if (V2C.highContrast) V2C.Ink else Color.White.copy(alpha = 0.85f), RoundedCornerShape(20.dp))
                             .clip(RoundedCornerShape(20.dp))
                             .clickable { onPickImage() }
                             .padding(14.dp),

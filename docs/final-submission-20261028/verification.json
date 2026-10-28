@@ -1,0 +1,771 @@
+{
+  "schema_version": 1,
+  "document_status": "final_C_requested_scope_closed",
+  "completion_status": "ready_for_team_signing",
+  "updated_at": "2026-10-28T04:17:45+09:00",
+  "timezone": "Asia/Seoul",
+  "application": {
+    "version_name": "0.3.4",
+    "version_code": 13,
+    "database_schema_version": 5,
+    "release_application_id": "kr.voicemate.malitda",
+    "debug_application_id": "kr.voicemate.malitda.debug",
+    "minimum_android_api": 26,
+    "target_android_api": 36,
+    "ui_contract": {
+      "original_geometry_preserved": true,
+      "original_image_aspect_ratios_preserved": true,
+      "font": "Jua Regular",
+      "default_font_scale": 1,
+      "home_tab_count": 4,
+      "existing_press_and_reduced_motion_preserved": true
+    },
+    "source_commit": "f7adad2ec82881a20a2769311a64ae423030a857",
+    "source_commit_status": "tested_code_committed",
+    "source_identity": {
+      "tested_source_files": 21,
+      "source_bytes_preserved_after_commit": true,
+      "tested_app_sha256": "dae8d8ff5626a6312c7df8f94ce2eff1d97629562622f6dc8745961ca117ee56",
+      "evidence_ids": [
+        "source_commit_receipt"
+      ]
+    }
+  },
+  "scope": {
+    "surface_finish": "C",
+    "listening_time_limit_seconds": [
+      20,
+      60,
+      0
+    ],
+    "default_listening_time_limit_seconds": 20,
+    "zero_means": "manual_finish_no_auto_stop_job",
+    "listening_preference_scope": "per_profile_captured_before_each_recording",
+    "home_order": "personal_meanings_before_practice_samples_stable_within_each_group",
+    "preserved_service": [
+      "voice_and_direct_input",
+      "original_and_candidate_review",
+      "explicit_approval",
+      "reject_unsure_cancel",
+      "tts_copy_system_share",
+      "personal_meanings_and_supporter_pin",
+      "save_unconfirmed",
+      "explicit_correction_learning"
+    ],
+    "added_raw_audio_storage": false,
+    "added_audio_upload": false,
+    "added_automatic_approval": false,
+    "generated_microphone_surface": {
+      "asset_count": 1,
+      "resource": "@drawable/mic_surface_c",
+      "role": "normal_home_microphone_background_only",
+      "normal_outer_diameter_dp": 170,
+      "native_label_size_sp": 21,
+      "text_and_icon_rendering": "native",
+      "disabled_in_high_contrast": true,
+      "disabled_when_font_scale_at_least": 1.4,
+      "fallback": "existing_native_rendering",
+      "full_screen_raster": false
+    }
+  },
+  "current_candidate": {
+    "phase": "C_final_generated_microphone_asset",
+    "core_status": "pass",
+    "unit_tests": {
+      "status": "pass",
+      "passed": 118,
+      "failed": 0,
+      "errors": 0,
+      "suites": 22,
+      "source": "current_unit_XML_aggregate_and_final_apk_audit",
+      "report_pattern": "app/build/test-results/testDebugUnitTest/TEST-*.xml",
+      "evidence_ids": [
+        "final_apk_audit"
+      ]
+    },
+    "local_assemble": {
+      "status": "pass",
+      "final_arm_release_rebuild_included": true,
+      "evidence_ids": [
+        "final_apk_audit",
+        "final_debug_build_log",
+        "final_arm_build_log"
+      ]
+    },
+    "lint": {
+      "status": "pass",
+      "debug": {
+        "errors": 0,
+        "warnings": 40,
+        "hints": 14,
+        "evidence_ids": [
+          "debug_lint_text",
+          "debug_lint_xml"
+        ]
+      },
+      "release": {
+        "errors": 0,
+        "warnings": 41,
+        "hints": 14,
+        "evidence_ids": [
+          "release_lint_text",
+          "release_lint_xml"
+        ]
+      },
+      "warning_difference": {
+        "count": 1,
+        "id": "MonochromeLauncherIcon",
+        "scope": "existing_adaptive_launcher_icon_missing_monochrome_tag",
+        "changed_by_C_surface_scope": false
+      }
+    },
+    "instrumentation": {
+      "status": "pass",
+      "passed": 67,
+      "failed": 0,
+      "host_exit_code": 0,
+      "runner_duration_seconds": 131.054,
+      "host_elapsed_seconds": 142.30485439300537,
+      "timing_scope": {
+        "runner": "JUnit Time line",
+        "host": "receipt includes installation and host orchestration"
+      },
+      "app_apk_sha256": "dae8d8ff5626a6312c7df8f94ce2eff1d97629562622f6dc8745961ca117ee56",
+      "test_apk_sha256": "8bd95a9c057ce9710b7eb579bd0aebbfd6bcca2f73412cdd95e43514c455b17a",
+      "environment": "owned_AVD",
+      "synthetic_only": true,
+      "stt": "mixed: fake engines for lifecycle/UI cases; one real bundled Whisper native transcription with local synthetic WAV is included in the same67",
+      "microphone_permission": "pregranted",
+      "data_cleared": false,
+      "uninstalled_existing_app": false,
+      "excluded_harness": "FinalSubmissionMainControlTest filming controller",
+      "evidence_ids": [
+        "final_core_receipt",
+        "final_core_log"
+      ],
+      "performance_improvement_claim": false,
+      "native_synthetic_whisper_included": {
+        "count": 1,
+        "included_in_passed_67": true,
+        "additional_test_executed_now": false,
+        "test": "SyntheticSpeechIntegrationTest.syntheticWaterSpeechRecognizesAndConnectsToRegisteredPrivateMeaning",
+        "test_source": "app/src/androidTest/java/kr/voicemate/malitda/stt/SyntheticSpeechIntegrationTest.kt",
+        "fixture": "app/src/androidTest/assets/synthetic-water.wav",
+        "fixture_sha256": "325ee417e926da55f122333b4e549b9521753c4ab8a3c7cc5c99871a2e5954f7",
+        "synthetic": true,
+        "human_recording": false,
+        "cloud_service_used": false,
+        "recognition_hints": [],
+        "model": "whisper/ggml-base-q5_1.bin",
+        "real_path": "WhisperSttEngine.recognizeWav -> WhisperNative.transcribe -> MeaningResolver",
+        "input_text": "물 마시고 싶어요",
+        "observed_raw": "물 마시고 싶어요",
+        "expected_registered_meaning_offered": true,
+        "assertions": [
+          "native engine ready",
+          "nonblank raw transcript",
+          "fixed pre-registered meaning candidate present"
+        ],
+        "exact_match_assertion": false,
+        "exact_match_observed_in_retained_log": true,
+        "scope_excludes": [
+          "Vosk PCM transcription",
+          "microphone-to-transcript full E2E",
+          "human/disability speech accuracy",
+          "physical ARM latency",
+          "DB store/approval/delivery",
+          "field effectiveness"
+        ],
+        "performance_improvement_claim": false,
+        "evidence_files": [
+          "full-instrumentation.log:753-767",
+          "instrumentation-logcat.log:1315"
+        ],
+        "evidence_context": "retained final C surface-C-20261028 evidence; appDAE8 and test8BD9 unchanged"
+      }
+    },
+    "debug_multi_abi": {
+      "status": "pass",
+      "apk_path": "app/build/intermediates/apk/debug/app-debug.apk",
+      "bytes": 276787599,
+      "sha256": "dae8d8ff5626a6312c7df8f94ce2eff1d97629562622f6dc8745961ca117ee56",
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "abi_evidence": "measured_APK_lib_entries",
+      "bundled_model_files": 15,
+      "bundled_model_sha256": "pass",
+      "zip_crc": "pass",
+      "provider_key_shape_hits": 0,
+      "signature_verify_exit": 0,
+      "internet_permission": true,
+      "evidence_ids": [
+        "final_apk_audit",
+        "signature_check"
+      ],
+      "signature_status": "debug_signed"
+    },
+    "arm_release": {
+      "status": "pass",
+      "apk_path": "app/build/outputs/apk/release/app-release-unsigned.apk",
+      "bytes": 184163473,
+      "sha256": "6aea05c6996ecdd595947270c927cea6d1329e796cf5a8a9b474b6fea646156c",
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a"
+      ],
+      "abi_evidence": "measured_APK_lib_entries",
+      "bundled_model_files": 15,
+      "bundled_model_sha256": "pass",
+      "zip_crc": "pass",
+      "provider_key_shape_hits": 0,
+      "signature_verify_exit": 1,
+      "internet_permission": false,
+      "evidence_ids": [
+        "final_apk_audit",
+        "signature_check"
+      ],
+      "r8": "enabled",
+      "signature_status": "unsigned_expected_pending_team_key",
+      "installable_as_delivered": false,
+      "build_report_duration_seconds": 116
+    },
+    "first_home_visual": {
+      "status": "pass",
+      "source": "root_actual_app_visual_report"
+    },
+    "baseline_11_core_node_geometry": {
+      "status": "pass",
+      "screen": "home",
+      "core_nodes": 11,
+      "text_and_bounds_identical": true,
+      "evidence_ids": [
+        "final_integrated_QA_receipt"
+      ]
+    },
+    "final_visual_keyboard_and_200_percent_qa": {
+      "status": "pass_requested_scope",
+      "viewport_widths_dp": [
+        390,
+        430,
+        320
+      ],
+      "viewport_cases": [
+        {
+          "width_dp": 390,
+          "font_scale": 1,
+          "scope": "11 actual MainActivity screens"
+        },
+        {
+          "width_dp": 430,
+          "font_scale": 1,
+          "scope": "home_meaning_registration_and_actual_IME_footer"
+        },
+        {
+          "width_dp": 320,
+          "font_scale": 2,
+          "scope": "home_native_asset_fallback_three_responses_registration_settings_scroll"
+        }
+      ],
+      "font_scale_200_percent": "pass",
+      "high_contrast": "pass_asset_off_app_and_system",
+      "keyboard_IME": "pass_430_registration_CTA_accessible_after_scroll",
+      "permission_recovery": "pass_actual_deny_guidance_system_allow_listen_cancel",
+      "motion_and_reduced_motion": "pass_OS_animation_zero_and_restore",
+      "tts": "pass_playback_indicator_stop_return_only",
+      "physical_TTS_audio_quality": "not_run_silent_AVD",
+      "ui_PNG_count": 11,
+      "ui_PNG_status": "pass",
+      "video": "pass",
+      "evidence_ids": [
+        "final_integrated_QA_receipt",
+        "final_QA_report",
+        "final_PNG_manifest",
+        "final_video_validation",
+        "cleanup_receipt"
+      ]
+    },
+    "numeric_warning_isolated_probe": {
+      "status": "pass",
+      "passed": 1,
+      "failed": 0,
+      "run_scope": "separate_probe",
+      "included_in_the_67_test_run": false,
+      "combined_with_core_run": false,
+      "runner_duration_seconds": 12.854,
+      "host_elapsed_seconds": 14.783906936645508,
+      "app_apk_sha256": "dae8d8ff5626a6312c7df8f94ce2eff1d97629562622f6dc8745961ca117ee56",
+      "test_apk_sha256": "012d9387c3455b4638c52d2de1283ca593751af196a0757de3c6711da1085102",
+      "scope": "synthetic_U03_numeric_warning_original_source_three_responses_and_explicit_callback_isolation",
+      "microphone_used": false,
+      "database_used": false,
+      "voice_engine_used": false,
+      "evidence_ids": [
+        "numeric_warning_probe_receipt",
+        "numeric_warning_probe_log"
+      ]
+    },
+    "physical_ARM_execution": {
+      "status": "not_run"
+    },
+    "cleanup": {
+      "status": "pass",
+      "original_profiles_and_data_preserved": true,
+      "current_selection_restored": true,
+      "listen_time_limit_seconds": 20,
+      "app_font_scale": 1,
+      "system_font_scale": 1,
+      "viewport_width_dp": 390,
+      "microphone_permission_granted": false,
+      "high_contrast_original_state_restored": true,
+      "OS_animation_scales": 1,
+      "data_cleared": false,
+      "uninstalled_existing_app": false,
+      "owned_AVD_stopped": true,
+      "adb_devices_empty": true,
+      "evidence_ids": [
+        "cleanup_receipt"
+      ]
+    }
+  },
+  "historical_reference": {
+    "baseline_instrumentation": {
+      "status": "historical_pass",
+      "passed": 67,
+      "phase": "before_C_surface_finish",
+      "applies_to_current_candidate": false,
+      "app_apk_sha256": "53a2df23ca640801d945c05e2b2080f3f662de294266df1f7686037fdcb885e9",
+      "host_elapsed_seconds": 152.76006889343262,
+      "evidence_ids": [
+        "baseline_core_receipt"
+      ]
+    },
+    "C_v2_before_generated_asset": {
+      "status": "historical_report",
+      "phase": "C_surface_v2_before_generated_microphone_asset",
+      "applies_to_current_candidate": false,
+      "unit_tests": {
+        "status": "pass",
+        "passed": 118,
+        "failed": 0,
+        "source": "root_execution_report",
+        "log_path": null
+      },
+      "local_assemble": {
+        "status": "pass",
+        "source": "root_execution_report",
+        "log_path": null,
+        "final_arm_rebuild_included": false
+      },
+      "lint": {
+        "status": "pass",
+        "source": "root_execution_report",
+        "warnings": null,
+        "log_path": null
+      }
+    }
+  },
+  "model_assets": {
+    "status": "pass",
+    "checked_at": "2026-10-28T01:42:27.7749848+09:00",
+    "manifest": "scripts/model-sha256.properties",
+    "packaging_gate": ":app:verifyBundledSpeechModels",
+    "expected_file_count": 15,
+    "matching_file_count": 15,
+    "vosk_file_count": 14,
+    "whisper_file_count": 1,
+    "binaries_committed": false,
+    "license_directory": "app/src/main/assets/licenses",
+    "files": [
+      {
+        "path": "app/src/main/assets/model-ko/am/final.mdl",
+        "expected_sha256": "de1a0b3beaad1f266b18d9af624a8d2451ac32e500a575cec9826d415ecfd0b4",
+        "actual_sha256": "de1a0b3beaad1f266b18d9af624a8d2451ac32e500a575cec9826d415ecfd0b4",
+        "status": "pass"
+      },
+      {
+        "path": "app/src/main/assets/model-ko/conf/mfcc.conf",
+        "expected_sha256": "cdb0d516e5b8886092f1d840c628107703a65b571dc3b16b888a9a3978958b96",
+        "actual_sha256": "cdb0d516e5b8886092f1d840c628107703a65b571dc3b16b888a9a3978958b96",
+        "status": "pass"
+      },
+      {
+        "path": "app/src/main/assets/model-ko/conf/model.conf",
+        "expected_sha256": "dd7178da0e99fdbe489816c1e9702c3daa28e02accacc2993e0becb7af33b80c",
+        "actual_sha256": "dd7178da0e99fdbe489816c1e9702c3daa28e02accacc2993e0becb7af33b80c",
+        "status": "pass"
+      },
+      {
+        "path": "app/src/main/assets/model-ko/graph/disambig_tid.int",
+        "expected_sha256": "f393757ce5a99ce66ab60bb8aa89f6ac3ceff737f27e9d5d11fc60893d7aba64",
+        "actual_sha256": "f393757ce5a99ce66ab60bb8aa89f6ac3ceff737f27e9d5d11fc60893d7aba64",
+        "status": "pass"
+      },
+      {
+        "path": "app/src/main/assets/model-ko/graph/Gr.fst",
+        "expected_sha256": "b13d06a65c73b4f32a7618844fbe62aaa2fd250bea63c124c40ec2a8b5c5735e",
+        "actual_sha256": "b13d06a65c73b4f32a7618844fbe62aaa2fd250bea63c124c40ec2a8b5c5735e",
+        "status": "pass"
+      },
+      {
+        "path": "app/src/main/assets/model-ko/graph/HCLr.fst",
+        "expected_sha256": "862822d277b283b16b293aca397e14d6e0bc460723004d966dace532db4110d0",
+        "actual_sha256": "862822d277b283b16b293aca397e14d6e0bc460723004d966dace532db4110d0",
+        "status": "pass"
+      },
+      {
+        "path": "app/src/main/assets/model-ko/graph/phones/word_boundary.int",
+        "expected_sha256": "6de0418fb4dc7c42d0e9c75c906a239235830bc8415eb96a40099d204586d0ab",
+        "actual_sha256": "6de0418fb4dc7c42d0e9c75c906a239235830bc8415eb96a40099d204586d0ab",
+        "status": "pass"
+      },
+      {
+        "path": "app/src/main/assets/model-ko/graph/phones.txt",
+        "expected_sha256": "ca2c642d315ed11525c2004e95b688f3dd29a8bdd7735649babfef438702e42a",
+        "actual_sha256": "ca2c642d315ed11525c2004e95b688f3dd29a8bdd7735649babfef438702e42a",
+        "status": "pass"
+      },
+      {
+        "path": "app/src/main/assets/model-ko/ivector/final.dubm",
+        "expected_sha256": "8dcb7b76385f6fe1a5e876185452261e218a9a25eb17d87b5b86e4fbb14ddce3",
+        "actual_sha256": "8dcb7b76385f6fe1a5e876185452261e218a9a25eb17d87b5b86e4fbb14ddce3",
+        "status": "pass"
+      },
+      {
+        "path": "app/src/main/assets/model-ko/ivector/final.ie",
+        "expected_sha256": "888bdd4437dfbd476e6939099c7af81de85a3c2d50217db0c311f67db0a66fed",
+        "actual_sha256": "888bdd4437dfbd476e6939099c7af81de85a3c2d50217db0c311f67db0a66fed",
+        "status": "pass"
+      },
+      {
+        "path": "app/src/main/assets/model-ko/ivector/final.mat",
+        "expected_sha256": "022aec6ec7f135cb494f89aabbccb9ab27653468d01a77ad480433de69f76990",
+        "actual_sha256": "022aec6ec7f135cb494f89aabbccb9ab27653468d01a77ad480433de69f76990",
+        "status": "pass"
+      },
+      {
+        "path": "app/src/main/assets/model-ko/ivector/global_cmvn.stats",
+        "expected_sha256": "397ea1dfa402d0ea434924b181fc70202777656bef5b4f37c9cf2ac96e6e74a9",
+        "actual_sha256": "397ea1dfa402d0ea434924b181fc70202777656bef5b4f37c9cf2ac96e6e74a9",
+        "status": "pass"
+      },
+      {
+        "path": "app/src/main/assets/model-ko/ivector/online_cmvn.conf",
+        "expected_sha256": "4cfe3a77bd2420961704432ba67201f242ef36ff97803c88275dcead7f4acd36",
+        "actual_sha256": "4cfe3a77bd2420961704432ba67201f242ef36ff97803c88275dcead7f4acd36",
+        "status": "pass"
+      },
+      {
+        "path": "app/src/main/assets/model-ko/ivector/splice.conf",
+        "expected_sha256": "9f0c5f7c82d18eaf25d8bce470efa9f7741f88411fe428774bc0a9bb69a24756",
+        "actual_sha256": "9f0c5f7c82d18eaf25d8bce470efa9f7741f88411fe428774bc0a9bb69a24756",
+        "status": "pass"
+      },
+      {
+        "path": "app/src/main/assets/whisper/ggml-base-q5_1.bin",
+        "expected_sha256": "422f1ae452ade6f30a004d7e5c6a43195e4433bc370bf23fac9cc591f01a8898",
+        "actual_sha256": "422f1ae452ade6f30a004d7e5c6a43195e4433bc370bf23fac9cc591f01a8898",
+        "status": "pass"
+      }
+    ]
+  },
+  "build": {
+    "java": 17,
+    "compile_sdk": 36,
+    "ndk": "27.2.12479018",
+    "cmake": "3.22.1",
+    "gradle_wrapper": "8.14.3",
+    "arm_property": "-PsubmitAbis=arm",
+    "optional_whisper_source_property": "-PwhisperCppDir=C:/path/to/whisper.cpp",
+    "default_whisper_source_directory": "third_party/whisper.cpp",
+    "abi_validation": "inspect_final_APK_lib_entries; do_not_infer_from_requested_property_alone",
+    "actual_debug_apk_path": "app/build/intermediates/apk/debug/app-debug.apk",
+    "actual_android_test_apk_path": "app/build/intermediates/apk/androidTest/debug/app-debug-androidTest.apk",
+    "debug_listing_redirect": "app/build/intermediates/apk_ide_redirect_file/debug/createDebugApkListingFileRedirect/redirect.txt",
+    "android_test_listing_redirect": "app/build/intermediates/apk_ide_redirect_file/debugAndroidTest/createDebugAndroidTestApkListingFileRedirect/redirect.txt",
+    "generic_debug_output_path": "app/build/outputs/apk/debug/app-debug.apk",
+    "generic_debug_output_path_exists_in_this_run": false,
+    "public_handoff_properties": {
+      "includeDirectImageKey": false,
+      "enablePrivatePilotTools": false
+    }
+  },
+  "signing": {
+    "status": "pending_team_release_signing",
+    "same_existing_team_key_required_for_release_update": true,
+    "remove_existing_app_on_signature_mismatch": false,
+    "debug_is_separate_app": true,
+    "debug_automatically_shares_release_data": false,
+    "key_material_in_document": false,
+    "debug_signature_verify_exit": 0,
+    "unsigned_release_signature_verify_exit": 1
+  },
+  "ai": {
+    "release_external_image_generation": "disabled",
+    "release_r4_url": "",
+    "release_provider_key_embedded": false,
+    "default_debug_provider_key_embedded": false,
+    "debug_r4_validation_scope": "mock_server_only",
+    "current_candidate_debug_r4_result": "not_exercised",
+    "paid_provider_generation": "not_verified",
+    "paid_provider_billing": "not_verified",
+    "paid_provider_cancellation_effect": "not_verified",
+    "default_public_pilot_tools_enabled": false,
+    "packaged_provider_key_shape_hits": {
+      "debug": 0,
+      "release": 0
+    },
+    "release_internet_permission": false,
+    "current_C_runtime_R4_scope": "not_exercised_outside_visual_QA"
+  },
+  "limitations": {
+    "physical_ARM_execution": "not_run",
+    "physical_TTS_audio_quality": "not_run_silent_AVD",
+    "real_user_speech_performance": "not_run",
+    "real_user_communication_effect": "not_run",
+    "actual_external_app_final_send": "not_run",
+    "operational_R4_and_paid_AI": "not_exercised",
+    "complete_TalkBack_switch_external_keyboard_focus": "not_run",
+    "whole_application_AA_contrast_certification": "not_run",
+    "tablet_desktop_and_all_42_routes": "outside_requested_scope",
+    "storage_exhaustion_fault_injection": "outside_requested_scope"
+  },
+  "public_documentation": {
+    "contains_personal_or_field_material": false,
+    "excluded_material": [
+      "individual_and_field_pilot_data",
+      "pilot_aggregate_documents",
+      "people_photos",
+      "signatures",
+      "attendance_lists",
+      "secret_keys"
+    ]
+  },
+  "next_updates": [
+    "team_release_signing_and_developer_handoff",
+    "physical_ARM_execution_if_separately_authorized",
+    "physical_audio_real_speech_effect_and_external_send_if_separately_scoped",
+    "operational_R4_and_paid_AI_if_separately_scoped"
+  ],
+  "evidence_policy": {
+    "raw_logs_kept_locally": true,
+    "public_document_fields": "artifact_names_and_SHA256_only",
+    "absolute_local_paths_in_document": false,
+    "no_performance_comparison_from_runner_or_host_times": true
+  },
+  "evidence": {
+    "final_apk_audit": {
+      "artifact_name": "root/apk-verification.json",
+      "sha256": "8f259477b79236387d9a30fc949259663ee7363e77dc16c1276b4abb69f1796e"
+    },
+    "signature_check": {
+      "artifact_name": "root/signature-check.json",
+      "sha256": "3cc1a755ca2f13bac5f49829c3cd6e1f77c9b102ee0ec2c5fc2596dfd487b397"
+    },
+    "final_core_receipt": {
+      "artifact_name": "surface-C-20261028/full-instrumentation-receipt.json",
+      "sha256": "dda99574f664dfe6ed29b456a615999ee82c7b1d48d56fc23b6ffdf3f248f6b0"
+    },
+    "final_core_log": {
+      "artifact_name": "surface-C-20261028/full-instrumentation.log",
+      "sha256": "22baafd9640038126481b67e5878b4c54c0880ad042feebb3979f82c878a6b5c"
+    },
+    "final_debug_build_log": {
+      "artifact_name": "surface-C-20261028/gradle-x86.log",
+      "sha256": "d7d0a32d7e567756c29abf7c5e59ed0c6d2f2d81ddcf328b85d5c7762865639c"
+    },
+    "final_arm_build_log": {
+      "artifact_name": "root/gradle-arm-final-C.log",
+      "sha256": "ee4901d4a04c979786a33eab832117b79a7369d17c5fe069537b59d89ac47205"
+    },
+    "debug_lint_text": {
+      "artifact_name": "lint-results-debug.txt",
+      "sha256": "c628a65ef213b42bf91ddbefda1d073d4c4f568fe4c793c03e3df344a7426894"
+    },
+    "debug_lint_xml": {
+      "artifact_name": "lint-results-debug.xml",
+      "sha256": "6c43225c042eda9d1a452dfac8aeaa3d082adfd196ea559d0459a89af80b2e18"
+    },
+    "release_lint_text": {
+      "artifact_name": "lint-results-release.txt",
+      "sha256": "4ede30f1eb257ae02dbdedb0dc276737eb682bc7216298fa62d311ad3e971712"
+    },
+    "release_lint_xml": {
+      "artifact_name": "lint-results-release.xml",
+      "sha256": "16d228e7cfbbb45ffcdd0d16822886fdeaf940618a270a93d729d3028319da0c"
+    },
+    "baseline_core_receipt": {
+      "artifact_name": "baseline/full-instrumentation-receipt.json",
+      "sha256": "decfa599412ff89ffdc13c6511d84edde9eec6ff52cdc9cf83a2712b4e5d091a"
+    },
+    "source_commit_receipt": {
+      "artifact_name": "root/source-commit-receipt.json",
+      "sha256": "c296b68af39b1b274c4a1c198ef96f4bbf55e32faef0f5ff2c08befe3f9f60cc"
+    },
+    "numeric_warning_probe_receipt": {
+      "artifact_name": "surface-C-20261028/focused-warning-probe-receipt.json",
+      "sha256": "85c5f6c563282d128c99244850dfc576abd711091ed75f9e6c42b7dfda91125a"
+    },
+    "numeric_warning_probe_log": {
+      "artifact_name": "surface-C-20261028/focused-warning-probe.log",
+      "sha256": "45b1de4ae58c40c82889c9d64d7cd5c382d42b5bb53c5188191bf4894d21e1fd"
+    },
+    "final_integrated_QA_receipt": {
+      "artifact_name": "surface-C-20261028/verification-receipt.json",
+      "sha256": "c7195536c37f6fd826984aff5da5446b1e9e7b8c2f12483c0552776f3f6b43c0"
+    },
+    "final_QA_report": {
+      "artifact_name": "surface-C-20261028/qa-report.md",
+      "sha256": "d39e52e4cc6ea10cc4d0bf66c37d2f067d4b55298ae0b3fe8f0b2b1025d42e16"
+    },
+    "cleanup_receipt": {
+      "artifact_name": "surface-C-20261028/cleanup-receipt.json",
+      "sha256": "f407d366fad2b67bffedad0735d81cd6d1ac0b18f431c358e2d3ec4ce54c0f3d"
+    },
+    "final_PNG_manifest": {
+      "artifact_name": "surface-C-20261028/png-manifest.json",
+      "sha256": "591cd9aa6347e234414a1be450a82d93d94eea814d73826b04d7c40ef8fe6338"
+    },
+    "final_video_validation": {
+      "artifact_name": "surface-C-20261028/video-validation.json",
+      "sha256": "639373b1e1ef47da0100dce880f0237a0267e89d62f477b251786166f12485ff"
+    },
+    "baseline_media_manifest": {
+      "artifact_name": "baseline-before-ui-A/manifest.json",
+      "sha256": "6a1f53c237718046cc855e1f2c8543e5a1f02dc0b77b4a06548418ce1f7bf364"
+    }
+  },
+  "media": {
+    "scope": "synthetic_actual_app_media_no_field_participant_material",
+    "app_sha256": "dae8d8ff5626a6312c7df8f94ce2eff1d97629562622f6dc8745961ca117ee56",
+    "source_commit": "f7adad2ec82881a20a2769311a64ae423030a857",
+    "ui_pngs": {
+      "status": "pass",
+      "count": 11,
+      "width": 780,
+      "height": 1700,
+      "viewport_width_dp": 390,
+      "font_scale": 1,
+      "actual_MainActivity": true,
+      "direct_SHA256": "11_of_11_match",
+      "direct_PNG_chunk_CRC": "11_of_11_pass",
+      "files": [
+        {
+          "name": "home.png",
+          "sha256": "d2fbed6444ff916701a5d1c5f84d5d1d0a6ad7351eaff85e2680d0809b5eb959",
+          "width": 780,
+          "height": 1700,
+          "visual_review": "pass"
+        },
+        {
+          "name": "listen.png",
+          "sha256": "f9f4ff5089d0d4545b9b29ab9d8ea0c1895e9c67ac7b4b30028791c4a348669e",
+          "width": 780,
+          "height": 1700,
+          "visual_review": "pass"
+        },
+        {
+          "name": "edit.png",
+          "sha256": "68178de41e7bc1539f3e79253786e313e7c8c12bbee80f7126ac9430275bc2a8",
+          "width": 780,
+          "height": 1700,
+          "visual_review": "pass"
+        },
+        {
+          "name": "compare.png",
+          "sha256": "296c3864a86efa03a85d1c69d974d93819d00376a1b2e9de25c7567befcc4a65",
+          "width": 780,
+          "height": 1700,
+          "visual_review": "pass"
+        },
+        {
+          "name": "deliver.png",
+          "sha256": "5827babfee0e085a4a8f13792a8da4d3c16060cac8991c696335c8b803af6a2f",
+          "width": 780,
+          "height": 1700,
+          "visual_review": "pass"
+        },
+        {
+          "name": "library.png",
+          "sha256": "26bb43bed773e04e87ce2dec73fcb1466aff78ce36cf744e0f1fbf65e5efa586",
+          "width": 780,
+          "height": 1700,
+          "visual_review": "pass"
+        },
+        {
+          "name": "manage.png",
+          "sha256": "65f4be23e9cbceae3e74c455a0f3d5a86d668b646408650036f79c44b0f90a09",
+          "width": 780,
+          "height": 1700,
+          "visual_review": "pass"
+        },
+        {
+          "name": "register.png",
+          "sha256": "4d3e921f338ea7d34efade6f3f0689113f0f84e89bdc432e2c942c15c7e4b3f9",
+          "width": 780,
+          "height": 1700,
+          "visual_review": "pass"
+        },
+        {
+          "name": "preferences.png",
+          "sha256": "2c427dc63f90b1baacfc1a3972c8d20a74ac344eb9136e0a649eb6e429cb8f3b",
+          "width": 780,
+          "height": 1700,
+          "visual_review": "pass"
+        },
+        {
+          "name": "meaning.png",
+          "sha256": "d18c2977463640eb674ad65b19284f0414f794c059b2a8d4b9fb50349639ef47",
+          "width": 780,
+          "height": 1700,
+          "visual_review": "pass"
+        },
+        {
+          "name": "review.png",
+          "sha256": "d959f45c1faa120c3e1f9bbf5aa74579d5a0d0b6088b46dc5c08ae8dd4b05831",
+          "width": 780,
+          "height": 1700,
+          "visual_review": "pass"
+        }
+      ],
+      "evidence_ids": [
+        "final_PNG_manifest"
+      ]
+    },
+    "demo_video": {
+      "status": "pass",
+      "sha256": "f90dbb8bd24e82d25dca1753a521f5f37ddf8378a518a56740cdafebc32b4114",
+      "duration_seconds": 90,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "fps": 30,
+      "frame_count": 2700,
+      "audio": "none_intentionally_silent",
+      "full_decode_errors": 0,
+      "visually_reviewed_samples": 18,
+      "phone_source_aspect": "39:85",
+      "phone_output_aspect": "39:85",
+      "speed": 1,
+      "last_segment_start_middle_end_rechecked": true,
+      "sixty_second_selection_visible_at_seconds": 81.9,
+      "twenty_second_selection_visible_at_seconds": 89.75,
+      "runtime_paid_API_calls": false,
+      "direct_SHA256": "match",
+      "evidence_ids": [
+        "final_video_validation"
+      ]
+    },
+    "baseline_preservation": {
+      "status": "pass",
+      "files": 12,
+      "direct_sha256_matches": 12,
+      "baseline_video_sha256": "e837797d0fd181eec94f922fe42d4c476ce82d30d74f06b4078e0dd46802f7f6",
+      "evidence_ids": [
+        "baseline_media_manifest"
+      ]
+    }
+  }
+}

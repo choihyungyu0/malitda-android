@@ -16,6 +16,7 @@ import kr.voicemate.malitda.data.db.CounterEntity
 import kr.voicemate.malitda.data.db.ExpressionEntity
 import kr.voicemate.malitda.data.repo.ExpressionRepository
 import kr.voicemate.malitda.data.settings.Settings
+import kr.voicemate.malitda.data.settings.ListeningTimeLimit
 import kr.voicemate.malitda.di.AppContainer
 import kr.voicemate.malitda.domain.Approval
 import kr.voicemate.malitda.domain.Candidate
@@ -52,7 +53,12 @@ enum class ShareKind { SYSTEM, COPY, SMS }
 
 sealed interface ListenState {
     data object Idle : ListenState
-    data class Listening(val partial: String = "", val segments: String = "") : ListenState
+    data class Listening(
+        val partial: String = "",
+        val segments: String = "",
+        val timeLimit: ListeningTimeLimit = ListeningTimeLimit.TWENTY_SECONDS,
+        val isPreparing: Boolean = false,
+    ) : ListenState
     data object Processing : ListenState
 }
 
@@ -223,6 +229,7 @@ class SessionViewModel(val c: AppContainer, prepareSpeechOnInit: Boolean = true)
     private val mutationMutex = kotlinx.coroutines.sync.Mutex()
     private var dataEpoch = 0L
     private var listenGeneration = 0L
+    private var listeningStarted = false
     private var literalRevision = 0L
     private var literalApproval: kr.voicemate.malitda.domain.LiteralApproval? = null
     private val _rememberedCorrection = MutableStateFlow<kr.voicemate.malitda.domain.CorrectionLearningSnapshot?>(null)
@@ -242,34 +249,79 @@ class SessionViewModel(val c: AppContainer, prepareSpeechOnInit: Boolean = true)
 
     fun startListening() {
         if (_ui.value.listen !is ListenState.Idle) return
-        // 녹음이 끝나야 인식하므로, 녹음하는 동안 힌트를 채우면 된다.
-        viewModelScope.launch { refreshSttHints() }
-        _ui.update { it.copy(listen = ListenState.Listening()) }
-        pulse(kr.voicemate.malitda.data.feedback.FeedbackKind.START)
         val generation = ++listenGeneration
         val listenerProfile = _profileId.value
+        listeningStarted = false
+        _ui.update { it.copy(listen = ListenState.Listening(
+            timeLimit = ListeningTimeLimit.fromSeconds(profilePreferences.value.listenTimeLimitSeconds),
+            isPreparing = true,
+        )) }
+        viewModelScope.launch {
+            // Read the actual owner's settings: the UI cache may still contain the previous profile.
+            val preferences = try { c.settings.profilePreferences(listenerProfile).first() }
+            catch (e: Exception) {
+                ensureActive()
+                if (generation == listenGeneration && listenerProfile == _profileId.value && _ui.value.listen is ListenState.Listening) {
+                    _ui.update { it.copy(listen = ListenState.Idle) }
+                    _events.tryEmit(SessionEvent.GoSttError("듣기 시간 설정을 불러오지 못했어요. 다시 시도해 주세요."))
+                }
+                return@launch
+            }
+            // An early stop/cancel, profile switch or session reset must not start the microphone later.
+            if (generation != listenGeneration || listenerProfile != _profileId.value || _ui.value.listen !is ListenState.Listening) return@launch
+            val timeLimit = ListeningTimeLimit.fromSeconds(preferences.listenTimeLimitSeconds)
+            _ui.update { it.copy(listen = ListenState.Listening(timeLimit = timeLimit, isPreparing = true)) }
+            beginListening(timeLimit, generation, listenerProfile)
+        }
+    }
+
+    private fun beginListening(timeLimit: ListeningTimeLimit, generation: Long, listenerProfile: Long) {
+        // 녹음이 끝나야 인식하므로, 녹음하는 동안 힌트를 채우면 된다.
+        viewModelScope.launch { refreshSttHints() }
+        pulse(kr.voicemate.malitda.data.feedback.FeedbackKind.START)
         val ok = c.stt.startListening(object : SttCallback {
             override fun onPartial(text: String) { if (generation != listenGeneration) return; _ui.update { s -> (s.listen as? ListenState.Listening)?.let { l -> s.copy(listen = l.copy(partial = text)) } ?: s } }
             override fun onSegment(text: String) { if (generation != listenGeneration) return; _ui.update { s -> (s.listen as? ListenState.Listening)?.let { l -> s.copy(listen = l.copy(segments = text, partial = "")) } ?: s } }
-            override fun onFinal(result: SttResult) { viewModelScope.launch { if (generation == listenGeneration && listenerProfile == _profileId.value) onSttFinal(result, generation) } }
+            override fun onFinal(result: SttResult) {
+                if (generation != listenGeneration || listenerProfile != _profileId.value) return
+                listeningStarted = false
+                autoStopJob?.cancel(); autoStopJob = null
+                _ui.update { state -> if (state.listen is ListenState.Listening) state.copy(listen = ListenState.Processing) else state }
+                viewModelScope.launch { if (generation == listenGeneration && listenerProfile == _profileId.value) onSttFinal(result, generation) }
+            }
             override fun onError(error: Throwable) {
                 if (generation != listenGeneration || listenerProfile != _profileId.value) return
+                listeningStarted = false
+                autoStopJob?.cancel(); autoStopJob = null
                 pulse(kr.voicemate.malitda.data.feedback.FeedbackKind.ERROR)
                 _ui.update { it.copy(listen = ListenState.Idle) }
                 _events.tryEmit(SessionEvent.GoSttError(error.message ?: "음성인식 오류"))
             }
         })
         if (!ok) {
+            listeningStarted = false
             _ui.update { it.copy(listen = ListenState.Idle) }
             _events.tryEmit(SessionEvent.GoSttError("음성인식 엔진이 준비되지 않았어요"))
             return
         }
-        // 끝내는 시점은 본인이 정한다. 다만 '말하기 끝내기'를 잊거나 누르기 어려운 경우를 위해
-        // 느린 발화도 끊지 않을 만큼 긴 안전 시간(MAX_LISTEN_MS)이 지나면 저절로 끝낸다.
+        // A synchronous callback can already have ended this attempt. Never restore its listening screen.
+        if (generation != listenGeneration || listenerProfile != _profileId.value || _ui.value.listen !is ListenState.Listening) return
+        listeningStarted = true
+        _ui.update { state ->
+            val listening = state.listen as? ListenState.Listening
+            if (generation == listenGeneration && listenerProfile == _profileId.value && listening != null) {
+                state.copy(listen = listening.copy(isPreparing = false))
+            } else state
+        }
         autoStopJob?.cancel()
-        autoStopJob = viewModelScope.launch {
-            kotlinx.coroutines.delay(MAX_LISTEN_MS)
-            if (generation == listenGeneration) stopListening()
+        autoStopJob = null
+        // Manual mode has no automatic deadline. Stop and cancel remain available on the listening screen.
+        val autoStopDelayMillis = timeLimit.autoStopDelayMillis
+        if (autoStopDelayMillis != null && generation == listenGeneration && _ui.value.listen is ListenState.Listening) {
+            autoStopJob = viewModelScope.launch {
+                kotlinx.coroutines.delay(autoStopDelayMillis)
+                if (generation == listenGeneration && listenerProfile == _profileId.value) stopListening()
+            }
         }
     }
 
@@ -278,6 +330,14 @@ class SessionViewModel(val c: AppContainer, prepareSpeechOnInit: Boolean = true)
     fun stopListening() {
         autoStopJob?.cancel(); autoStopJob = null
         if (_ui.value.listen !is ListenState.Listening) return
+        if (!listeningStarted) {
+            // A settings read may still be pending. End this attempt without waiting for a nonexistent recording.
+            listenGeneration++
+            _ui.update { it.copy(listen = ListenState.Idle) }
+            _events.tryEmit(SessionEvent.GoNoResult)
+            return
+        }
+        listeningStarted = false
         _ui.update { it.copy(listen = ListenState.Processing) }
         c.stt.stop()
     }
@@ -285,12 +345,15 @@ class SessionViewModel(val c: AppContainer, prepareSpeechOnInit: Boolean = true)
     fun cancelListening() {
         autoStopJob?.cancel(); autoStopJob = null
         listenGeneration++
+        listeningStarted = false
         c.stt.cancel()
         _ui.update { it.copy(listen = ListenState.Idle) }
     }
 
     internal suspend fun onSttFinal(result: SttResult, generation: Long = listenGeneration) {
         if (generation != listenGeneration) return
+        autoStopJob?.cancel(); autoStopJob = null
+        listeningStarted = false
         pulse(if (result.raw.isBlank()) kr.voicemate.malitda.data.feedback.FeedbackKind.ERROR else kr.voicemate.malitda.data.feedback.FeedbackKind.SUCCESS)
         c.metrics.onRecognition(result.processingMs, result.audioMs)
         if (result.raw.isBlank()) {
@@ -906,12 +969,9 @@ class SessionViewModel(val c: AppContainer, prepareSpeechOnInit: Boolean = true)
     /** 문장은 남기되 인식 결과만 정리(다시 말하기 진입 시). */
     fun prepareRespeak() { cancelListening(); c.tts.stop(); v2Reset(); revokeLiteral(); _ui.update { it.copy(listen = ListenState.Idle, raw = null, alternatives = emptyList(), candidates = emptyList(), approvalToken = null) } }
 
-    override fun onCleared() { c.stt.cancel(); c.tts.stop() }
+    override fun onCleared() { cancelListening(); c.tts.stop() }
 
     companion object {
-        /** 말하기 안전 시간. 짧은 의미 표현은 천천히 말해도 이 안에 끝나고, 길게 녹음될수록 인식이 느려진다. */
-        const val MAX_LISTEN_MS = 20_000L
-
         fun factory(c: AppContainer) = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T = SessionViewModel(c) as T

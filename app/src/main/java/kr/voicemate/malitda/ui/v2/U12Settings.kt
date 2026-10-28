@@ -122,15 +122,17 @@ private fun SettingRow(label: String, icon: ImageVector? = null, iconPainter: In
         Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
-            .shadow(5.dp, RoundedCornerShape(26.dp), clip = false, spotColor = V2C.Shadow)
+            .shadow(5.dp, RoundedCornerShape(26.dp), clip = false,
+                ambientColor = V2C.Shadow.copy(alpha = 0.08f), spotColor = V2C.Shadow.copy(alpha = 0.16f))
             .background(V2C.Surface, RoundedCornerShape(26.dp))
             .clip(RoundedCornerShape(26.dp))
+            .v2PorcelainFinish(RoundedCornerShape(26.dp))
             .clickable(role = Role.Button) { onClick() }
             .padding(horizontal = 16.dp, vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
-            Modifier.size(48.dp).background(V2C.BannerBg, RoundedCornerShape(16.dp)),
+            Modifier.size(48.dp).background(V2C.BannerBg, RoundedCornerShape(16.dp)).v2PorcelainFinish(RoundedCornerShape(16.dp)),
             contentAlignment = Alignment.Center,
         ) {
             when {
@@ -212,13 +214,15 @@ private fun StepRow(n: Int, text: String) {
         Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
-            .shadow(4.dp, RoundedCornerShape(26.dp), clip = false, spotColor = V2C.Shadow)
+            .shadow(4.dp, RoundedCornerShape(26.dp), clip = false,
+                ambientColor = V2C.Shadow.copy(alpha = 0.08f), spotColor = V2C.Shadow.copy(alpha = 0.16f))
             .background(V2C.Surface, RoundedCornerShape(26.dp))
+            .v2PorcelainFinish(RoundedCornerShape(26.dp))
             .padding(horizontal = 18.dp, vertical = 18.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
-            Modifier.size(46.dp).background(V2C.BannerBg, RoundedCornerShape(16.dp)),
+            Modifier.size(46.dp).background(V2C.BannerBg, RoundedCornerShape(16.dp)).v2PorcelainFinish(RoundedCornerShape(16.dp)),
             contentAlignment = Alignment.Center,
         ) { Text("$n", style = jua(22, V2C.Title)) }
         Spacer(Modifier.width(16.dp))
@@ -232,13 +236,15 @@ private fun GuideCard(icon: ImageVector, text: String) {
         Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
-            .shadow(4.dp, RoundedCornerShape(26.dp), clip = false, spotColor = V2C.Shadow)
+            .shadow(4.dp, RoundedCornerShape(26.dp), clip = false,
+                ambientColor = V2C.Shadow.copy(alpha = 0.08f), spotColor = V2C.Shadow.copy(alpha = 0.16f))
             .background(V2C.Surface, RoundedCornerShape(26.dp))
+            .v2PorcelainFinish(RoundedCornerShape(26.dp))
             .padding(horizontal = 18.dp, vertical = 18.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
-            Modifier.size(46.dp).background(V2C.BannerBg, RoundedCornerShape(23.dp)),
+            Modifier.size(46.dp).background(V2C.BannerBg, RoundedCornerShape(23.dp)).v2PorcelainFinish(RoundedCornerShape(23.dp)),
             contentAlignment = Alignment.Center,
         ) { Icon(icon, null, tint = V2C.BannerIcon, modifier = Modifier.size(22.dp)) }
         Spacer(Modifier.width(16.dp))

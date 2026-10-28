@@ -60,9 +60,11 @@ private fun PickRow(m: MeaningEntity, onClick: () -> Unit) {
         Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp)
-            .shadow(6.dp, RoundedCornerShape(26.dp), clip = false, spotColor = V2C.Shadow)
+            .shadow(6.dp, RoundedCornerShape(26.dp), clip = false,
+                ambientColor = V2C.Shadow.copy(alpha = 0.08f), spotColor = V2C.Shadow.copy(alpha = 0.16f))
             .background(V2C.Surface, RoundedCornerShape(26.dp))
             .clip(RoundedCornerShape(26.dp))
+            .v2PorcelainFinish(RoundedCornerShape(26.dp))
             .clickable { onClick() }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,

@@ -22,6 +22,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import kr.voicemate.malitda.BuildConfig
 import kr.voicemate.malitda.data.settings.ConfirmationMode
+import kr.voicemate.malitda.data.settings.ListeningTimeLimit
 import kr.voicemate.malitda.data.settings.ProfilePreferences
 import kr.voicemate.malitda.data.settings.SettingsStore
 import kr.voicemate.malitda.domain.GuardianPin
@@ -196,6 +197,13 @@ fun V2ProfilePreferencesScreen(
             listOf(1, 2, 3).forEach { count -> PreferenceOption("최대 ${count}개", preferences.candidateCount == count) { onPreferences(preferences.copy(candidateCount = count)) } }
             PreferenceToggle("비슷하게 들린 표현도 후보로", preferences.allowSimilarExpressions) { onPreferences(preferences.copy(allowSimilarExpressions = it)) }
             Text("꺼 두면 비슷한 발음만으로는 후보를 제안하지 않습니다. 어떤 설정에서도 뜻을 자동으로 선택하거나 전달하지 않습니다.", style = jua(15, V2C.Muted), modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp))
+            SectionLabel("말을 듣는 시간")
+            Text("천천히 말할 시간이 더 필요하면 60초를 고릅니다. 직접 끝내기를 고르면 시간 제한 없이 듣고, 말하기 끝내기나 취소를 누를 때 멈춥니다. 다음 말하기부터 적용합니다.", style = jua(15, V2C.Muted), modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp))
+            ListeningTimeLimit.entries.forEach { limit ->
+                PreferenceOption(limit.label, preferences.listenTimeLimitSeconds == limit.seconds) {
+                    onPreferences(preferences.copy(listenTimeLimitSeconds = limit.seconds))
+                }
+            }
             SectionLabel("말을 읽는 속도")
             listOf(0.65f to "천천히", 0.8f to "조금 천천히", 1f to "보통").forEach { (rate, label) ->
                 PreferenceOption(label, kotlin.math.abs(preferences.ttsRate - rate) < 0.01f) { onPreferences(preferences.copy(ttsRate = rate)) }
@@ -209,7 +217,7 @@ fun V2ProfilePreferencesScreen(
             }
             PreferenceToggle("테두리와 선택 강조", visualEmphasis, onVisualEmphasis)
             InfoSection("보조기술 사용 안내", "휴대전화 설정의 접근성에서 TalkBack·스위치 제어·음성 액세스를 확인할 수 있습니다. 앱 정보의 보조기술 안내에 조작 방법과 지원 언어 제한을 정리했습니다. 기기와 버전에 따라 메뉴 이름은 다를 수 있습니다.")
-            Text("변경한 값은 이 기기에 바로 저장합니다. 후보·확인 방식·속도·진동은 현재 학생에게만 적용합니다.", style = jua(15, V2C.Muted), modifier = Modifier.padding(24.dp))
+            Text("변경한 값은 이 기기에 바로 저장합니다. 후보·확인 방식·듣기 시간·읽는 속도·진동은 현재 학생에게만 적용합니다.", style = jua(15, V2C.Muted), modifier = Modifier.padding(24.dp))
             V2SecondaryButton("설정으로 돌아가기", onClick = onBack)
             Spacer(Modifier.height(24.dp))
         }
